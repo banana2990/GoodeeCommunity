@@ -56,7 +56,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="lunch" onClick="location.href='boardList.jsp'">
+                    <a href="D130_lunch.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -139,11 +139,17 @@ var loginId = "${sessionScope.id}";
 // 세션에 저장된 경우 로그인버튼을 비활성화하기
 console.log(loginId);
 
-if(loginId==""){
-}else{
-    document.getElementsByClassName('loggin');
+if(loginId!="admin"){
+	}else{location.href="admin_temp.jsp";
 }
 
+/*
+if(loginId==""){
+}else{
+    var loginbtn = document.getElementByClassName("login");
+    loginbtn.style({"display":"hide"});
+}
+*/
 
 
 </script>
