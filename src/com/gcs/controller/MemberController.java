@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/mail"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -90,7 +90,11 @@ public class MemberController extends HttpServlet {
 					String email = req.getParameter("email");
 					service.findid(email);
 					break;
-					
+				
+				case "/findpw":
+					System.out.println("이메일로 비번찾기");
+					service.findpw();
+					break;
 			}
 	}
 }
