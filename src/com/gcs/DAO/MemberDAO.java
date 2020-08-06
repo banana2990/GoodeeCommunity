@@ -107,9 +107,17 @@ public class MemberDAO {
 		}
 		return id;	
 	}
-	
-	
-	
-	
-	
+
+	public int findpw(String email, int dice) throws SQLException {
+		String sql = "UPDATE member SET pw=? WHERE u_email=?";
+		ps = con.prepareStatement(sql);
+		ps.setInt(1, dice);
+		ps.setString(2, email);
+		
+		int success = ps.executeUpdate();
+		
+		return success;	
+		
+	}	
+			
 }

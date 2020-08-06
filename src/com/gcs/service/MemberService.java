@@ -185,6 +185,74 @@ public class MemberService {
 		
 	}
 
+	public void findpw() throws IOException {
+		// 파라미터로 받아올 값
+		String email = req.getParameter("email");					
+		System.out.println(email);
+		// 해킹하면 안돼요ㅜ.
+		String host = "smtp.gmail.com";
+		final String user = "kjy3309@gmail.com";
+		final String password = "wndduf!2";
+		
+		// smtp 값 설정
+		Properties prop = new Properties();
+		prop.put("mail.smtp.host", host);
+		prop.put("mail.smtp.port", 465);
+		prop.put("mail.smtp.auth", "true");
+		prop.put("mail.smtp.ssl.enable", "true"); 
+		prop.put("mail.smtp.ssl.trust", host);
+		
+		// 난수 생성
+		Random r = new Random();
+		int success = 0;
+        int dice = r.nextInt(999999) + 100000;
+        System.out.println(dice);
+		
+		Session session = Session.getDefaultInstance(prop, new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(user, password);
+			}
+		});
+		
+		
+		try {
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress(user));
+			
+			//수신자 메일 주소 파라메터로 가져오자 아작스로?
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+			
+			//제목과 내용
+			message.setSubject("구디커뮤니티 비밀번호 전달");
+			message.setText("비밀번호는 ["+dice+"] 입니다.");
+			
+			///보내기
+			Transport transport = session.getTransport("smtp");
+			transport.connect(host, user, password);
+			transport.sendMessage(message, message.getAllRecipients());
+			
+			// 이메일을 보냈으면 난수로 비밀번호 업데이트
+			MemberDAO dao = new MemberDAO();
+			success = dao.findpw(email,dice);			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {			
+			HashMap<String,Object> map =  new HashMap<String, Object>();
+			String msg = "이메일로 가입된 ID를 찾을 수 없습니다.";
+			if(success>0) {
+				msg ="비밀번호가 전송되었습니다. 이메일을 확인해주세요";
+			}
+			map.put("msg", msg);
+			Gson gson = new Gson();
+			String obj = gson.toJson(map);
+			System.out.println("result:"+obj);
+			resp.setContentType("text/html; charset=UTF-8");
+			resp.getWriter().println(obj);
+		}
+		
+	}
+
 	
 	
 	
