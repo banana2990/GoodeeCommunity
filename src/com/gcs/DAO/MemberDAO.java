@@ -76,15 +76,16 @@ public class MemberDAO {
 		return success;	
 	} 
 
-	public boolean join(String id, String pw, String name, String nickName, String email) throws SQLException{
+	public boolean join(String id, String pw, String name, String nickName, String email, String emailChk) throws SQLException{
 		boolean success = false;
-		String sql = "INSERT INTO member (id, pw, name, nickName, u_email, u_email_checked) VALUES (?,?,?,?,?,0)";
+		String sql = "INSERT INTO member (id, pw, name, nickName, u_email, u_email_checked) VALUES (?,?,?,?,?,?)";
 		ps = con.prepareStatement(sql);
 		ps.setString(1, id);
 		ps.setString(2,pw);
 		ps.setString(3,name);
 		ps.setString(4,nickName);
-		ps.setString(5,email);		
+		ps.setString(5,email);
+		ps.setString(6, emailChk);
 		int result = ps.executeUpdate();
 		if(result>0) {
 			success=true;
