@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="style.css" />
+<script src="index.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script
 src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
