@@ -132,6 +132,29 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </div>
         </div>  
     </div>
+
+    <div class="helpIcon">
+        <i class="far fa-comment-dots"></i>   
+    </div>
+  
+    <div class="helpIcon__content">
+        <div class="helpIcon__title">
+            <br><br>
+            <p>무엇을 도와드릴까요?</p>
+            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+        </div>
+        <div class="helpIcon__input">
+            <form action="#">
+            <br><br>
+            <input type="text" placeholder="   작성자"> 
+            <input type="text" placeholder="   제목">
+            <input type="text" placeholder="   이메일">
+            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <br><br>
+            <button>보내기</button>
+            </form>
+        </div>
+    </div>
 </body>
 <script>
 
