@@ -70,6 +70,250 @@ li{
     font-size: 17px;
 }
 
+/* 게시판 검색바 시작 */
+.board_search-input {
+    position: relative;
+    height: 40px;
+    border: 1px solid #1a2e3b;
+    box-sizing: border-box;
+    margin-top: 70px;
+    top : -30px;
+
+}
+
+.board_searchbar {
+      margin-top: 10px;
+}
+
+.board_searchbar input[name="search"] {
+    width: 70%;
+    height: 100%;
+    margin-left: 5px;
+    border: 0;
+    font-size: 18px;
+}
+
+.board_searchbar i {
+    margin-left: 8px;
+    font-size: 20px;
+}
+
+select {
+	left : 15px;
+	width: 100px;
+	height : 30px;
+	padding: .2em .2em;
+	border: 1px solid #999;
+	font-family: inherit;
+	background: url('image/arrow.jpg') no-repeat 95% 50%;
+	border-radius: 0px;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	margin-left : 10px;
+	margin-top : -20px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+option{
+	text-align: center;
+}
+
+/* 게시판 검색바 끝 */
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
+}
+
+/* 게시판 li */
+li {
+    list-style: none;
+}
+
+.section-bot .list-box li {
+    position: relative;
+    height: 50px;
+    padding: 30px 0;
+    border-bottom: 1px solid #f4f4f4;
+}
+
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+.blind {
+    overflow: hidden;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    font-size: 0;
+    line-height: 0;
+    text-indent: -9999px;
+    visibility: hidden;
+}
+
+.section-bot .list-box li .writing-info dd {
+    display: inline-block;
+}
+
+dd {
+    display: block;
+    margin-inline-start: 40px;
+}
+
+.writing-info {
+    font-size: 13px;
+    color: #585858;
+}
+
+
+a, button, label, input, select, textarea {
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+#wrap {
+    overflow: hidden;
+    width: 100%;
+    font-size: 19px;
+    line-height: 1.1em;
+    word-break: break-all;
+}
+.writing-info dd span {
+    position: relative;
+    padding-left: 24px;
+    margin-right: 10px;
+}
+
+.writing-info dd span::before {
+    position: absolute;
+    left: 0;
+    top: 20%;
+    width: 20px;
+    height: 14px;
+    background-image: url(https://nxm-mt.akamaized.net/community/web/resources/images/icon-list.png);
+    content: "";
+}
+
+.writing-info dd span.date::before {
+    background-image: none;
+}
+
+body, input, button, textarea, select, table {
+    font-family: Noto Sans KR, Helvetica, sans-serif;
+    font-size: 16px;
+    color: #1a2e3b;
+}
+
+.writing-info dd span.count-likes::before {
+    background-position-x: -100%;
+}
+
+.writing-info dd span.count-comment::before {
+    background-position-x: -200%;
+}
+
+.section-bot .list-box li:nth-child(1) .writing-info dd span.count-comment {
+    top: 40px;
+} 
+
+.section-bot .list-box li .writing-info dd span.count-comment {
+    position: absolute;
+    right: 0;
+    top: 30px;
+    width: 110px;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.section-bot .list-box li .writing-info dd span.count-comment::before {
+    display: block;
+    position: static;
+    width: 30px;
+    height: 24px;
+    margin: 0 auto;
+    background-image: url(https://nxm-mt.akamaized.net/community/web/resources/images/icon-list-comment.png);
+}
+
+ /* html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, a, img, strong, small, dl, dt, dd, ol, ul, li, fieldset, form, input, button, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+} 
+
+/* li 끝 */
+
+/* 페이징 */
+
+.list-paging {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.list-paging > button.on {
+    color: #333;
+}
+
+.list-paging > button {
+    padding: 0 15px;
+    font-size: 14px;
+    color: #d5d5d5;
+}
+
+/* a, button, label, input, select, textarea {
+    outline: 0;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+} */
+
+button, label {
+    cursor: pointer;
+}
+
+img, fieldset, button {
+    border: 0;
+}
+
+button {
+    appearance: button;
+    -webkit-writing-mode: horizontal-tb !important;
+    text-rendering: auto;
+    color: -internal-light-dark(buttontext, rgb(170, 170, 170));
+    letter-spacing: normal;
+    word-spacing: normal;
+    text-transform: none;
+    text-indent: 0px;
+    text-shadow: none;
+    display: inline-block;
+    text-align: center;
+    align-items: flex-start;
+    cursor: default;
+    background-color: -internal-light-dark(rgb(239, 239, 239), rgb(74, 74, 74));
+    box-sizing: border-box;
+    margin: 0em;
+    font: 400 13.3333px Arial;
+    padding: 1px 6px;
+    border-width: 2px;
+    border-style: outset;
+    border-color: -internal-light-dark(rgb(118, 118, 118), rgb(195, 195, 195));
+    border-image: initial;
+}
+
+/* 페이징 끝 */
+
 .search-input {
     position: relative;
     height: 40px;

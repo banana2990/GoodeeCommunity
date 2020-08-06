@@ -124,53 +124,58 @@
 	});
 	
 	$("#idChck").click(function(){
-		var id = $("input[name='id']").val(); // id값 가져오기
-		console.log(id); // 잘 들어오는 지 확인: 1차
-		
-		$.ajax({
-			type: "get",
-			url: "overlay",
-			data: {"id":id},
-			dataType: "JSON",
-			success: function(data){
-				console.log(data);
-				if(data.overlay){
-					alert("이미 사용중인 ID 입니다.");
-					$("input[name='id']").val("");
-				}else{
-					alert("사용 가능한 ID 입니다");
-					overChk = true;
-				}
-			},
-			error: function(e){
-				console.log(e);
-			}			
-		});
+		if($("input[name='id']").val() == ""){
+			alert("아이디를 입력해주세요.");
+		}else{
+			var id = $("input[name='id']").val();
+			$.ajax({
+				type: "get",
+				url: "overlay",
+				data: {"id":id},
+				dataType: "JSON",
+				success: function(data){
+					console.log(data);
+					if(data.overlay){
+						alert("이미 사용중인 ID 입니다.");
+						$("input[name='id']").val("");
+					}else{
+						alert("사용 가능한 ID 입니다");
+						overChk = true;
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}			
+			});
+		}
 	});
 	
 	$("#nickChck").click(function(){
-		var nickname = $("input[name='nickName']").val(); // id값 가져오기
-		console.log(nickname); // 잘 들어오는 지 확인: 1차
-		
-		$.ajax({
-			type: "get",
-			url: "overlaynick",
-			data: {"nickname":nickname},
-			dataType: "JSON",
-			success: function(data){
-				console.log(data);
-				if(data.overlay){
-					alert("이미 사용중인 닉네임입니다.");
-					$("input[name='nickName']").val("");
-				}else{
-					alert("사용 가능한 닉네임입니다");
-					overChknic = true;
-				}
-			},
-			error: function(e){
-				console.log(e);
-			}			
-		});
+		if($("input[name='nickName']").val() == ""){
+			alert("닉네임을 입력해주세요.");
+		}else{
+			var nickname = $("input[name='nickName']").val(); // id값 가져오기
+			console.log(nickname); // 잘 들어오는 지 확인: 1차
+			
+			$.ajax({
+				type: "get",
+				url: "overlaynick",
+				data: {"nickname":nickname},
+				dataType: "JSON",
+				success: function(data){		
+					if(data.overlay){
+						alert("이미 사용중인 닉네임입니다.");
+						$("input[name='nickName']").val("");
+					}else{
+						alert("사용 가능한 닉네임입니다");
+						overChknic = true;
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}			
+			});
+		}
 	});
 	
 	
