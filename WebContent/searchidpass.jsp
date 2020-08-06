@@ -42,12 +42,17 @@
 
 
 	<div class= "searchbox">
-	<h2> ID비밀번호 찾는 섹션</h2>		
 		<div>
-			이메일을 입력해주세요
-			<input type="email" id="email"> <button id="findid" onclick="findid()">ID 찾기</button>
+			<h2> ID 찾는 섹션</h2>		
+			<div>
+				이메일을 입력해주세요
+				<input type="email" id="email"> <button id="findid" onclick="findid()">ID 찾기</button>
+			</div>
+		</div>
+		<div>
+			<h2> 비밀번호 찾는 섹션 </h2>
 			
-		</div>	
+		</div>
 	</div>
 
 </body>	
