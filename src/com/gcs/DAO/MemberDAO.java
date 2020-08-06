@@ -93,14 +93,18 @@ public class MemberDAO {
 	}
 
 	public String findid(String email) throws SQLException {
-		String id = ""; 
-		String sql = "SELECT id FROM member WHERE email=?";
+		String id = "";
+		String sql = "SELECT id FROM member WHERE u_email=?";
 		ps = con.prepareStatement(sql);
 		ps.setString(1,email);
 		rs = ps.executeQuery();
-		id = rs.getString("id");
+		if(rs.next()){
+			id= rs.getString("id");
 		System.out.println("찾은 id: "+id); // 4차 확인
-		return id ;	
+		}else {
+			id="";
+		}
+		return id;	
 	}
 	
 	
