@@ -1,0 +1,107 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="write.css">
+<script
+src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
+</script>
+<title>구디 커뮤니티</title>
+</head>
+<body>
+	<div id="container">
+        <!-- Main Navbar -->
+        <nav class="navbar" id="navbar">
+            <div class="navbar__logo">
+                <a href="#">
+                    <img src="image/logo.PNG" alt="로고">
+                    <h1>구디 커뮤니티</h1>
+                </a>
+            </div>
+            <div class="search-input">
+                <form class="searchbar" action="#" method="get">
+                    <input
+                      class="search"
+                      type="text"
+                      name="search"
+                    />
+                    <button><i class="fas fa-search"></i></button>
+                </form>
+            </div>	
+            
+            <button class="write" location.href="#">
+                글쓰기
+            </button>
+    
+            <ul class="navbar__menu">
+                <h2>전체 게시판</h2>
+                <li>
+                    <a href="#">
+                        <span>자유 게시판</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>학습 게시판</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>익명 게시판</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>오늘 점심 뭐먹지?</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="top-util">
+                <div class="inner">
+                    <button type="button" class="profile">
+                        <div class="profile-img"></div>
+                    </button>
+                    <button class="login">로그인</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Contents -->
+        <div id="contents">
+            <div class="section-top">
+                <h1>글수정</h1>	
+                	<div class="select-box">                        
+                            <form class="searchbar" action="#" method="get">
+                                <select style="width: 300px">
+                                    <option>자유게시판</option>
+                                    <option>학습게시판</option>
+                                    <option>익명게시판</option>
+                                    <option>오늘뭐먹지?</option>
+                                </select>                               
+                            </form>
+                    </div>                    
+            </div> 
+            <div class="section-bot">               
+                <input type="text" class="tit-input" placeholder="제목" maxlength="50" >			
+                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
+                <div class="note-editing-area">
+                    <div class="note-editable" contenteditable="true" role="textbox" aria-multiline="true">
+                        <textarea class="textarea"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="btn-box">					
+                <button class="cancle">취소</button>					
+                <button class="register">수정</button>                		
+            </div>
+            
+        </div>
+           
+            
+</body>
+<script>
+
+</script>
+</html>
