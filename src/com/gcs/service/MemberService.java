@@ -107,7 +107,7 @@ public class MemberService {
 	public void findid(String email) throws IOException {
 		email = req.getParameter("email"); // 값 받아오기
 		String id = "";
-		System.out.println("id: "+email); // 3차 확인
+		System.out.println("email: "+email); // 3차 확인
 		
 		MemberDAO dao = new MemberDAO();
 		try {
@@ -117,7 +117,7 @@ public class MemberService {
 		} finally {
 			dao.resClose();
 			HashMap<String,Object> map =  new HashMap<String, Object>();
-			map.put("findid",id);
+			map.put("searchedid",id);
 			Gson json = new Gson();
 			String obj = json.toJson(map);
 			System.out.println("찾은 id :"+obj);
