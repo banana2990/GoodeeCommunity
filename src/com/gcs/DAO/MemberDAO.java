@@ -76,15 +76,16 @@ public class MemberDAO {
 		return success;	
 	} 
 
-	public boolean join(String id, String pw, String name, String nickName, String email) throws SQLException{
+	public boolean join(String id, String pw, String name, String nickName, String email, String emailChk) throws SQLException{
 		boolean success = false;
-		String sql = "INSERT INTO member (id, pw, name, nickName, u_email, u_email_checked) VALUES (?,?,?,?,?,0)";
+		String sql = "INSERT INTO member (id, pw, name, nickName, u_email, u_email_checked) VALUES (?,?,?,?,?,?)";
 		ps = con.prepareStatement(sql);
 		ps.setString(1, id);
 		ps.setString(2,pw);
 		ps.setString(3,name);
 		ps.setString(4,nickName);
-		ps.setString(5,email);		
+		ps.setString(5,email);
+		ps.setString(6, emailChk);
 		int result = ps.executeUpdate();
 		if(result>0) {
 			success=true;
@@ -93,18 +94,30 @@ public class MemberDAO {
 	}
 
 	public String findid(String email) throws SQLException {
-		String id = ""; 
-		String sql = "SELECT id FROM member WHERE email=?";
+		String id = "";
+		String sql = "SELECT id FROM member WHERE u_email=?";
 		ps = con.prepareStatement(sql);
 		ps.setString(1,email);
 		rs = ps.executeQuery();
-		id = rs.getString("id");
+		if(rs.next()){
+			id= rs.getString("id");
 		System.out.println("찾은 id: "+id); // 4차 확인
-		return id ;	
+		}else {
+			id="";
+		}
+		return id;	
 	}
-	
-	
-	
-	
-	
+
+	public int findpw(String email, int dice) throws SQLException {
+		String sql = "UPDATE member SET pw=? WHERE u_email=?";
+		ps = con.prepareStatement(sql);
+		ps.setInt(1, dice);
+		ps.setString(2, email);
+		
+		int success = ps.executeUpdate();
+		
+		return success;	
+		
+	}	
+			
 }

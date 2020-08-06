@@ -41,22 +41,22 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#">
+                    <a href="#" id="free" onClick="location.href='boardList.jsp'">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="edu" onClick="location.href='boardList.jsp'">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="secret" onClick="location.href='boardList.jsp'">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="#" id="lunch" onClick="location.href='boardList.jsp'">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>

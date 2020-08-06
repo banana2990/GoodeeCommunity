@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
 	
-		.navbar__logo {
+	.navbar__logo {
 		position: absolute;
 		left: 45px;
 		top: 50px;
@@ -24,6 +24,8 @@
 		position: absolute;
 		left: 30%;
 		top: 30%;
+		width: 550px;
+		height: 400px;
 	}
 	
 	table, td,tr {
@@ -31,8 +33,7 @@
 	border-collapse: collapse;
 	text-align: center;
 	padding: 5px 10px;
-	}
-	
+	}	
 	
 	</style>
 </head>
@@ -41,100 +42,140 @@
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
                  </a>
-            </div>       
+         </div>       
             
-            <div class="joinbox">
+         <div class="joinbox">
             <h3> 회원 가입 </h3>
-	<table>
-		<tr>
-			<td> 아이디* </td>
-			<td> <input type="text" name="id"/> <input type="button" id="idChck" value="ID중복확인"/></td>
-		</tr>
-		<tr>
-			<td> 비밀번호* </td>
-			<td> <input type="password" name="pw"/></td>
-		</tr>
-		<tr>
-			<td> 비밀번호확인* </td>
-			<td> <input type="password" name="pwChck"/></td>
-		</tr>
-
-		<tr>
-			<td> 닉네임 </td>
-			<td> <input type="text" name="nickName"/> <input type="button" id="nickChck" value="중복확인"/></td>
-		</tr>
-
-		<tr>
-			<td> 이름 </td>
-			<td> <input type="text" name="name"></td>
-		</tr>
-
-
-		<tr>
-			<td> 이메일 </td>
-			<td> <input type="email" name="u_email"></td>
-		</tr>
-		<tr>
-			<td colspan="2"> <input type = "button" id="join" value="회원가입"> </td>
-		</tr>	
-
-	</table>
-
-</div>
+			<table>
+				<tr>
+					<td> 아이디* </td>
+					<td> <input type="text" name="id"/> <input type="button" id="idChck" value="ID중복확인"/></td>
+				</tr>
+				<tr>
+					<td> 비밀번호* </td>
+					<td> <input type="password" name="pw"/></td>
+				</tr>
+				<tr>
+					<td> 비밀번호확인* </td>
+					<td> <input type="password" name="pwChck"/></td>
+				</tr>		
+				<tr>
+					<td> 닉네임 </td>
+					<td> <input type="text" name="nickName"/> <input type="button" id="nickChck" value="중복확인"/></td>
+				</tr>		
+				<tr>
+					<td> 이름 </td>
+					<td> <input type="text" name="name"></td>
+				</tr>		
+				<tr>
+					<td> 이메일 </td>
+					<td> <input type="email" name="u_email"></td>
+				</tr>
+				<tr>
+					<td colspan="2">인증 코드 입력 : <input type="text" name="auth"> <button id="auth">인증 코드 발송</button></td>
+				</tr>
+				<tr>
+					<td colspan="2"> <button id="authChk">인증하기</button> </td>
+				</tr>
+				<tr>
+					<td colspan="2"> <input type = "button" id="join" value="회원가입"> </td>
+				</tr>			
+			</table>
+		</div>
 	</body>
 
 <script>
 	var overChk = false;
 	var overChknic = false;
+	var dice = null;
+	var emailChk = 0;
+	
+	$("#auth").click(function(){
+		if($("input[name='u_email']").val() == ""){
+			alert("이메일을 입력해주세요");
+		}else{
+			var $email = $("input[name='u_email']");
+			var param = {};
+			param.email = $email.val();
+			
+			$.ajax({
+				type: "post",
+				url: "mail",
+				data: param,
+				dataType: "JSON",
+				success: function(data){
+					alert("인증코드가 전송되었습니다. 이메일을 확인해주세요");
+					dice = data.dice;
+				},
+				error: function(error){
+					console.log(error);
+				}
+			});
+		}					
+	});
+	
+	$("#authChk").click(function(){
+		if($("input[name='auth']").val() == dice){
+			emailChk = 1;
+			alert("인증번호가 확인되었습니다.");
+		} else {
+			alert("인증번호를 다시 확인해주세요.");
+		}
+	});
 	
 	$("#idChck").click(function(){
-		var id = $("input[name='id']").val(); // id값 가져오기
-		console.log(id); // 잘 들어오는 지 확인: 1차
-		
-		$.ajax({
-			type: "get",
-			url: "overlay",
-			data: {"id":id},
-			dataType: "JSON",
-			success: function(data){
-				console.log(data);
-				if(data.overlay){
-					alert("이미 사용중인 ID 입니다.");
-					$("input[name='id']").val("");
-				}else{
-					alert("사용 가능한 ID 입니다");
-					overChk = true;
-				}
-			},
-			error: function(e){
-				console.log(e);
-			}			
-		});
+		if($("input[name='id']").val() == ""){
+			alert("아이디를 입력해주세요.");
+		}else{
+			var id = $("input[name='id']").val();
+			$.ajax({
+				type: "get",
+				url: "overlay",
+				data: {"id":id},
+				dataType: "JSON",
+				success: function(data){
+					console.log(data);
+					if(data.overlay){
+						alert("이미 사용중인 ID 입니다.");
+						$("input[name='id']").val("");
+					}else{
+						alert("사용 가능한 ID 입니다");
+						overChk = true;
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}			
+			});
+		}
 	});
 	
 	$("#nickChck").click(function(){
-		var nickname = $("input[name='nickName']").val(); // id값 가져오기
-		console.log(nickname); // 잘 들어오는 지 확인: 1차
-		
-		$.ajax({
-			type: "get",
-			url: "overlaynick",
-			data: {"nickname":nickname},
-			dataType: "JSON",
-			success: function(data){
-				console.log(data);
-				if(data.overlay){
-					alert("이미 사용중인 닉네임입니다.");
-					$("input[name='nickName']").val("");
-				}else{
-					alert("사용 가능한 닉네임입니다");
-					overChknic = true;
-				}
-			},
-			error: function(e){
-				console.log(e);
-			}			
-		});
+		if($("input[name='nickName']").val() == ""){
+			alert("닉네임을 입력해주세요.");
+		}else{
+			var nickname = $("input[name='nickName']").val(); // id값 가져오기
+			console.log(nickname); // 잘 들어오는 지 확인: 1차
+			
+			$.ajax({
+				type: "get",
+				url: "overlaynick",
+				data: {"nickname":nickname},
+				dataType: "JSON",
+				success: function(data){		
+					if(data.overlay){
+						alert("이미 사용중인 닉네임입니다.");
+						$("input[name='nickName']").val("");
+					}else{
+						alert("사용 가능한 닉네임입니다");
+						overChknic = true;
+					}
+				},
+				error: function(e){
+					console.log(e);
+				}			
+			});
+		}
 	});
 	
 	
@@ -183,6 +224,7 @@
 				param.name = $name.val();
 				param.nickName = $nickName.val();
 				param.email = $email.val();
+				param.emailChk = emailChk;
 				
 				console.log('param:' , param); // 콘솔에 +찍으면 문자열로 바뀜
 				
@@ -193,9 +235,8 @@
 					dataType: "JSON",
 					success: function(data){
 						console.log(data.join);
-
 						if(data.join){
-							alert("회원가입에 성공하였습니다.");
+							alert("회원가입에 성공하였습니다. ");
 							location.href="index.jsp";
 						}else{
 							alert("회원가입에 실패하였습니다.");
