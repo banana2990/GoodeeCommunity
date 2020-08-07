@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -13,14 +12,6 @@ import javax.sql.DataSource;
 
 import com.gcs.DTO.BoardDTO;
 
-=======
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
 public class BoardDAO {
 	
 	Connection conn = null;
@@ -47,7 +38,6 @@ public class BoardDAO {
 		}		
 	}
 
-<<<<<<< HEAD
 	public ArrayList<BoardDTO> list() {
 		String sql = "SELECT comment_no, board_no, id, co_content, co_reg_date FROM commentary ORDER BY comment_no DESC";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -71,7 +61,8 @@ public class BoardDAO {
 			resClose();
 		}
 		return list;
-=======
+	}
+
 	public boolean write(String mboard_no, String id, String subject, String content) {
 		String sql = "INSERT INTO board (board_no, mBoard_no, id, bo_subject, bo_content, bo_bHit) VALUES (seq_board.NEXTVAL,?,?,?,?,0)";
 		boolean result = false;
@@ -96,6 +87,39 @@ public class BoardDAO {
 		
 		return result;
 		
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
+
+	}
+
+	public ArrayList<BoardDTO> boardList(String mboard_no, int startPage, int endPage) throws SQLException {
+		
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname " + 
+				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit FROM board WHERE mboard_no=?) r, mboard m " + 
+				"WHERE r.mboard_no = m.mboard_no AND rnum BETWEEN ? AND ?";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, mboard_no);
+		ps.setInt(2, startPage);
+		ps.setInt(3, endPage);
+		
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			BoardDTO dto = new BoardDTO();
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setMboard_no(rs.getInt("mboard_no"));
+			dto.setId(rs.getString("id"));
+			dto.setBo_subject(rs.getString("bo_subject"));
+			dto.setBo_content(rs.getString("bo_content"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
+			dto.setBo_bHit(rs.getInt("bo_bhit"));
+			dto.setBoardname(rs.getString("boardname"));
+			
+			list.add(dto);
+		}
+		
+		System.out.println(list);
+		return list;
 	}
 }

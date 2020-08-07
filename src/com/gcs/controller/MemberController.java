@@ -38,6 +38,7 @@ public class MemberController extends HttpServlet {
 			MemberService service = new MemberService(req, resp);
 			
 			switch(reqAddr) {
+			
 				case "/login":
 					String id = req.getParameter("id");
 					String pw = req.getParameter("pw");
