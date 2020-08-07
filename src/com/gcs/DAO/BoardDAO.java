@@ -4,23 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.ArrayList;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.sql.DataSource;
-
 import com.gcs.DTO.BoardDTO;
-
-=======
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
 public class BoardDAO {
 	
 	Connection conn = null;
@@ -47,7 +39,6 @@ public class BoardDAO {
 		}		
 	}
 
-<<<<<<< HEAD
 	public ArrayList<BoardDTO> list() {
 		String sql = "SELECT comment_no, board_no, id, co_content, co_reg_date FROM commentary ORDER BY comment_no DESC";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -62,7 +53,6 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				dto.setCo_content(rs.getString("co_content"));
 				dto.setCo_reg_date(rs.getDate("co_reg_date"));
-				//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
 				list.add(dto);  
 			}
 		} catch (SQLException e) {
@@ -71,7 +61,8 @@ public class BoardDAO {
 			resClose();
 		}
 		return list;
-=======
+	}
+	
 	public boolean write(String mboard_no, String id, String subject, String content) {
 		String sql = "INSERT INTO board (board_no, mBoard_no, id, bo_subject, bo_content, bo_bHit) VALUES (seq_board.NEXTVAL,?,?,?,?,0)";
 		boolean result = false;
@@ -94,8 +85,26 @@ public class BoardDAO {
 			e.printStackTrace();
 		} 
 		
-		return result;
-		
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
+		return result;	
 	}
+
+	public boolean delmngcomment(String comment_no) {
+		String sql = "UPDATE commentary SET co_content = '관리자에 의해 삭제된 댓글입니다.' WHERE  comment_no=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, comment_no);
+			
+			int success = ps.executeUpdate();
+			if(success > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;
+	}
+
 }

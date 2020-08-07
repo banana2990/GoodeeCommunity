@@ -1,11 +1,8 @@
 package com.gcs.service;
 
 import java.io.IOException;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 import java.io.UnsupportedEncodingException;
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,11 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.BoardDAO;
-<<<<<<< HEAD
 import com.gcs.DTO.BoardDTO;
-=======
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
-
 
 public class BoardService  {
 	
@@ -33,14 +26,14 @@ public class BoardService  {
 		
 	}
 
-<<<<<<< HEAD
 	public void comread() throws ServletException, IOException {
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list = dao.list();
 		req.setAttribute("list", list);
 		RequestDispatcher dis = req.getRequestDispatcher("mngcomment.jsp");
-		dis.forward(req, resp);		
-=======
+		dis.forward(req, resp);	
+	}
+	
 	public void write() throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String id =(String) req.getSession().getAttribute("id");
@@ -59,8 +52,26 @@ public class BoardService  {
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 			dis.forward(req, resp);
-		}
-		
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
+		}		
 	}
-}
+
+	public void delmngcomment() throws ServletException, IOException{
+		String idx = req.getParameter("comment_no");
+		System.out.println("comment_no : "+idx);
+		//DB가 필요한가?
+		BoardDAO dao = new BoardDAO();
+		
+		String page = "/mngcomment";
+		String msg = "수정에 실패했습니다.";
+		
+		if(dao.delmngcomment(idx)) {
+			page = "/mngcomment";
+			msg = "수정에 성공 했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	  	}
+		
+	}
+
