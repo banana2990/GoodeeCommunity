@@ -10,7 +10,7 @@
 	
 	<script
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-		<title>관리자 카테고리별 글 가져오기</title>
+		<title>관리자 카테고리별 댓글 가져오기</title>
 		<style>
 				table, th, td {
 					border: 1px solid olive;
@@ -79,6 +79,8 @@
         </nav>
         
         <div id="contents">
+        
+        <div class="table">
 			 <table>
 					<tr> 
 						<th>no.</th> 
@@ -95,10 +97,11 @@
 							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
 							<td> ${bbs.id} </td>
 							<td> ${bbs.co_reg_date} </td>							
-							<td> <a href="deletecom?comment_no=${bbs.comment_no}">삭제 </a></td>
+							<td> <a href="delmngcomment?comment_no=${bbs.comment_no}">삭제 </a></td>
 						</tr>		
 					</c:forEach>
 				</table>            
+        </div>
         
         </div>
         

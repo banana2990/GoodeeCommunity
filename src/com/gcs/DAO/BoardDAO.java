@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-<<<<<<< HEAD
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -13,14 +12,11 @@ import javax.sql.DataSource;
 
 import com.gcs.DTO.BoardDTO;
 
-=======
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
 public class BoardDAO {
 	
 	Connection conn = null;
@@ -47,8 +43,7 @@ public class BoardDAO {
 		}		
 	}
 
-<<<<<<< HEAD
-	public ArrayList<BoardDTO> list() {
+	public ArrayList<BoardDTO> commentlist() {
 		String sql = "SELECT comment_no, board_no, id, co_content, co_reg_date FROM commentary ORDER BY comment_no DESC";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {		
@@ -71,7 +66,8 @@ public class BoardDAO {
 			resClose();
 		}
 		return list;
-=======
+		}
+	
 	public boolean write(String mboard_no, String id, String subject, String content) {
 		String sql = "INSERT INTO board (board_no, mBoard_no, id, bo_subject, bo_content, bo_bHit) VALUES (seq_board.NEXTVAL,?,?,?,?,0)";
 		boolean result = false;
@@ -94,8 +90,26 @@ public class BoardDAO {
 			e.printStackTrace();
 		} 
 		
-		return result;
-		
->>>>>>> 42324a82bb65d4f36607f647b3c8260449993487
+		return result;		
+	}
+
+	public ArrayList<BoardDTO> boardlist(String mBoard_no) throws SQLException {
+	      ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+	      String sql ="SELECT * FROM board WHERE mBoard_no=?";
+	      ps = conn.prepareStatement(sql);
+	      ps.setString(1, mBoard_no);
+	      rs = ps.executeQuery();
+	      
+	      while(rs.next()) {
+	         BoardDTO dto = new BoardDTO();
+	         dto.setBoard_no(rs.getInt("board_no"));
+	         dto.setId(rs.getString("Id"));
+	         dto.setBo_subject(rs.getString("bo_subject"));
+	         dto.setBo_content(rs.getNString("bo_content"));
+	         dto.setBo_reg_date(rs.getDate("bo_reg_date"));
+	         dto.setBo_bHit(rs.getInt("bo_bHit"));
+	         list.add(dto);	         
+	      }
+	      return list;
 	}
 }
