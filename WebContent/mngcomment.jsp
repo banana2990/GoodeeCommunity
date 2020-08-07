@@ -7,6 +7,7 @@
 	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" type="text/css" href="manage.css" />
 	
 	<script
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
@@ -42,18 +43,18 @@
             </div>	
             
             <button class="write" location.href="#">
-                글쓰기
+                	글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="mngboard" id="mngboard">
+                    <a href="mngboard.jsp" id="mngboard">
                         <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="mngcomment" id="mngcomment">
+                    <a href="mngcomment.jsp" id="mngcomment">
                         <span>댓글 관리</span>
                     </a>
                 </li>
@@ -70,6 +71,7 @@
             </ul>
             
             <div class="top-util">
+             <h2>전체 댓글 관리</h2>
                 <div class="inner">
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
@@ -102,17 +104,10 @@
 					</c:forEach>
 				</table>            
         </div>
-        
+      
         </div>
         
-        
-        
-        
-        
-        
-        
-        
-        
+    
         
 	</body>
 	

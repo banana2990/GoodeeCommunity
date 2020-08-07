@@ -99,6 +99,13 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         </div>                       
 </body>
 <script>
+
+	var loginId = "${sessionScope.id}";	
+	if(loginId == null){
+		alert("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까? ");
+		location.href("login.jsp");
+	}
+	
 	function cancle(){
 		if(confirm("글 작성을 취소하시겠습니까 ?") == true){
 			history.back();

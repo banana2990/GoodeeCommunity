@@ -33,8 +33,9 @@ public class BoardController extends HttpServlet {
 		BoardService boardService = new BoardService(req, resp);
 		
 		switch(reqAddr) {
-		case "/list": // 이거 주소..확인 필요
-			boardService.list();
+		case "/boardList": // 이거 주소..확인 필요
+			System.out.println("게시판 리스트 띄우기");
+			boardService.boardList();
 			break;
 			
 		case "/write":
