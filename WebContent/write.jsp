@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -30,29 +34,29 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" location.href="write.jsp">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -73,19 +77,17 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
             <div class="section-top">
                 <h1>글쓰기</h1>	
                 	<div class="select-box">                        
-                            <form class="searchbar" action="#" method="get">
-                                <select style="width: 300px">
-                                    <option>자유게시판</option>
-                                    <option>학습게시판</option>
-                                    <option>익명게시판</option>
-                                    <option>오늘뭐먹지?</option>
+                            <form class="searchbar" action="write" method="post">
+                                <select style="width: 300px" name="mboard_no">
+                                    <option value="1">자유게시판</option>
+                                    <option value="2">학습게시판</option>
+                                    <option value="3">익명게시판</option>
+                            		<!--  세션 스코프 확인했을 때 관리자면 공지사항 option 추가 -->
                                 </select>
-                                <input type="text" class="tit-input" placeholder="제목" maxlength="50" >			
+                                <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
 				                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
 				                <div class="note-editing-area">
-				                   <div class="note-editable" contenteditable="true" role="textbox" aria-multiline="true">
-				                       <textarea class="textarea"></textarea>
-				                   </div>
+				                       <textarea name="content" class="textarea"></textarea>
 				                </div>  
 				                <div class="btn-box">					
 					                <button class="cancle" onclick="cancle()">취소</button>					
@@ -98,8 +100,23 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 </body>
 <script>
 	function cancle(){
-		alert("글 작성을 취소하시겠습니까?");
-		history.back();
+		if(confirm("글 작성을 취소하시겠습니까 ?") == true){
+			history.back();
+		}else{
+			return;
+		}
 	}
+		
+	var msg = "${msg}";
+	
+	if(msg == "글이 작성되었습니다."){
+		alert(msg);
+		history.go(-2);
+	}
+	
+	if(msg == "글 작성에 실패했습니다."){
+		alert(msg);
+	}
+	
 </script>
 </html>

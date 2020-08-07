@@ -36,14 +36,14 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='#'">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#" id="free" onClick="location.href='boardList.jsp'">
+                    <a href="#" id="free" onClick="location.href='boardList/?"mboard_no"='1'">
                         <span>자유 게시판</span>
                     </a>
                 </li>

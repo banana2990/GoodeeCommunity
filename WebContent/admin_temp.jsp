@@ -34,7 +34,7 @@
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     

@@ -1,4 +1,4 @@
-package com.gcs.boarddto;
+package com.gcs.DTO;
 
 import java.util.Date;
 
