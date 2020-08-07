@@ -60,11 +60,11 @@
 					<td> <input type="password" name="pwChck"/></td>
 				</tr>		
 				<tr>
-					<td> 닉네임 </td>
+					<td> 닉네임* </td>
 					<td> <input type="text" name="nickName"/> <input type="button" id="nickChck" value="중복확인"/></td>
 				</tr>		
 				<tr>
-					<td> 이름 </td>
+					<td> 이름* </td>
 					<td> <input type="text" name="name"></td>
 				</tr>		
 				<tr>
