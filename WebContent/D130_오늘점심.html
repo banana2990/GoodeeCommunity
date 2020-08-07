@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="lunch_style.css">
+<link rel="stylesheet" href="D130_style.css">
+<script src="index.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script
 src="https://kit.fontawesome.com/fbff03f786.js"
 crossorigin="anonymous"
@@ -86,9 +88,9 @@ crossorigin="anonymous"
                 <div class="menu1" style="cursor: pointer;" onclick="location.href='https:store.naver.com/restaurants/detail?id=38675031';">
                     <div class="menu-image1">
                         <span class="koreamenu-name1">동남부대찌개</span>
-                        <img src="전화아이콘.PNG" class="telimg1">
+                        <img src="./image/전화아이콘.PNG" class="telimg1">
                         <span class="koreamenu-tel1">02-867-0849</span>
-                        <img src="지도아이콘.PNG" class="mapimg1">
+                        <img src="./image/지도아이콘.PNG" class="mapimg1">
                         <div class="koreamenu-map1">서울 금천구 가산디지털2로 142-3</div>
                         <div class="moresee1">더보기 ></div>
                     </div>
@@ -98,9 +100,9 @@ crossorigin="anonymous"
                 <div class="menu2" style="cursor: pointer;" onclick="location.href='https:store.naver.com/restaurants/detail?id=1029449605';">
                     <div class="menu-image2">
                         <span class="koreamenu-name2">육전국밥</span>
-                        <img src="전화아이콘.PNG" class="telimg2">
+                        <img src="./image/전화아이콘.PNG" class="telimg2">
                         <span class="koreamenu-tel2">02-854-8222</span>
-                        <img src="지도아이콘.PNG" class="mapimg2">
+                        <img src="./image/지도아이콘.PNG" class="mapimg2">
                         <div class="koreamenu-map2">서울 금천구 가산디지털2로 136</div>
                         <div class="moresee2">더보기 ></div>
                     </div>
@@ -109,9 +111,9 @@ crossorigin="anonymous"
                 <div class="menu3" style="cursor: pointer;" onclick="location.href='http:store.naver.com/restaurants/detail?id=1001630614&query=%EB%AA%A8%EB%91%90%EA%B5%AD%EB%B0%A5';">
                     <div class="menu-image3">
                         <span class="koreamenu-name3">모두국밥</span>
-                        <img src="전화아이콘.PNG" class="telimg3">
+                        <img src="./image/전화아이콘.PNG" class="telimg3">
                         <span class="koreamenu-tel3">02-2025-4123</span>
-                        <img src="지도아이콘.PNG" class="mapimg3">
+                        <img src="./image/지도아이콘.PNG" class="mapimg3">
                         <div class="koreamenu-map3">서울 금천구 가산디지털2로 123</div>
                         <div class="moresee3">더보기 ></div>
                     </div>
@@ -120,9 +122,9 @@ crossorigin="anonymous"
                 <div class="menu4" style="cursor: pointer;" onclick="location.href='https:store.naver.com/restaurants/detail?id=21369601';">
                     <div class="menu-image4">
                         <span class="koreamenu-name4">돈보따리</span>
-                        <img src="전화아이콘.PNG" class="telimg4">
+                        <img src="./image/전화아이콘.PNG" class="telimg4">
                         <span class="koreamenu-tel4">02-855-5550</span>
-                        <img src="지도아이콘.PNG" class="mapimg4">
+                        <img src="./image/지도아이콘.PNG" class="mapimg4">
                         <div class="koreamenu-map4">서울 금천구 가산디지털2로 142-9</div>
                         <div class="moresee4">더보기 ></div>
                     </div>
@@ -131,23 +133,49 @@ crossorigin="anonymous"
                 <div class="menu5" style="cursor: pointer;" onclick="location.href='https:store.naver.com/restaurants/detail?id=34034063&tab=main';">
                     <div class="menu-image5">
                         <span class="koreamenu-name5">토마토김밥</span>
-                        <img src="전화아이콘.PNG" class="telimg5">
+                        <img src="./image/전화아이콘.PNG" class="telimg5">
                         <span class="koreamenu-tel5">02-861-8484</span>
-                        <img src="지도아이콘.PNG" class="mapimg5">
+                        <img src="./image/지도아이콘.PNG" class="mapimg5">
                         <div class="koreamenu-map5">서울 금천구 서부샛길 606</div>
                         <div class="moresee5">더보기 ></div>
                     </div>
                 </div>
+
+                <div class="list-box">   
+                    <div class="list-paging">
+                    <button id="1" class="on">1</button>
+                    <button id="2">2</button>
+                    <button id="3">3</button>
+                    <button id="4">4</button>
+                    <button id="5">5</button>
+                    <button id="next">next</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <!--페이징-->
-        <div class="list-paging">
-            <button id="btn-paging1" onclick="location.href='#'"><<</button>
-            <button id="btn-paging2" onclick="location.href='#'"><</button>
-            <button id="btn-paging3" onclick="location.href='#'">1</button>
-            <button id="btn-paging4" onclick="location.href='#'">></button>
-            <button id="btn-paging5" onclick="location.href='#'">>></button>
+        
+        <div class="helpIcon">
+            <i class="far fa-comment-dots"></i>   
+        </div>  
+        <div class="helpIcon__content">
+            <div class="helpIcon__title">
+                <br><br>
+                <p>무엇을 도와드릴까요?</p>
+                <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+            </div>
+            <div class="helpIcon__input">
+                <form action="#">
+                <br><br>
+                <input type="text" placeholder="   작성자"> 
+                <input type="text" placeholder="   제목">
+                <input type="text" placeholder="   이메일">
+                <textarea type="text" placeholder="     문의 내용"></textarea>
+                <br><br>
+                <button>보내기</button>
+                </form>
+            </div>
         </div>
+
     </div>
 </body>
 <script>
