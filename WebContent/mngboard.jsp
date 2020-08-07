@@ -41,7 +41,7 @@
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="mngboard" id="mngboard">
+                    <a href="mngboard.jsp" id="mngboard">
                         <span>게시글 관리</span>
                     </a>
                 </li>
@@ -71,8 +71,23 @@
                 </div>
             </div>
         </nav>
+        
         <div id="contents">
+        가져오는 영역
+        페이징 필요//
+        
+        
+        
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 	</body>
 	

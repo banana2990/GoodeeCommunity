@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.boardservice.BoardService;;
 
-@WebServlet({"/boardList"})
+@WebServlet({"/boardList","/mngboard"})
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -33,8 +33,12 @@ public class BoardController extends HttpServlet {
 		BoardService boardService = new BoardService(req, resp);
 		
 		switch(reqAddr) {
-		case "/list":
+		case "/list": // 이거 주소..확인 필요
 			boardService.list();
+			break;
+			
+		case "/mngboard":
+			//boardService.
 			break;
 			
 		}
