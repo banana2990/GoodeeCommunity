@@ -2,6 +2,7 @@
 <html>
 <head>
 	    <meta charset="utf-8">
+	    	<link rel="stylesheet" type="text/css" href="style.css" />
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
 	</style>
@@ -18,6 +19,9 @@
 	        <div class="nic">나는 ui 전문가</div>
 	    </div>
 	    <div class="alert">
+	    	
+	    	<a class="alert_alert">알림</a>
+	    	    	
 	        <ul>
 	        </br>
 	        <a href="#"><li>첫번째 알림~!!!</li></a>
