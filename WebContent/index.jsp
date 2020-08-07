@@ -43,7 +43,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#" id="free" onClick="location.href='boardList/?"mboard_no"='1'">
+                    <a href="boardList.jsp?mboard_no=1" id="free" >
                         <span>자유 게시판</span>
                     </a>
                 </li>

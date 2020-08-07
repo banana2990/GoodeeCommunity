@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +12,7 @@
 src="https://kit.fontawesome.com/fbff03f786.js"
 crossorigin="anonymous"
 ></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
    <div id="container">
@@ -98,119 +101,30 @@ crossorigin="anonymous"
                 </div>
 		
                 <div class="list-box">
-                    <!-- 게시글 영역 -->
-                    <ul>
-						<li>
-							<!-- 게시글 상세보기 링크  -->
-							<a href="board_view?thread=395071">
-								<h3>
-									<strong class="key-color">[자유게시판]</strong>
-									내가 만약.........
-								</h3>
-								<i class="icon-new"></i>
-								<!-- 게시글 상세보기 클래스 변경해야됨 -->
-								<dl class="writing-info">
-									<dt class="blind">writer</dt>
-									<dd class="writer">나는 ui전문가</dd>
-									<dt class="blind">etc</dt>
-									<dd>
-										<span class="date">19:21</span>
-										<span class="count-read">112</span>
-										<span class="count-likes">21</span>
-										<span class="count-comment">2</span>
-									</dd>
-								</dl>
-							</a>
-						</li>
-						<li>
-							<!-- 게시글 상세보기 링크  -->
-							<a href="board_view?thread=395071">
-								<h3>
-									<strong class="key-color">[인기게시판]</strong>
-									바람의나라에서 사기당한 썰 푼다.
-								</h3>
-								<i class="icon-new"></i>
-								<!-- 게시글 상세보기 클래스 변경해야됨 -->
-								<dl class="writing-info">
-									<dt class="blind">writer</dt>
-									<dd class="writer">우유빛깔김중열</dd>
-									<dt class="blind">etc</dt>
-									<dd>
-										<span class="date">12:19</span>
-										<span class="count-read">152</span>
-										<span class="count-likes">22</span>
-										<span class="count-comment">25</span>
-									</dd>
-								</dl>
-							</a>
-						</li>
-						<li>
-							<!-- 게시글 상세보기 링크  -->
-							<a href="board_view?thread=395071">
-								<h3>
-									<strong class="key-color">[자유게시판]</strong>
-									헬스장 회원별 유형....txt
-								</h3>
-								<i class="icon-new"></i>
-								<!-- 게시글 상세보기 클래스 변경해야됨 -->
-								<dl class="writing-info">
-									<dt class="blind">writer</dt>
-									<dd class="writer">3대500정준호</dd>
-									<dt class="blind">etc</dt>
-									<dd>
-										<span class="date">11:14</span>
-										<span class="count-read">50</span>
-										<span class="count-likes">10</span>
-										<span class="count-comment">20</span>
-									</dd>
-								</dl>
-							</a>
-						</li>
-						<li>
-							<!-- 게시글 상세보기 링크  -->
-							<a href="board_view?thread=395071">
-								<h3>
-									<strong class="key-color">[자유게시판]</strong>
-									금요일 금요일~
-								</h3>
-								<i class="icon-new"></i>
-								<!-- 게시글 상세보기 클래스 변경해야됨 -->
-								<dl class="writing-info">
-									<dt class="blind">writer</dt>
-									<dd class="writer">오늘 어디가는상진</dd>
-									<dt class="blind">etc</dt>
-									<dd>
-										<span class="date">11:07</span>
-										<span class="count-read">23</span>
-										<span class="count-likes">12</span>
-										<span class="count-comment">2</span>
-									</dd>
-								</dl>
-							</a>
-						</li>
-						<li>
-							<!-- 게시글 상세보기 링크  -->
-							<a href="board_view?thread=395071">
-								<h3>
-									<strong class="key-color">[인기게시판]</strong>
-									정준호 바디프로필 유출본
-								</h3>
-								<i class="icon-new"></i>
-								<!-- 게시글 상세보기 클래스 변경해야됨 -->
-								<dl class="writing-info">
-									<dt class="blind">writer</dt>
-									<dd class="writer">구스패치</dd>
-									<dt class="blind">etc</dt>
-									<dd>
-										<span class="date">10:34</span>
-										<span class="count-read">142</span>
-										<span class="count-likes">23</span>
-										<span class="count-comment">45</span>
-									</dd>
-								</dl>
-							</a>
-						</li>
-                    </ul>
+                    <!-- 게시글 영역 -->                    
+                    <ul>                   	
+							<li>
+								<!-- 게시글 상세보기 링크  -->
+								<a href="board_view?thread=395071">
+									<h3>
+										<strong class="key-color">[]</strong>
+									</h3>
+									<i class="icon-new"></i>
+									<!-- 게시글 상세보기 클래스 변경해야됨 -->
+									<dl class="writing-info">
+										<dt class="blind">writer</dt>
+										<dd class="writer"></dd>
+										<dt class="blind">etc</dt>
+										<dd>
+											<span class="date"></span>
+											<span class="count-read"></span>
+											<span class="count-likes">미구현</span>
+											<span class="count-comment">미구현</span>
+										</dd>
+									</dl>
+								</a>
+							</li>					
+                    </ul>                   
                     <div class="list-paging">
                       <button id="1" class="on">1</button>
                       <button id="2">2</button>
@@ -224,4 +138,38 @@ crossorigin="anonymous"
         </div>  
     </div>
 </body>
+<script>
+	
+	
+	
+	var mboard_no = window.location.search.substring(11);
+	var page = $('.list-paging button.on');
+
+	var param = {};
+	param.mboard_no = mboard_no;
+	param.page = page[0].id;
+	
+	console.log(param);
+	
+	listCall();
+	
+	function listCall(){
+		$.ajax({
+			type:"post"
+			,url:"boardList"
+			,data:param
+			,dataType:"JSON"
+			,success:function(data){
+				console.log(data.list);
+			}
+			,error:function(e){
+				console.log(e);
+			}
+		});
+	};	
+	
+	
+	
+	
+</script>
 </html>

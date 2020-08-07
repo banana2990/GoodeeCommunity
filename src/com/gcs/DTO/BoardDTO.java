@@ -10,6 +10,7 @@ public class BoardDTO {
 	private String bo_content;
 	private Date bo_reg_date;
 	private int bo_bHit;
+	private String boardname;
 	
 	public int getBoard_no() {
 		return board_no;
@@ -52,5 +53,11 @@ public class BoardDTO {
 	}
 	public void setBo_bHit(int bo_bHit) {
 		this.bo_bHit = bo_bHit;
+	}
+	public String getBoardname() {
+		return boardname;
+	}
+	public void setBoardname(String boardname) {
+		this.boardname = boardname;
 	}
 }
