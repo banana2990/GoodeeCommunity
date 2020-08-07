@@ -12,6 +12,11 @@ public class BoardDTO {
 	private int bo_bHit;
 	private String boardname;
 	
+	private int comment_no;
+	private String co_content;
+	private Date co_reg_date;
+		
+	
 	public int getBoard_no() {
 		return board_no;
 	}
@@ -59,5 +64,23 @@ public class BoardDTO {
 	}
 	public void setBoardname(String boardname) {
 		this.boardname = boardname;
+	}
+	public int getComment_no() {
+		return comment_no;
+	}
+	public void setComment_no(int comment_no) {
+		this.comment_no = comment_no;
+	}
+	public String getCo_content() {
+		return co_content;
+	}
+	public void setCo_content(String co_content) {
+		this.co_content = co_content;
+	}
+	public Date getCo_reg_date() {
+		return co_reg_date;
+	}
+	public void setCo_reg_date(Date co_reg_date) {
+		this.co_reg_date = co_reg_date;
 	}
 }

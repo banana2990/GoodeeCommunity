@@ -10,7 +10,14 @@
 	
 	<script
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-		<title>관리자 카테고리별 글 가져오기</title>		
+		<title>관리자 카테고리별 글 가져오기</title>
+		<style>
+				table, th, td {
+					border: 1px solid olive;
+					border-collapse: collapse;
+					padding : 5px 10px;		
+					}
+		</style>
 	</head>
 	
 	<body>
@@ -20,7 +27,7 @@
             <div class="navbar__logo">
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>관리자 페이지</h1>
+                    <h1>구디 커뮤니티</h1>
                 </a>
             </div>
             <div class="search-input">
@@ -72,15 +79,26 @@
         </nav>
         
         <div id="contents">
-        가져오는 영역
-        페이징 필요//
-        
-        <select name="mngboard" onchange="location.href=this.value">
-			<option value="board_no?=1">자유게시판</option>
-			<option value="board_no?=2">학습게시판</option>
-			<option value="board_no?=3">익명게시판</option>
-			<option value="board_no?=4">공지</option>
-		</select>
+			 <table>
+					<tr> 
+						<th>no.</th> 
+						<th>게시판</th> 
+						<th>내용</th> 
+						<th>작성자</th> 
+						<th>등록일</th>
+						<th>삭제</th>
+					</tr>
+					<c:forEach items="${list}" var="bbs">
+						<tr>
+							<td> ${bbs.comment_no} </td>
+							<td> bbs.mBoard 게시판가져오기 필요 </td>
+							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
+							<td> ${bbs.id} </td>
+							<td> ${bbs.co_reg_date} </td>							
+							<td> <a href="deletecom?comment_no=${bbs.comment_no}">삭제 </a></td>
+						</tr>		
+					</c:forEach>
+				</table>            
         
         </div>
         

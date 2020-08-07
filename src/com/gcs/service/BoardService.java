@@ -1,6 +1,7 @@
 package com.gcs.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,6 +27,14 @@ public class BoardService  {
 		this.resp = resp;
 	}
 
+	public void comread() throws ServletException, IOException {
+		BoardDAO dao = new BoardDAO();
+		ArrayList<BoardDTO> list = dao.list();
+		req.setAttribute("list", list);
+		RequestDispatcher dis = req.getRequestDispatcher("mngcomment.jsp");
+		dis.forward(req, resp);		
+	}
+		
 	public void write() throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String id =(String) req.getSession().getAttribute("id");
@@ -70,7 +79,6 @@ public class BoardService  {
 			resp.setContentType("text/html; charset=UTF-8");
 			resp.getWriter().println(obj);
 		}
-		
 		
 	}
 }

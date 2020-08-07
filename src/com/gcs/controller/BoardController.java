@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;;
 
-@WebServlet({"/boardList","/mngboard","/write"})
+@WebServlet({"/boardList","/mngboard","/mngcomment","/write"})
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -38,15 +38,23 @@ public class BoardController extends HttpServlet {
 			boardService.boardList();
 			break;
 			
-		case "/mngboard":
-			//boardService.
-			break;
-			
 		case "/write":
 			boardService.write();
 			System.out.println("글쓰기 요청");
 			break;
+		
+		case "/mngboard":
+			//boardService.
+			break;
 			
-		}								
-	}	
+		case "/mngcomment": // 관리자 댓글 전체 목록
+			System.out.println("댓글 목록 호출");
+			boardService.comread();			
+			break;
+		
+		case "/deletecom":
+			break;
+			
+		}
+	}
 }

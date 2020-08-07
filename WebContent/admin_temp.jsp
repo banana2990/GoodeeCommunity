@@ -46,7 +46,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="mngcomment">
+                    <a href="mngcomment" id="mngcomment">
                         <span>댓글 관리</span>
                     </a>
                 </li>
@@ -72,6 +72,8 @@
             </div>
         </nav>
         <div id="contents">
+        
+        
         </div>
         
 	</body>
