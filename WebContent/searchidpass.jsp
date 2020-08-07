@@ -40,19 +40,6 @@
     </div>           
 
 	<div class= "searchbox">
-<<<<<<< HEAD
-		<div>
-			<h2> ID 찾는 섹션</h2>		
-			<div>
-				이메일을 입력해주세요
-				<input type="email" id="email"> <button id="findid" onclick="findid()">ID 찾기</button>
-			</div>
-		</div>
-		<div>
-			<h2> 비밀번호 찾는 섹션 </h2>
-			
-		</div>
-=======
 		<h2> ID 찾기</h2>		
 			<div>
 				이메일을 입력해주세요
@@ -63,7 +50,6 @@
 				<p>이메일을 입력해주세요. 입력하신 이메일로 임시 비밀번호를 발송해드립니다.</p>						
 				<p><td>이메일 : <input type="email" name="u_email"> <button id="auth">임시비밀번호 발송</button></td></p>				
 			</div>			
->>>>>>> b75d824f110cb8ffbc8dd01dd2dda59394d70d60
 	</div>
 
 </body>	

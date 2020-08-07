@@ -20,7 +20,7 @@
             <div class="navbar__logo">
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                    <h1>관리자 페이지</h1>
                 </a>
             </div>
             <div class="search-input">
