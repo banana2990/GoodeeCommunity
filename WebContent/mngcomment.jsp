@@ -10,7 +10,14 @@
 	
 	<script
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-		<title>관리자 카테고리별 글 가져오기</title>		
+		<title>관리자 카테고리별 글 가져오기</title>
+		<style>
+				table, th, td {
+					border: 1px solid olive;
+					border-collapse: collapse;
+					padding : 5px 10px;		
+					}
+		</style>
 	</head>
 	
 	<body>
@@ -67,14 +74,42 @@
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
                     </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
-        <div id="contents">
         
+        <div id="contents">
+			 <table>
+					<tr> 
+						<th>no.</th> 
+						<th>게시판</th> 
+						<th>내용</th> 
+						<th>작성자</th> 
+						<th>등록일</th>
+						<th>삭제</th>
+					</tr>
+					<c:forEach items="${list}" var="bbs">
+						<tr>
+							<td> ${bbs.comment_no} </td>
+							<td> bbs.mBoard 게시판가져오기 필요 </td>
+							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
+							<td> ${bbs.id} </td>
+							<td> ${bbs.co_reg_date} </td>							
+							<td> <a href="deletecom?comment_no=${bbs.comment_no}">삭제 </a></td>
+						</tr>		
+					</c:forEach>
+				</table>            
         
         </div>
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
 	</body>
 	

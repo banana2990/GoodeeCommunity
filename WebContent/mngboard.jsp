@@ -41,12 +41,12 @@
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="mngboard.jsp" id="mngboard">
+                    <a href="mngboard" id="mngboard">
                         <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="mngcomment">
+                    <a href="mngcomment" id="mngcomment">
                         <span>댓글 관리</span>
                     </a>
                 </li>
@@ -67,7 +67,6 @@
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
                     </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -76,7 +75,12 @@
         가져오는 영역
         페이징 필요//
         
-        
+        <select name="mngboard" onchange="location.href=this.value">
+			<option value="board_no?=1">자유게시판</option>
+			<option value="board_no?=2">학습게시판</option>
+			<option value="board_no?=3">익명게시판</option>
+			<option value="board_no?=4">공지</option>
+		</select>
         
         </div>
         
