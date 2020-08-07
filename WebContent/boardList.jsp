@@ -16,7 +16,7 @@ crossorigin="anonymous"
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="#">
+                <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
@@ -65,7 +65,7 @@ crossorigin="anonymous"
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
                     </button>
-                    <button class="login">로그인</button>
+                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>

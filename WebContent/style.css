@@ -1,3 +1,102 @@
+/* upmy1.html */
+
+.show {display:block} 
+            
+.hide {display:none} 
+ 
+#layer{
+     border: 1px solid black;
+     border-radius: 50%;
+     width: 100px;
+     height: 100px;
+     position: absolute;
+     right: 60px;
+     
+}
+
+#layer .pf{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1),
+    0 12px 24px 0 rgba(0, 0, 0, 0.24);
+}
+
+#btn{
+    border: 1px solid black;
+    border-radius: 5%;
+    width: 330px;
+    height: 400px;
+    background-color: rgb(223, 223, 223);
+    margin-top: 20px;
+    position: absolute;
+    right: 100px;
+    top: 100px;
+    text-align: center;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1),
+    0 12px 24px 0 rgba(0, 0, 0, 0.24);
+    display:none
+}
+
+#btn .imge_1 {
+    position: relative;
+    left: -80px;
+    top: 20px;
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1),
+    0 12px 24px 0 rgba(0, 0, 0, 0.24);
+}
+
+#btn .imge {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 36px;
+}
+
+#btn .nic{
+    position: relative;
+    left: 65px;
+    top: -37px;
+}
+
+#btn .alert{
+    position: relative;
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 290px;
+    height: 200px;
+    left: 20px;
+    top: -10px;
+}
+
+#btn .dmy{
+    position: relative;
+    padding: 8px 22px 10px 22px;
+    background-color: rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    margin-top: 18px;
+    left: -25px;
+    top: -17px;
+}
+
+#btn .lgout{
+    position: relative;
+    padding: 8px 22px 10px 22px;
+    background-color: rgba(0, 0, 0, 0.05);
+    display: inline-block;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    margin-top: 18px;
+    left: 30px;
+    top: -17px;
+}
+
+/*  upmy1.html*/
+
 #navbar input[type="text"] {
     width: 70%;
 }
@@ -42,6 +141,25 @@ li{
     background-color: #fff;
     box-sizing: border-box;
 }
+
+/* 일단 띄워놓고 나중에 기능구현때는 overflow 히든으로 해놓고 로그인 성공하면 히든 풀기 */
+.boxx {
+    width: 50px;
+    height: 50px; 
+    border-radius: 70%;
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+.boxx .profile{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position : absolute;
+}
+
+/* 프로필 아이콘 로고 맞게 만들어야됨 */
 
 .login {
     font-weight: bold;

@@ -63,6 +63,9 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </ul>
             
             <div class="top-util">
+            	<div class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
                 <div class="inner">
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
@@ -143,8 +146,6 @@ if(loginId==""){
 }else{
     document.getElementsByClassName('loggin');
 }
-
-
 
 </script>
 </html>
