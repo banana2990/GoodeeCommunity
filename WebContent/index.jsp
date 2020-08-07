@@ -8,6 +8,8 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="style.css" />
+<script src="index.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
 <script
 src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
@@ -34,14 +36,14 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#" id="free" onClick="location.href='boardList.jsp'">
+                    <a href="#" id="free" onClick="location.href='boardList/?"mboard_no"='1'">
                         <span>자유 게시판</span>
                     </a>
                 </li>
@@ -56,7 +58,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="lunch" onClick="location.href='boardList.jsp'">
+                    <a href="D130_lunch.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -135,6 +137,29 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </div>
         </div>  
     </div>
+
+    <div class="helpIcon">
+        <i class="far fa-comment-dots"></i>   
+    </div>
+  
+    <div class="helpIcon__content">
+        <div class="helpIcon__title">
+            <br><br>
+            <p>무엇을 도와드릴까요?</p>
+            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+        </div>
+        <div class="helpIcon__input">
+            <form action="#">
+            <br><br>
+            <input type="text" placeholder="   작성자"> 
+            <input type="text" placeholder="   제목">
+            <input type="text" placeholder="   이메일">
+            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <br><br>
+            <button>보내기</button>
+            </form>
+        </div>
+    </div>
 </body>
 <script>
 
@@ -142,10 +167,19 @@ var loginId = "${sessionScope.id}";
 // 세션에 저장된 경우 로그인버튼을 비활성화하기
 console.log(loginId);
 
+if(loginId!="admin"){}else{location.href="admin_temp.jsp";}
+
+/*
 if(loginId==""){
 }else{
-    document.getElementsByClassName('loggin');
+    var loginbtn = document.getElementByClassName("login");
+    loginbtn.style({"display":"hide"});
 }
+<<<<<<< HEAD
+=======
+*/
+
+>>>>>>> 1d46bc946515babf66d20fc31babc0e917fdc5d9
 
 </script>
 </html>

@@ -60,22 +60,19 @@
 					<td> <input type="password" name="pwChck"/></td>
 				</tr>		
 				<tr>
-					<td> 닉네임 </td>
+					<td> 닉네임* </td>
 					<td> <input type="text" name="nickName"/> <input type="button" id="nickChck" value="중복확인"/></td>
 				</tr>		
 				<tr>
-					<td> 이름 </td>
+					<td> 이름* </td>
 					<td> <input type="text" name="name"></td>
 				</tr>		
 				<tr>
 					<td> 이메일 </td>
-					<td> <input type="email" name="u_email"></td>
+					<td> <input type="email" name="u_email"> <button id="auth">인증 코드 발송</button></td>
 				</tr>
 				<tr>
-					<td colspan="2">인증 코드 입력 : <input type="text" name="auth"> <button id="auth">인증 코드 발송</button></td>
-				</tr>
-				<tr>
-					<td colspan="2"> <button id="authChk">인증하기</button> </td>
+					<td colspan="2">인증 코드 입력 : <input type="text" name="auth"> <button id="authChk">인증하기</button> </td>
 				</tr>
 				<tr>
 					<td colspan="2"> <input type = "button" id="join" value="회원가입"> </td>

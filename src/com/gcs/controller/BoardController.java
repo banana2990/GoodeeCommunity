@@ -1,4 +1,4 @@
-package com.gcs.boardcontroller;
+package com.gcs.controller;
 
 import java.io.IOException;
 
@@ -8,9 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gcs.boardservice.BoardService;;
+import com.gcs.service.BoardService;;
 
-@WebServlet({"/boardList"})
+@WebServlet({"/boardList","/mngboard","/mngcomment","/write"})
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -33,12 +33,27 @@ public class BoardController extends HttpServlet {
 		BoardService boardService = new BoardService(req, resp);
 		
 		switch(reqAddr) {
-		case "/list":
+		case "/list": // 이거 주소..확인 필요
 			boardService.list();
 			break;
 			
-		}
+		case "/write":
+			boardService.write();
+			System.out.println("글쓰기 요청");
+			break;
 		
+		case "/mngboard":
+			//boardService.
+			break;
+			
+		case "/mngcomment": // 관리자 댓글 전체 목록
+			System.out.println("댓글 목록 호출");
+			boardService.comread();			
+			break;
+		
+		case "/deletecom":
+			break;
+			
+		}
 	}
-	
 }
