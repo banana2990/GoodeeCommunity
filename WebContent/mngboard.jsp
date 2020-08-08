@@ -91,8 +91,8 @@
 					<th>조회수</th> 
 					<th>등록일</th>
 					<th>삭제</th>
-				         </tr>         
-				      </table>
+				         </tr> 
+				     </table>
 	        </div>
 	      
          </div>
@@ -119,23 +119,23 @@
 		    }
 	    });
 	}
-	/*
-	function drawTable(list){
+	
+/* 	function drawTable(list){
 		var content = "";
 		   $("tbody").empty();   
 		   list.forEach(function(item,num){
 		      //console.log(num,item);
-		      content = "<tr><td>"+${item.board_no}+"</td>"
+		      content = "<tr><td>"+item.board_no+"</td>"
 		         +"<td><a href='detail?board_no="+item.board_no+"'>"
 		        +item.bo_subject+"</td></a><td>"+item.user_name
 		         +"</td><td>"+item.id+"</td><td>"+item.bo_bhit+"</td><td>"
 		         +item.bo_bhit  +"</td><td>"+item.bo_reg_date
 		         +"</td><td><a href='delboard?board_no="+item.board_no+"'> 삭제 </a></td></tr>";
 		         $("tbody").append(content);
-		   });
-		*/   			   
+		   }); */
+		  			   
 		
-	}
+
 
 	</script>
 </html>

@@ -93,7 +93,7 @@ public class BoardDAO {
 
 	public ArrayList<BoardDTO> boardlist(String mBoard_no) throws SQLException {
 	      ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-	      String sql ="SELECT * FROM board WHERE mBoard_no=?";
+	      String sql ="SELECT * FROM board WHERE mBoard_no=? ORDER BY board_no DESC";
 	      ps = conn.prepareStatement(sql);
 	      ps.setString(1, mBoard_no);
 	      rs = ps.executeQuery();

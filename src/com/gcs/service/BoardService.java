@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gcs.DAO.BoardDAO;
 import com.gcs.DAO.MemberDAO;
 import com.gcs.DTO.BoardDTO;
 import com.google.gson.Gson;

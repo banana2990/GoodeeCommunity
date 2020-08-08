@@ -175,11 +175,8 @@ if(loginId==""){
     var loginbtn = document.getElementByClassName("login");
     loginbtn.style({"display":"hide"});
 }
-<<<<<<< HEAD
-=======
 */
 
->>>>>>> 1d46bc946515babf66d20fc31babc0e917fdc5d9
 
 </script>
 </html>
