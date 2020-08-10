@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.gcs.DTO.BoardDTO;
@@ -39,14 +38,7 @@ public class BoardDAO {
 		}		
 	}
 
-
 	public ArrayList<BoardDTO> commentlist() {
-		return null;
-	}
-
-	public ArrayList<BoardDTO> list() {
-
-
 		String sql = "SELECT comment_no, board_no, id, co_content, co_reg_date FROM commentary ORDER BY comment_no DESC";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {		
@@ -92,8 +84,6 @@ public class BoardDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} 
-
-
 		return result;	
 	}
 
@@ -114,8 +104,6 @@ public class BoardDAO {
 			resClose();
 		}
 		return result;
-
-
 	}
 
 
@@ -140,15 +128,11 @@ public class BoardDAO {
 	}
 
 	public ArrayList<BoardDTO> boardList(String mboard_no, int startPage, int endPage) throws SQLException {
-		
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		
-
 		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname " + 
 				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname " + 
 				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname " + 
 				"FROM board b, member m WHERE m.id = b.id) WHERE mboard_no=?) r, mboard m WHERE r.mboard_no = m.mboard_no AND rnum BETWEEN ? AND ?";
-
 		
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, mboard_no);

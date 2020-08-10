@@ -53,8 +53,6 @@ public class BoardController extends HttpServlet {
 			System.out.println("댓글 목록 호출");
 			boardService.comread();			
 			break;
-
-
 		
 		case "/deletecom":
 			break;

@@ -3,7 +3,6 @@ package com.gcs.controller;
 import java.io.IOException;
 import java.util.Properties;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,9 +31,7 @@ public class MemberController extends HttpServlet {
 			String ctx = req.getContextPath();
 			String reqAddr = uri.substring(ctx.length());
 			req.setCharacterEncoding("UTF-8");
-			
 			RequestDispatcher dis = null;			
-			
 			MemberService service = new MemberService(req, resp);
 			
 			switch(reqAddr) {
