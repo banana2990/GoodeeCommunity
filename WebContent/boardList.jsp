@@ -42,17 +42,17 @@ crossorigin="anonymous"
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList.jsp?mboard_no=1" id="free">
+                    <a href="boardList?mboard_no=1" id="free">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp?mboard_no=2" id="edu">
+                    <a href="boardList?mboard_no=2" id="edu">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp?mboard_no=3" id="secret">
+                    <a href="boardList?mboard_no=3" id="secret">
                         <span>익명 게시판</span>
                     </a>
                 </li>
