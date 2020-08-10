@@ -53,6 +53,7 @@ public class BoardDAO {
 	public ArrayList<BoardDTO> commentlist() {
 
 	}
+
 	public ArrayList<BoardDTO> list() {
 
 
@@ -78,20 +79,7 @@ public class BoardDAO {
 			resClose();
 		}
 		return list;
-
-
-
 	}
-
-	
-
-
-		
-
-
-
-		}
-
 
 	public boolean write(String mboard_no, String id, String subject, String content) {
 		String sql = "INSERT INTO board (board_no, mBoard_no, id, bo_subject, bo_content, bo_bHit) VALUES (seq_board.NEXTVAL,?,?,?,?,0)";
@@ -139,8 +127,6 @@ public class BoardDAO {
 
 
 	}
-
-
 
 
 	public ArrayList<BoardDTO> boardlist(String mBoard_no) throws SQLException {
@@ -196,34 +182,4 @@ public class BoardDAO {
 		System.out.println(list);
 		return list;
 		}
-
-		
-
-
-		
-		ps = conn.prepareStatement(sql);
-		ps.setString(1, mboard_no);
-		ps.setInt(2, startPage);
-		ps.setInt(3, endPage);
-		
-		rs = ps.executeQuery();
-		
-		while(rs.next()) {
-			BoardDTO dto = new BoardDTO();
-			dto.setBoard_no(rs.getInt("board_no"));
-			dto.setMboard_no(rs.getInt("mboard_no"));
-			dto.setId(rs.getString("id"));
-			dto.setBo_subject(rs.getString("bo_subject"));
-			dto.setBo_content(rs.getString("bo_content"));
-			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
-			dto.setBo_bHit(rs.getInt("bo_bhit"));
-			dto.setBoardname(rs.getString("boardname"));
-			
-			list.add(dto);
-		}
-		
-		System.out.println(list);
-		return list;
-
-	}
 }
