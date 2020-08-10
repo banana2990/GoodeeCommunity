@@ -119,9 +119,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </div>
                 <div class="list-box">
                     <!-- 게시글 영역 -->
-                    게시글 영역입니다.<br>
-                    ul
-                     li ....
+                    
                     <div class="list-paging">
                       <button id="1" class="on">1</button>
                       <button id="2">2</button>
