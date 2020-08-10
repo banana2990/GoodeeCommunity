@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="contact" id="ask">
+                    <a href="#" id="ask">
                         <span>문의사항 내역</span>
                     </a>
                 </li>

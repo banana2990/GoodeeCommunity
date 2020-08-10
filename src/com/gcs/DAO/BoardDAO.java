@@ -4,9 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+<<<<<<< HEAD
 import java.util.ArrayList;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 import com.gcs.DTO.BoardDTO;
+
 
 
 import javax.naming.Context;
@@ -43,6 +49,9 @@ public class BoardDAO {
 
 
 	public ArrayList<BoardDTO> commentlist() {
+	}
+	public ArrayList<BoardDTO> list() {
+
 		String sql = "SELECT comment_no, board_no, id, co_content, co_reg_date FROM commentary ORDER BY comment_no DESC";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {		
@@ -56,6 +65,7 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				dto.setCo_content(rs.getString("co_content"));
 				dto.setCo_reg_date(rs.getDate("co_reg_date"));
+				//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
 				list.add(dto);  
 			}
 		} catch (SQLException e) {
@@ -65,12 +75,14 @@ public class BoardDAO {
 		}
 		return list;
 
+
 	}
 
 	
 
 
 		
+
 
 
 	public boolean write(String mboard_no, String id, String subject, String content) {
@@ -171,7 +183,9 @@ public class BoardDAO {
 		
 		System.out.println(list);
 		return list;
+		}
+
+		
 
 	}
 
-}

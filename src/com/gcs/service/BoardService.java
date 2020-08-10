@@ -1,9 +1,11 @@
 package com.gcs.service;
 
 import java.io.IOException;
+
 import java.util.ArrayList;
 
 import java.io.UnsupportedEncodingException;
+
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,8 +18,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.BoardDAO;
+
+
 import com.gcs.DAO.MemberDAO;
+
+
 import com.gcs.DTO.BoardDTO;
+
+
 
 import com.google.gson.Gson;
 
@@ -44,8 +52,10 @@ public class BoardService  {
 		ArrayList<BoardDTO> list = dao.commentlist();
 		req.setAttribute("list", list);
 		RequestDispatcher dis = req.getRequestDispatcher("mngcomment.jsp");
+
 		dis.forward(req, resp);	
 	}
+
 
 	public void write() throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -66,6 +76,7 @@ public class BoardService  {
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 			dis.forward(req, resp);
+
 		}		
 	}
 
@@ -110,7 +121,7 @@ public class BoardService  {
 	      resp.setContentType("text/html; charset=UTF-8");
 	      resp.getWriter().println(obj);      
 		/*
->>>>>>> c4e941eb9a8c28f473a8f81673d6387e1749d712
+
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 		dis.forward(req, resp);
@@ -146,4 +157,7 @@ public class BoardService  {
 
 
 	}
+
+
+
 }

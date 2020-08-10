@@ -168,18 +168,27 @@
 							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
 							<td> ${bbs.id} </td>
 							<td> ${bbs.co_reg_date} </td>							
-							<td> <a href="delmngcomment?comment_no=${bbs.comment_no}">삭제 </a></td>
+							<td> <a href="deletecom?comment_no=${bbs.comment_no}">삭제 </a></td>
 						</tr>		
 					</c:forEach>
 				</table>            
         	</div>
         </div>
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
 	</body>
 	
 	<script>
-	var msg = "${msg}";
-	if(msg!=""){
-	alert(msg);}
 	
 	</script>
 </html>
