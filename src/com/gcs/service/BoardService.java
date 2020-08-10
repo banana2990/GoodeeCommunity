@@ -2,11 +2,20 @@ package com.gcs.service;
 
 import java.io.IOException;
 
+
 import java.util.ArrayList;
 
 import java.io.UnsupportedEncodingException;
 
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
+import java.util.ArrayList;
+
+import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gcs.DAO.BoardDAO;
 
 
+
 import com.gcs.DAO.MemberDAO;
 
 
@@ -29,6 +39,11 @@ import com.gcs.DTO.BoardDTO;
 
 import com.google.gson.Gson;
 
+
+
+import com.gcs.DAO.MemberDAO;
+import com.gcs.DTO.BoardDTO;
+import com.google.gson.Gson;
 
 
 public class BoardService  {
@@ -42,9 +57,11 @@ public class BoardService  {
 	}
 
 
+
 	public void list() {
 		
 	}
+
 
 
 	public void comread() throws ServletException, IOException {
@@ -52,6 +69,7 @@ public class BoardService  {
 		ArrayList<BoardDTO> list = dao.commentlist();
 		req.setAttribute("list", list);
 		RequestDispatcher dis = req.getRequestDispatcher("mngcomment.jsp");
+
 
 		dis.forward(req, resp);	
 	}
@@ -68,6 +86,7 @@ public class BoardService  {
 		BoardDAO dao = new BoardDAO();
 		if(dao.write(mboard_no, id, subject, content)) {
 			msg = "글이 작성되었습니다.";
+
 
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
@@ -114,6 +133,22 @@ public class BoardService  {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+
+		
+	}
+
+	public void boardlist(String mBoard_no) throws IOException {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+	     	 Gson gson = new Gson();	  
+       		  BoardDAO dao = new BoardDAO();
+        		 ArrayList<BoardDTO> list = null;
+        		  try {
+			list= dao.boardlist(mBoard_no);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
           dao.resClose();
 	      map.put("list",list);
 	      String obj = gson.toJson(map);
@@ -122,6 +157,8 @@ public class BoardService  {
 	      resp.getWriter().println(obj);      
 		/*
 
+
+
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 		dis.forward(req, resp);
@@ -129,17 +166,27 @@ public class BoardService  {
 	}
 
 	public void boardList() throws IOException {
+
 		 String mboard_no = req.getParameter("mboard_no");
+
 		String page = req.getParameter("page");
 		int startPage =  (Integer.parseInt(page)*5)-4;
 		int endPage = Integer.parseInt(page)*5;
 		ArrayList<BoardDTO> list = null;
+
+		
+		System.out.println(mboard_no+"/"+page);
+		BoardDAO dao = new BoardDAO();
+		
+		
+
 		
 		System.out.println(mboard_no+"/"+page);
 		BoardDAO dao = new BoardDAO();
 		
 		
 		
+
 		 try {
 			list = dao.boardList(mboard_no, startPage, endPage); 
 		} catch (SQLException e) {
@@ -156,8 +203,10 @@ public class BoardService  {
 		}
 
 
+
+
 	}
 
 
 
-}
+

@@ -54,6 +54,7 @@ public class BoardController extends HttpServlet {
 			boardService.comread();			
 			break;
 
+
 		
 		case "/deletecom":
 			break;
@@ -62,6 +63,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("관리자 댓글 삭제 ");
 			boardService.delmngcomment();
 			break;
+
 		}
 	}
 }

@@ -81,6 +81,7 @@
         </nav>
         
         <div id="contents">
+
 	        <div class="contents_table">
 				 <table>
 						<tr> 
@@ -150,6 +151,7 @@
 							<td>2020.07.31</td>
 							<td><input type="button" value="삭제"/></td>
 						</tr>
+
         
         <div class="table">
 			 <table>
@@ -168,22 +170,20 @@
 							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
 							<td> ${bbs.id} </td>
 							<td> ${bbs.co_reg_date} </td>							
-							<td> <a href="deletecom?comment_no=${bbs.comment_no}">삭제 </a></td>
+							<td> <a href="delmngcomment?comment_no=${bbs.comment_no}">삭제 </a></td>
 						</tr>		
 					</c:forEach>
 				</table>            
+
         	</div>
+
+        </div>
+      
+
         </div>
 
         
-        
-        
-        
-        
-        
-        
-        
-        
+    
         
 
 	</body>
