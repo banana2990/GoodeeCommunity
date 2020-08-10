@@ -92,18 +92,7 @@
 							<th>등록일</th>
 							<th>삭제</th>
 						</tr>
-					<c:forEach items="${list}" var="bbs">
 						<tr>
-							<td> ${bbs.comment_no} </td>
-							<td> bbs.mBoard 게시판가져오기 필요 </td>
-							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
-							<td> ${bbs.id} </td>
-							<td> ${bbs.co_reg_date} </td>							
-							<td> <a href="delmngcomment?comment_no=${bbs.comment_no}">삭제 </a></td>
-						</tr>		
-					</c:forEach>
-				</table>            
-        </div>
 							<td>1</td>
 							<td>자유</td>
 							<td style="text-align: left">나도 할래</td>
@@ -151,31 +140,18 @@
 							<td>2020.07.31</td>
 							<td><input type="button" value="삭제"/></td>
 						</tr>
-
-        
-        <div class="table">
-			 <table>
-					<tr> 
-						<th>no.</th> 
-						<th>게시판</th> 
-						<th>내용</th> 
-						<th>작성자</th> 
-						<th>등록일</th>
-						<th>삭제</th>
-					</tr>
-					<c:forEach items="${list}" var="bbs">
+					<c:forEach items="${list}" var="member">
 						<tr>
-							<td> ${bbs.comment_no} </td>
+							<td> ${member.comment_no} </td>
 							<td> bbs.mBoard 게시판가져오기 필요 </td>
-							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
-							<td> ${bbs.id} </td>
-							<td> ${bbs.co_reg_date} </td>							
-							<td> <a href="delmngcomment?comment_no=${bbs.comment_no}">삭제 </a></td>
+							<td> <a href="detail?board_no=${member.board_no}"> ${member.co_content} </a></td>
+							<td> ${member.id} </td>
+							<td> ${member.co_reg_date} </td>							
+							<td> <a href="delmngcomment?comment_no=${member.comment_no}">삭제 </a></td>
 						</tr>		
 					</c:forEach>
 				</table>            
-
-        	</div>
+        </div>
 
         </div>
       

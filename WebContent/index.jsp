@@ -48,17 +48,17 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="edu" onClick="location.href='boardList.jsp'">
+                    <a href="boardList.jsp?mboard_no=2" id="edu">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="secret" onClick="location.href='boardList.jsp'">
+                    <a href="boardList.jsp?mboard_no=3" id="secret">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="D130_lunch.jsp" id="lunch">
+                    <a href="D130_오늘점심.html" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>

@@ -35,29 +35,29 @@ crossorigin="anonymous"
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#" id="free" onClick="location.href='boardList.jsp'">
+                    <a href="boardList.jsp?mboard_no=1" id="free">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="edu" onClick="location.href='boardList.jsp'">
+                    <a href="boardList.jsp?mboard_no=2" id="edu">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="secret" onClick="location.href='boardList.jsp'">
+                    <a href="boardList.jsp?mboard_no=3" id="secret">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="lunch" onClick="location.href='boardList.jsp'">
+                    <a href="D130_오늘점심.html" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
