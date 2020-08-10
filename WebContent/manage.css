@@ -1,3 +1,6 @@
+table{
+	left : 300px;
+}
 
 table,tr,td{   
    border: 1px solid black;
@@ -50,4 +53,27 @@ tr,td{
 
 div{
     display: block;
+}
+
+th{
+	background : #e0e0e0;
+} 
+
+#contents .contents_table{
+	left : 300px;
+}
+
+.list-paging {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.list-paging > button {
+    padding: 0 15px;
+    font-size: 14px;
+    color: #d5d5d5;
+}
+
+.list-paging > button.on {
+    color: black;
 }
