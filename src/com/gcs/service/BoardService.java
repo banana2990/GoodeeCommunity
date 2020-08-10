@@ -74,31 +74,48 @@ public class BoardService  {
 */		
 	}
 
-	public void boardList() throws IOException {
+	public void boardList() throws IOException, ServletException {
 		String mboard_no = req.getParameter("mboard_no");
-		String page = req.getParameter("page");
-		int startPage =  (Integer.parseInt(page)*5)-4;
-		int endPage = Integer.parseInt(page)*5;
-		ArrayList<BoardDTO> list = null;
+
+		String pageParam = req.getParameter("curPage");
+		System.out.println("전달받은 curPage의 값 = "+pageParam);
+		int curPage = 1; // 첫 페이지 1 설정
+		int listCnt = 0;
 		
-		System.out.println(mboard_no+"/"+page);
+		if(pageParam != null) {
+			curPage = Integer.parseInt(pageParam);			
+		}
+		
+		int startPage =  (curPage)*5-4;
+		int endPage = (curPage)*5;
+		
+		ArrayList<BoardDTO> list = null;		
+		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
+		
 		BoardDAO dao = new BoardDAO();
 		
 		
 		
 		 try {
+			System.out.println(mboard_no);
+			listCnt = dao.listCnt(mboard_no); // 총 게시물의 갯수 출력?
+			System.out.println("총 게시글 수 = "+listCnt);
+			
 			list = dao.boardList(mboard_no, startPage, endPage); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			dao.resClose();
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("list", list);
-			Gson gson = new Gson();
-			String obj = gson.toJson(map);
-			System.out.println("jsp로 보내지는 success 값 : "+obj);
-			resp.setContentType("text/html; charset=UTF-8");
-			resp.getWriter().println(obj);
+			
+			Pagination page = new Pagination(listCnt, curPage);
+			
+			req.setAttribute("list", list);
+			req.setAttribute("page", page);
+			
+			RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");
+			dis.forward(req, resp);
+
 		}
 	}
 }
+
