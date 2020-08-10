@@ -143,7 +143,7 @@
 					<c:forEach items="${list}" var="member">
 						<tr>
 							<td> ${member.comment_no} </td>
-							<td> bbs.mBoard 게시판가져오기 필요 </td>
+							<td> ${member.mboard_no} </td>
 							<td> <a href="detail?board_no=${member.board_no}"> ${member.co_content} </a></td>
 							<td> ${member.id} </td>
 							<td> ${member.co_reg_date} </td>							
