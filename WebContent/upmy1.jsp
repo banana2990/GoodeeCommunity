@@ -10,12 +10,12 @@
 <body>
 	<div id="layer">
 	    <div class="pic">
-	        <a class="pic_1" href="#"><img class="pf" src="img/냥.jpg"  ></a>
+	        <a class="pic_1" href="#"><img class="pf" src="image/냥.jpg"  ></a>
 	    </div>
 	</div>
 	<div id="btn">
 	    <div class="imge">
-	        <a href="#"><img class="imge_1" src="img/냥.jpg"/></a>
+	        <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
 	        <div class="nic">나는 ui 전문가</div>
 	    </div>
 	    <div class="alert">

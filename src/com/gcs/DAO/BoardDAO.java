@@ -13,16 +13,6 @@ import javax.sql.DataSource;
 
 import com.gcs.DTO.BoardDTO;
 
-
-
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
-
-
 public class BoardDAO {
 	
 	Connection conn = null;
@@ -51,7 +41,7 @@ public class BoardDAO {
 
 
 	public ArrayList<BoardDTO> commentlist() {
-
+		return null;
 	}
 
 	public ArrayList<BoardDTO> list() {
@@ -153,9 +143,11 @@ public class BoardDAO {
 		
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
-		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname " + 
-				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit FROM board WHERE mboard_no=?) r, mboard m " + 
-				"WHERE r.mboard_no = m.mboard_no AND rnum BETWEEN ? AND ?";
+
+		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname " + 
+				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname " + 
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname " + 
+				"FROM board b, member m WHERE m.id = b.id) WHERE mboard_no=?) r, mboard m WHERE r.mboard_no = m.mboard_no AND rnum BETWEEN ? AND ?";
 
 		
 		ps = conn.prepareStatement(sql);
@@ -173,13 +165,27 @@ public class BoardDAO {
 			dto.setBo_subject(rs.getString("bo_subject"));
 			dto.setBo_content(rs.getString("bo_content"));
 			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
-			dto.setBo_bHit(rs.getInt("bo_bhit"));
-			dto.setBoardname(rs.getString("boardname"));
-			
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
+			dto.setBoardname(rs.getString("boardName"));
+			dto.setNickName(rs.getString("nickName"));		
 			list.add(dto);
 		}
 		
 		System.out.println(list);
-		return list;
+		return list;	}
+
+	public int listCnt(String mboard_no) throws SQLException {
+		String sql = "SELECT COUNT(*) AS num FROM board WHERE mboard_no=?";
+		int cnt = 0;
+
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, mboard_no);
+		
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			cnt = rs.getInt("num");
 		}
+		
+		return cnt;
+	}
 }
