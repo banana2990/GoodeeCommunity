@@ -41,12 +41,12 @@
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="mngboard" id="mngboard">
+                    <a href="mngboard.jsp" id="mngboard">
                         <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="mngcomment">
+                    <a href="mngcomment" id="mngcomment">
                         <span>댓글 관리</span>
                     </a>
                 </li>
@@ -71,8 +71,48 @@
                 </div>
             </div>
         </nav>
-        <div id="contents">
-        </div>
+       <div id="contents">
+            <div class="section-top">
+                <div class="img-swipe">
+                    <!-- 이미지 필요!!! -->
+                    	메인 이미지 영역입니다.
+                </div>
+                <div class="helplist">
+                		문의사항 목록 영역입니다.
+                </div>
+            </div>
+
+            <div class="section-bot">
+                <div class="board-swipe">
+                    <ul>
+                        <li>
+                            <button class="key-color">전체 게시판</button>
+                        </li>
+                        <li>
+                            <button>공지사항</button>
+                        </li>
+                        <li>
+                            <button>인기 글</button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="list-box">
+                    <!-- 게시글 영역 -->
+                    게시글 영역입니다.<br>
+                    ul
+                     li ....
+                    <div class="list-paging">
+                      <button id="1" class="on">1</button>
+                      <button id="2">2</button>
+                      <button id="3">3</button>
+                      <button id="4">4</button>
+                      <button id="5">5</button>
+                      <button id="next">next</button>
+                    </div>
+                </div>
+            </div>
+        </div>  
+    </div>
         
 	</body>
 	
