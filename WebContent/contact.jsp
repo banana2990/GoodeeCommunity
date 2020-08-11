@@ -117,7 +117,8 @@
                             <td></td>
                             <td></td>
                         </tr>
-                       <c:forEach items="${contact}" var="member">
+                        
+<%--                        <c:forEach items="${contact}" var="member">
 						<tr>
 							<td> ${member.contact_no} </td>
 							<td> ${member.writer} </td>
@@ -127,7 +128,7 @@
 							<td> ${member.c_status} </td>
 						</tr>		
 					</c:forEach>
-                        
+                         --%>
                     </table>
                 </div>
             <div class="section-bot">
