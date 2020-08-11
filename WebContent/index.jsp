@@ -58,7 +58,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     </a>
                 </li>
                 <li>
-                    <a href="D130_lunch.jsp" id="lunch">
+                    <a href="D130_오늘점심.html" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
