@@ -123,7 +123,7 @@ public class MemberDAO {
 		int success = ps.executeUpdate();
 		
 		return success;	
-<<<<<<< HEAD
+
 		
 	}
 
@@ -206,10 +206,8 @@ public class MemberDAO {
 		
 		return list;
 	}
-				
-=======
 
-	}	
->>>>>>> 16616679d617e1e5a89f4e482e0bb4bae5ba005a
 
-}
+}	
+
+

@@ -36,7 +36,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
@@ -161,6 +161,12 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
 </body>
 <script>
 
+var writeMsg = "${writeMsg}";
+if(writeMsg != ""){
+	alert(writeMsg);
+	location.href = "login.jsp";
+}
+
 var loginId = "${sessionScope.id}";
 // 세션에 저장된 경우 로그인버튼을 비활성화하기
 console.log(loginId);
@@ -175,6 +181,13 @@ if(loginId==""){
 }
 */
 
+function write(){
+	if("${sessionScope.id}" == null ){
+		alert("로그인이 필요합니다.")
+	}else{
+		location.href="write.jsp";
+	}
+}
 
 </script>
 </html>

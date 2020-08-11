@@ -253,7 +253,6 @@ public class MemberService {
 			resp.getWriter().println(obj);
 		}
 	}
-<<<<<<< HEAD
 
 	//관리자 - 회원리스트
 	public void list() throws IOException {
@@ -308,7 +307,4 @@ public class MemberService {
 		
 	}
 
-	
-=======
->>>>>>> 16616679d617e1e5a89f4e482e0bb4bae5ba005a
 }
