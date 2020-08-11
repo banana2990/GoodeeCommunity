@@ -147,14 +147,14 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
         <div class="helpIcon__input">
-            <form action="#">
+            <form action="contactWrite" method="post">
             <br><br>
-            <input type="text" placeholder="   작성자"> 
-            <input type="text" placeholder="   제목">
-            <input type="text" placeholder="   이메일">
-            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <input type="text" name="writer" placeholder="   작성자"> 
+            <input type="text" name="subject" placeholder="   제목">
+            <input type="text" name="c_email" placeholder="   이메일">
+            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
             <br><br>
-            <button>보내기</button>
+            <button id="ct_send">보내기</button>
             </form>
         </div>
     </div>
@@ -174,6 +174,38 @@ if(loginId==""){
     loginbtn.style({"display":"hide"});
 }
 */
+
+$("#ct_send").click(function(){
+	
+	var $writer = $("input[name='writer']");
+	var $subject = $("input[name='writer']");
+	var $c_email = $("input[name='writer']");
+	var $content = $("input[name='writer']");
+	
+	
+	var parma = {};
+	
+	param.writer = $("input[name='writer']").val();
+	param.subject = $("input[name='subject']").val();
+	param.c_email = $("input[name='c_email']").val();
+	param.content = $("input[name='content']").val();
+	
+	
+	$.ajax({
+        type: "post",
+        url: "ctwrite",
+        data: param,
+        dataType: "JSON",
+        success: function(data){
+        	
+        },
+        error: function(error){
+           console.log(error);
+        }
+     });
+	
+})
+
 
 
 </script>

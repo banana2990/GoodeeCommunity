@@ -18,7 +18,7 @@ public class ContactDAO {
 	PreparedStatement ps = null;
 	ResultSet rs = null;
 	
-	public void BoardDAO() {
+	public ContactDAO() {
 		try {
 			Context ctx = new InitialContext();
 			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle");
@@ -62,5 +62,33 @@ public class ContactDAO {
 			resClose();
 		}
 		return contact;
+	}
+	
+	public boolean ctwrite(String writer, String subject, String c_email, String content) {
+		String sql = "INSERT INTO contact (contact_no,writer,subject,content,c_email,c_status) VALUES (seq_contact.NEXTVAL,?,?,?,?,0)";
+		boolean result = false;
+		try {
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, writer);
+			ps.setString(2, subject);
+			ps.setString(3, content);
+			ps.setString(4, c_email);
+
+			
+			int success = ps.executeUpdate();
+			System.out.println(success);
+			if(success>0) {
+				result = true;
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;	
 	}
 }
