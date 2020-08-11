@@ -39,7 +39,7 @@ public class ReplyController extends HttpServlet {
 		switch(reqAddr) {
 		
 		case "/reply":
-			ReplyService.reply();
+			
 			System.out.println("댓글쓰기");
 			break;
 		

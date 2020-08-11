@@ -11,6 +11,8 @@
 		</c:otherwise>
 
 	</c:choose>
+
+	</c:choose>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +23,7 @@
 <script
 src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 </script>
+
 <title>구디 커뮤니티</title>
 </head>
 <body>
@@ -44,7 +47,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </form>
             </div>	
             
-            <button class="write" onclick="write()">
+            <button class="write">
                 글쓰기
             </button>
     
@@ -100,10 +103,10 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 				                       <textarea name="content" class="textarea"></textarea>
 				                </div>  
 				                <div class="btn-box">					
-					                <button class="cancle" onclick="cancle()">취소</button>					
-					                <button class="register">등록</button>                		
-            					</div>                             
-                            </form>
+					                <button class="register">등록</button>	           							                  
+					                <input type="button" class="cancle" onclick="cancle()" value="취소">             		
+            					</div> 
+            				</form>                                                     
                     </div>                    
             </div>             
         </div>                       
@@ -119,22 +122,22 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	
 	function cancle(){
 		if(confirm("글 작성을 취소하시겠습니까 ?") == true){
-			history.back();
-		}else{
+			window.history.back();
+		} else{
 			return;
 		}
 	}
 		
 	var msg = "${msg}";
-	
 	if(msg == "글이 작성되었습니다."){
 		alert(msg);
 		history.go(-2);
 	}
 	
 	if(msg == "글 작성에 실패했습니다."){
-		alert(msg);
+			alert(msg);
 	}
+
 	
 </script>
 </html>
