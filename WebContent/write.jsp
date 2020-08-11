@@ -7,12 +7,11 @@
 			<jsp:forward page="/login.jsp"/>
 		</c:when>
 		<c:otherwise>
-			<jsp:forward page="/index"/>
+			<jsp:forward page="/index.jsp"/>
 		</c:otherwise>
 
 	</c:choose>
 
-	</c:choose>
 <!DOCTYPE html>
 <html>
 <head>

@@ -111,6 +111,8 @@ public class BoardService  {
 		System.out.println(mboard_no+"/"+curPage);
 	
 		ArrayList<BoardDTO> list = null;		
+		ArrayList<BoardDTO> blikeCnt = null;	
+		ArrayList<BoardDTO> commentCnt = null;	
 		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
 		
 		BoardDAO dao = new BoardDAO();
@@ -118,6 +120,10 @@ public class BoardService  {
 			 
 			listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
 			list = dao.boardList(mboard_no, startPage, endPage); 
+			blikeCnt = dao.blikeCnt(list);
+			commentCnt = dao.commentCnt(list);
+			
+			dao.commentCnt(list);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -127,6 +133,8 @@ public class BoardService  {
 			Pagination page = new Pagination(listCnt, curPage);
 			
 			req.setAttribute("list", list);
+			req.setAttribute("blikeCnt", blikeCnt);
+			req.setAttribute("commentCnt", commentCnt);
 			req.setAttribute("page", page);
 			
 			RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");

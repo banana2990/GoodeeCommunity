@@ -42,23 +42,23 @@ crossorigin="anonymous"
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="mngboard.jsp" id="mngboard">
-                        <span>게시글 관리</span>
+                    <a href="boardList?mboard_no=1" id="free" >
+                        <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="mngcomment" id="mngcomment">
-                        <span>댓글 관리</span>
+                    <a href="boardList?mboard_no=2" id="edu">
+                        <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="membermanagement.jsp" id="mngmember">
-                        <span>회원 관리</span>
+                    <a href="boardList?mboard_no=3" id="secret">
+                        <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="ask">
-                        <span>문의사항 내역</span>
+                    <a href="D130_오늘점심.html" id="lunch">
+                        <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
@@ -101,7 +101,7 @@ crossorigin="anonymous"
                 </div>
 		
                 <div class="list-box">
-                	<c:forEach items="${list }" var="bbs">
+                	<c:forEach items="${list }" var="bbs" varStatus="status">
 	                	<ul>              	
 							<li>
 								<a href="boardDetail?board_no=${bbs.board_no}">
@@ -120,8 +120,8 @@ crossorigin="anonymous"
 										<dd>
 											<span class="date">${bbs.bo_reg_date }</span>
 											<span class="count-read">${bbs.bo_bHit }</span>
-											<span class="count-likes">${bbs.blike_cnt }</span>
-											<span class="count-comment">${bbs.commentCnt }</span>
+											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
+											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
 										</dd>
 									</dl>
 								</a>
