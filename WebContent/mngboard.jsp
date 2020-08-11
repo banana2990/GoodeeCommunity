@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="ask">
+                    <a href="contact.jsp" id="ask">
                         <span>문의사항 내역</span>
                     </a>
                 </li>

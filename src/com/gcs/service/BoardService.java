@@ -96,6 +96,7 @@ public class BoardService  {
 		String mboard_no = req.getParameter("mboard_no");
 
 		String pageParam = req.getParameter("curPage");
+		
 		System.out.println("전달받은 curPage의 값 = "+pageParam);
 		int curPage = 1; // 첫 페이지 1 설정
 		int listCnt = 0;

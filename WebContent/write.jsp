@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 	<c:choose>	
 		<c:when test="${sessionScope.id eq null}">
 			<jsp:forward page="/login.jsp"/>
 		</c:when>
 	</c:choose>
-	
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -107,6 +108,13 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 </body>
 <script>
 
+
+	var loginId = "${sessionScope.id}";
+	if(loginId == null){
+		alert("로그인이 필요합니다. 로그인 페이지로 이동하시겠습니까? ");
+		location.href("login.jsp");
+	}
+	
 	function cancle(){
 		if(confirm("글 작성을 취소하시겠습니까 ?") == true){
 			window.history.back();
