@@ -96,6 +96,7 @@ public class BoardService  {
 		String mboard_no = req.getParameter("mboard_no");
 
 		String pageParam = req.getParameter("curPage");
+		
 		System.out.println("전달받은 curPage의 값 = "+pageParam);
 		int curPage = 1; // 첫 페이지 1 설정
 		int listCnt = 0;
@@ -106,7 +107,7 @@ public class BoardService  {
 		int startPage =  (curPage)*5-4;
 		int endPage = (curPage)*5;
 		
-		System.out.println(mboard_no+"/"+page);
+		System.out.println(mboard_no+"/"+curPage);
 	
 		ArrayList<BoardDTO> list = null;		
 		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
