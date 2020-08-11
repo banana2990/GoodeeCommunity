@@ -106,7 +106,7 @@ public class BoardService  {
 		int startPage =  (curPage)*5-4;
 		int endPage = (curPage)*5;
 		
-		System.out.println(mboard_no+"/"+page);
+		System.out.println(mboard_no+"/"+curPage);
 	
 		ArrayList<BoardDTO> list = null;		
 		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);

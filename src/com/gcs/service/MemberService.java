@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.MemberDAO;
+import com.gcs.DTO.PhotoDTO;
 import com.google.gson.Gson;
 
 public class MemberService {
@@ -248,5 +249,19 @@ public class MemberService {
 			resp.setContentType("text/html; charset=UTF-8");
 			resp.getWriter().println(obj);
 		}
+	}
+
+	public void upload(String id) {
+		
+		MemberDAO dao = new MemberDAO();
+		try {
+			PhotoService pservice = new PhotoService(req);
+			PhotoDTO pdto = pservice.upload();
+			dao.pupload(pdto);
+		} catch (SQLException e) {
+		
+			e.printStackTrace();
+		}
+		
 	}
 }

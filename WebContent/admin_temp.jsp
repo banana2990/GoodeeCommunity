@@ -68,6 +68,7 @@
                         <div class="profile-img"></div>
                     </button>
                     <button class="login" onclick="location.href='login.jsp'">로그인</button>
+                    <button onclick="location.href='photo_test.jsp'">포토임시확인용</button>
                 </div>
             </div>
         </nav>

@@ -9,6 +9,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import com.gcs.DTO.PhotoDTO;
+
 public class MemberDAO {
 	
 	Connection con = null;
@@ -87,9 +89,24 @@ public class MemberDAO {
 		ps.setString(5,email);
 		ps.setString(6, emailChk);
 		int result = ps.executeUpdate();
+		/* => 가입시에 바로 기본 이미지를 한다고 하면!
+		long pk = 0;
+		rs = ps.getGeneratedKeys();
+		if(rs.next()) {
+			pk = rs.getLong(1);
+			System.out.println("id: "+id);
+			if(dto.getOriFileName()!=null) { // photo 테이블에 데이터 추가
+				sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (seq_photo.NEXTVAL, ?,?,?)";
+				ps = con.prepareStatement(sql);
+				ps.setLong(1, id);
+				ps.setString(2, dto.getOriName());
+				ps.setString(3, dto.getNewName());
+				ps.executeUpdate();
+		*/
 		if(result>0) {
 			success=true;
-		}		
+		}
+		resClose();
 		return success;	
 	}
 
@@ -105,6 +122,7 @@ public class MemberDAO {
 		}else {
 			id="";
 		}
+		resClose();
 		return id;	
 	}
 
@@ -112,12 +130,26 @@ public class MemberDAO {
 		String sql = "UPDATE member SET pw=? WHERE u_email=?";
 		ps = con.prepareStatement(sql);
 		ps.setInt(1, dice);
-		ps.setString(2, email);
-		
+		ps.setString(2, email);		
 		int success = ps.executeUpdate();
-		
 		return success;	
 
+	}
+
+	public void pupload(PhotoDTO pdto) throws SQLException {
+		String sql ="";
+		String id = pdto.getId();
+		System.out.println("ID: "+id);
+		if(pdto.getOriName()!=null) { // photo 테이블에 데이터 추가
+			sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (photo_seq.NEXTVAL, ?,?,?)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, pdto.getOriName());
+			ps.setString(3, pdto.getNewName());
+			ps.executeUpdate();
+		}
+		resClose();
+		
 	}	
 
 }

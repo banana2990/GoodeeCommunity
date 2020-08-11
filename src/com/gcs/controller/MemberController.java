@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gcs.DTO.PhotoDTO;
 import com.gcs.service.MemberService;
+import com.gcs.service.PhotoService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -93,6 +95,17 @@ public class MemberController extends HttpServlet {
 					System.out.println("이메일로 비번찾기");
 					service.findpw();
 					break;
+					
+				case "/photoUp":
+					id = req.getParameter("id");					
+					service.upload(id);							
+					break;
+					
+				/*
+				case "/photoDel":
+					 id = req.getParameter("id");					 
+					break;
+				*/	
 			}
 	}
 }
