@@ -10,7 +10,6 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import com.gcs.DTO.PhotoDTO;
 import com.gcs.DTO.MemberDTO;
 
 public class MemberDAO {	
@@ -170,16 +169,16 @@ public class MemberDAO {
 		return result;
 	}
 
-	public void pupload(PhotoDTO pdto) throws SQLException {
+	public void pupload(MemberDTO dto) throws SQLException {
 		String sql ="";
-		String id = pdto.getId();
+		String id = dto.getId();
 		System.out.println("ID: "+id);
-		if(pdto.getOriName()!=null) { // photo 테이블에 데이터 추가
+		if(dto.getOriName()!=null) { // photo 테이블에 데이터 추가
 			sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (photo_seq.NEXTVAL, ?,?,?)";
 			ps = con.prepareStatement(sql);
 			ps.setString(1, id);
-			ps.setString(2, pdto.getOriName());
-			ps.setString(3, pdto.getNewName());
+			ps.setString(2, dto.getOriName());
+			ps.setString(3, dto.getNewName());
 			ps.executeUpdate();
 		}
 		resClose();

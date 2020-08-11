@@ -18,7 +18,7 @@
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="admin_temp.jsp">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>관리자 페이지</h1>
                 </a>
@@ -34,7 +34,7 @@
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
@@ -46,12 +46,12 @@
                     </a>
                 </li>
                 <li>
-                    <a href="mngcomment.jsp" id="mngcomment">
+                    <a href="mngcomment" id="mngcomment">
                         <span>댓글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="mngmember">
+                    <a href="membermanagement.jsp" id="mngmember">
                         <span>회원 관리</span>
                     </a>
                 </li>

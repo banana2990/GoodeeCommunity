@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,29 +35,29 @@ crossorigin="anonymous"
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp?mboard_no=1">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp?mboard_no=2">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList.jsp?mboard_no=3">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="D130_오늘점심.html">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -132,9 +133,12 @@ crossorigin="anonymous"
                                         </dl>
                                         <div class="txt.box1">
                                             <p>야 이거 겁나 어렵네......</p>
-                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-                                            <button class="btn-coment-reply">답글</button><button class="btn-coment-reply">취소</button>
-                                        </div>
+                                            <form action='recomment?comment_no=2' method="post">    
+                                            <!-- 댓글 불러온 거에서 comment_no는 불러오기 // ajax로 가야하려나...? 아니면 보드 넘버로! 이후 페이지 새로 고침 하면 됨-->                     
+                                            <input type="text" name="recomment" class = "reply-inputbox" style="width : 750px">
+                                            <button type="submit" class="btn-coment-reply">답글</button><button class="btn-coment-reply">취소</button>
+                                       		</form>
+                                       	</div>
                                         <div class="util">
                                             <button type="button" class="btn-like reply-likes">
                                                 <span class="like-count-reply">1</span>

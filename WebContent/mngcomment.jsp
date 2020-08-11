@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="mngmember">
+                    <a href="membermanagement.jsp" id="mngmember">
                         <span>회원 관리</span>
                     </a>
                 </li>

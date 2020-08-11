@@ -18,7 +18,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.MemberDAO;
-import com.gcs.DTO.PhotoDTO;
 import com.gcs.DTO.MemberDTO;
 
 import com.google.gson.Gson;
@@ -93,6 +92,7 @@ public class MemberService {
 		boolean success = false;
 		
 		MemberDAO dao = new MemberDAO();
+		MemberDTO dto = dao.join1(dto);
 		try {
 			success = dao.join(id,pw,name,nickName,email,emailChk);
 		} catch (SQLException e) {
@@ -105,7 +105,8 @@ public class MemberService {
 			String obj = gson.toJson(map);
 			System.out.println("result:"+obj);
 			resp.getWriter().println(obj);
-		}		
+		}	
+		
 	}
 
 	public void findid(String email) throws IOException {
@@ -260,8 +261,8 @@ public class MemberService {
 		MemberDAO dao = new MemberDAO();
 		try {
 			PhotoService pservice = new PhotoService(req);
-			PhotoDTO pdto = pservice.upload();
-			dao.pupload(pdto);
+			MemberDTO dto = pservice.upload();
+			dao.pupload(dto);
 		} catch (SQLException e) {
 		
 			e.printStackTrace();

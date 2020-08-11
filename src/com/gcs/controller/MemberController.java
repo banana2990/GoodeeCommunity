@@ -1,9 +1,6 @@
 package com.gcs.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Properties;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,12 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gcs.DTO.PhotoDTO;
-import com.gcs.DTO.MemberDTO;
 import com.gcs.service.MemberService;
-import com.gcs.service.PhotoService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout"})
 
 public class MemberController extends HttpServlet {
 

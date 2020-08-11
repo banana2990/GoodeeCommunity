@@ -9,8 +9,8 @@
 		<c:otherwise>
 			<jsp:forward page="/index"/>
 		</c:otherwise>
-	</c:choose>
 
+	</c:choose>
 <!DOCTYPE html>
 <html>
 <head>

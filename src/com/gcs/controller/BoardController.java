@@ -1,6 +1,7 @@
 package com.gcs.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;;
 
-@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment"})
+@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/recomment"})
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -62,6 +63,13 @@ public class BoardController extends HttpServlet {
 			boardService.delmngcomment();
 			break;
 
+		case "/recomment":				
+			try {
+				boardService.recomment();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;			
 		}
 	}
 }

@@ -172,4 +172,24 @@ public class BoardDAO {
 		return cnt;
 	}
 
+	public void recomment(String comment_no, String id, String reco_content){
+		String sql ="INSERT INTO recomment (recomment_no, comment_no, id, reco_content) VALUES (SEQ_RECOMMENT.nextval, ?, ?, ?)";
+		boolean success = false;
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, comment_no);
+			ps.setString(2, id);
+			ps.setString(3, reco_content);
+			if(ps.executeUpdate()>0) {
+				success = true;
+			}
+			System.out.println(success);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {resClose();}	
+		
+	}
+
 }

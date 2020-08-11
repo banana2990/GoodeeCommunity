@@ -5,8 +5,9 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.gcs.DTO.PhotoDTO;
+import com.gcs.DTO.MemberDTO;
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class PhotoService {
 
@@ -17,17 +18,17 @@ public class PhotoService {
 	}
 	
 	// 파일 업로드 수행
-	public PhotoDTO upload() {
+	public MemberDTO upload() {
 		// 저장경로 설정
 		String savePath = "C:/upload/gcsmember";
 		// 용량제한 
 		int maxSize = 10*1024*1024;
 		String oriFileName = "";
 		String newFileName = "";
-		PhotoDTO dto = new PhotoDTO();
+		MemberDTO dto = new MemberDTO();
 		
 		try {
-			MultipartRequest multi = new MultipartRequest(req, savePath, maxSize,"UTF-8"); // 파일 저장
+			MultipartRequest multi = new MultipartRequest(req, savePath, maxSize,"UTF-8",new DefaultFileRenamePolicy()); // 파일 저장
 			// 파일명 변경
 			
 			dto.setId(multi.getParameter("id"));

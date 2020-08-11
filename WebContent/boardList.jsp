@@ -42,23 +42,23 @@ crossorigin="anonymous"
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList?mboard_no=1" id="free">
-                        <span>자유 게시판</span>
+                    <a href="mngboard.jsp" id="mngboard">
+                        <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=2" id="edu">
-                        <span>학습 게시판</span>
+                    <a href="mngcomment" id="mngcomment">
+                        <span>댓글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=3" id="secret">
-                        <span>익명 게시판</span>
+                    <a href="membermanagement.jsp" id="mngmember">
+                        <span>회원 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
-                        <span>오늘 점심 뭐먹지?</span>
+                    <a href="#" id="ask">
+                        <span>문의사항 내역</span>
                     </a>
                 </li>
             </ul>

@@ -35,30 +35,30 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
-                <h2>전체 게시판</h2>
+                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#">
-                        <span>자유 게시판</span>
+                    <a href="mngboard.jsp" id="mngboard">
+                        <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span>학습 게시판</span>
+                    <a href="mngcomment.jsp" id="mngcomment">
+                        <span>댓글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span>익명 게시판</span>
+                    <a href="membermanagement.jsp" id="mngmember">
+                        <span>회원 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span>오늘 점심 뭐먹지?</span>
+                    <a href="contact.jsp" id="ask">
+                        <span>문의사항 내역</span>
                     </a>
                 </li>
             </ul>
@@ -159,7 +159,7 @@ function del(){
 		dataType:"JSON",
 		success:function(result){
 			if(result.del){
-				alert("게시물 삭제에 성공 했습니다.");
+				alert("회원 삭제에 성공 했습니다.");
 			}
 			listCall();
 		},

@@ -1,6 +1,7 @@
 package com.gcs.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -133,6 +134,17 @@ public class BoardService  {
 			dis.forward(req, resp);
 		}
 
+	}
+
+	public void recomment() throws UnsupportedEncodingException, SQLException {
+		req.setCharacterEncoding("UTF-8");
+		String comment_no = req.getParameter("comment_no");
+		String reco_content = req.getParameter("recomment");	
+		String id =(String) req.getSession().getAttribute("id");
+		System.out.println(comment_no+ reco_content+ id);
+		BoardDAO dao = new BoardDAO();
+		dao.recomment(comment_no, id, reco_content);
+		
 	}
 
 }
