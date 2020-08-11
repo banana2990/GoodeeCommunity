@@ -48,13 +48,12 @@ public class BoardController extends HttpServlet {
 			System.out.println(mBoard_no);
 			boardService.boardlist(mBoard_no);
 			break;
-			/*
+		
 		case "/mngcomment": // 관리자 댓글 전체 목록
 			System.out.println("댓글 목록 호출");
 			boardService.comread();			
 			break;
 
-			 */
 
 		case "/deletecom":
 			break;

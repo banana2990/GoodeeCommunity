@@ -13,7 +13,7 @@
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 		<title>관리자 카테고리별 댓글 가져오기</title>
 		<style>
-				table, th, td {
+				table, th, td,tr {
 					border: 1px solid olive;
 					border-collapse : collapse;
 					padding : 5px 10px;		
