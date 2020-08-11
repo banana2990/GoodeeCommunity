@@ -1,6 +1,7 @@
 package com.gcs.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -10,9 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gcs.DTO.MemberDTO;
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/m_memberlist","/memberDel"})
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -92,6 +94,15 @@ public class MemberController extends HttpServlet {
 				case "/findpw":
 					System.out.println("이메일로 비번찾기");
 					service.findpw();
+					break;
+					
+				case "/m_memberlist":
+					System.out.println("회원리스트");
+					service.list();
+					break;
+					
+				case "/memberDel":
+					service.delete();
 					break;
 			}
 	}

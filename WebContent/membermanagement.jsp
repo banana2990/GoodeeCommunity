@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -7,6 +11,7 @@
 <script
 src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 </script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>구디 커뮤니티</title>
 </head>
 <body>
@@ -14,7 +19,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="#">
+                <a href="admin_temp.jsp">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
@@ -30,7 +35,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" location.href="#">
                 글쓰기
             </button>
     
@@ -72,26 +77,18 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         <div id="contents">
             <div class="mtitle"><h1>회원 관리</h1></div>            
             <div class="section-top2">
-                    <table class="Member_manage">
-                        <tr style="background-color: rgb(138, 190, 59)">
-                            <th>no.</th>
-                            <th>회원ID</th>
-                            <th>이름</th>
-                            <th class="nickName">닉네임</th>
-                            <th>이메일</th>
-                            <th>선택</th>
-                        </tr>
-
-					<c:forEach items="${member}" var="member">
-                        <tr>
-                            <td>1</td>
-                            <td><a href="memberInfo?id=${member.id}" target="_blank">${member.id}</a></td>
-                            <td>${member.name}</td>
-                            <td>${member.nickname}</td>
-                            <td>${member.u_email}</td>
-                            <td><input type="checkbox" value="s1" name="ckbox"></td>                
-                        </tr>
-              		</c:forEach>
+                    <table class="member_manage">
+                    	<thead>
+	                        <tr style="background-color: rgb(138, 190, 59)">
+	                            <th>회원ID</th>
+	                            <th>이름</th>
+	                            <th class="nickName">닉네임</th>
+	                            <th>이메일</th>
+	                            <th>선택</th>
+	                        </tr>
+                        </thead>
+						<tbody>
+              			</tbody>
                     </table>
             </div>            
             <div class="list-paging">
@@ -101,14 +98,77 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 <button id="4">4</button>
                 <button id="5">5</button>
                 <button id="next">next</button>
-                <button class="delete">삭제</button>
+                <button class="delete" onclick="del()">삭제</button>
               </div>
         </div>
-    </div>
-           
+	</div>   
             
 </body>
 <script>
 
+
+
+function listCall(){
+	$.ajax({
+		type:"post",
+		url:"m_memberlist",
+		data:{},
+		dataType:"JSON",
+		success:function(data){
+			console.log(data);
+			if(!data.login){
+				alert("로그인이 필요한 서비스 입니다.");
+				location.href="login.jsp";
+			}else{
+				console.log("데이터 불러와졌나요?"+data);
+				drawTalbe(data.list);
+			}
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+function drawTalbe(list){
+	var content = "";
+	$("tbody").empty();
+	list.forEach(function(item,num){
+		console.log(num,item);
+		content = "<tr><td><a href='m_memberlist?id="+item.id+"'>"+item.id+"</a></td>"
+		+"<td>"+item.name+"</td>"
+		+"<td>"+item.nickName+"</td>"
+		+"<td>"+item.u_email+"</td>"
+		+"<td><input type='checkbox' value='"+item.id+"'/></td></tr>";
+		$("tbody").append(content);
+	});	
+}
+
+function del(){
+	var checkArr = [];
+	$("input[type='checkbox']:checked").each(function(id,item){
+		//console.log(idx,$(this).val());
+		checkArr.push($(this).val())
+	});
+	console.log(checkArr);
+	
+	$.ajax({
+		type:"get",
+		url:"memberDel",
+		data:{"delList":checkArr},
+		dataType:"JSON",
+		success:function(result){
+			if(result.del){
+				alert("게시물 삭제에 성공 했습니다.");
+			}
+			listCall();
+		},
+		error:function(e){
+			console.log(e);
+		}
+	});
+}
+
+listCall();
 </script>
 </html>
