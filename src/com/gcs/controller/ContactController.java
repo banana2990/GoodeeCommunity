@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.ContactService;
 
-@WebServlet("/contact")
+@WebServlet({"/contact","/contactWrite"})
 public class ContactController extends HttpServlet {
 
 	@Override
@@ -30,13 +30,17 @@ public class ContactController extends HttpServlet {
 		
 		ContactService contactService = new ContactService(req, resp);
 		
-		
 		switch(reqAddr) {
 		
 			case "/contact":
 				System.out.println("목록 불러오기");
 				contactService.contact();
 				break;
+				
+			case "/contactWrite":
+				System.out.println("문의사항 작성");
+				contactService.ctwrite();
+				
 		}
 	}
 }

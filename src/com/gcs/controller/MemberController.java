@@ -1,6 +1,7 @@
 package com.gcs.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import javax.servlet.RequestDispatcher;
@@ -11,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DTO.PhotoDTO;
+import com.gcs.DTO.MemberDTO;
 import com.gcs.service.MemberService;
 import com.gcs.service.PhotoService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel"})
+
 public class MemberController extends HttpServlet {
 
 	@Override
@@ -95,7 +98,7 @@ public class MemberController extends HttpServlet {
 					System.out.println("이메일로 비번찾기");
 					service.findpw();
 					break;
-					
+
 				case "/photoUp":
 					id = req.getParameter("id");					
 					service.upload(id);							
@@ -106,6 +109,14 @@ public class MemberController extends HttpServlet {
 					 id = req.getParameter("id");					 
 					break;
 				*/	
+				case "/m_memberlist":
+					System.out.println("회원리스트");
+					service.list();
+					break;
+					
+				case "/memberDel":
+					service.delete();
+					break;
 			}
 	}
 }

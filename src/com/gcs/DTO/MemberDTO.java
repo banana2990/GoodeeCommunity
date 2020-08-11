@@ -10,7 +10,6 @@ public class MemberDTO {
 	private int photo_no;
 	private String oriName;
 	private String newName;
-	
 	public String getId() {
 		return id;
 	}
@@ -65,5 +64,5 @@ public class MemberDTO {
 	public void setNewName(String newName) {
 		this.newName = newName;
 	}
-	
+
 }
