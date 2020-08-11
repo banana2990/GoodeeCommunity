@@ -140,9 +140,9 @@ public class BoardDAO {
 		ps.setInt(3, endPage);
 		
 		rs = ps.executeQuery();
+		BoardDTO dto = new BoardDTO();
 		
-		while(rs.next()) {
-			BoardDTO dto = new BoardDTO();
+		while(rs.next()) {			
 			dto.setBoard_no(rs.getInt("board_no"));
 			dto.setMboard_no(rs.getInt("mboard_no"));
 			dto.setId(rs.getString("id"));
@@ -151,13 +151,48 @@ public class BoardDAO {
 			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
 			dto.setBo_bHit(rs.getInt("bo_bHit"));
 			dto.setBoardname(rs.getString("boardName"));
-			dto.setNickName(rs.getString("nickName"));		
+			dto.setNickName(rs.getString("nickName"));	
+			
 			list.add(dto);
 		}
 		
+		dto = new BoardDTO();
 		
-		System.out.println(list);
-		return list;	}
+		// 좋아요
+		for (int i = 0; i < 5; i++) {
+			
+			sql = "SELECT COUNT(board_no) FROM blike WHERE board_no=?";
+
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, list.get(0).getBoard_no());
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					dto.setBlike_cnt(rs.getString("COUNT(board_no)"));
+					list.add(i, dto);
+					ps.close();
+				}
+				
+		}
+		
+		dto = new BoardDTO();
+		
+		// 댓글
+		for (int i = 0; i < 5; i++) {
+			sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
+			ps = conn.prepareStatement(sql);
+			ps.setInt(1, list.get(0).getBoard_no());
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				dto.setCommentCnt(rs.getString("COUNT(*)"));
+				list.add(i, dto);
+				ps.close();
+			}
+		}
+		
+		return list;	
+	}
 
 	public int listCnt(String mboard_no) throws SQLException {
 		String sql = "SELECT COUNT(*) AS num FROM board WHERE mboard_no=?";

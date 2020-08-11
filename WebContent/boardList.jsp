@@ -120,8 +120,8 @@ crossorigin="anonymous"
 										<dd>
 											<span class="date">${bbs.bo_reg_date }</span>
 											<span class="count-read">${bbs.bo_bHit }</span>
-											<span class="count-likes">미구현</span>
-											<span class="count-comment">미구현</span>
+											<span class="count-likes">${bbs.blike_cnt }</span>
+											<span class="count-comment">${bbs.commentCnt }</span>
 										</dd>
 									</dl>
 								</a>

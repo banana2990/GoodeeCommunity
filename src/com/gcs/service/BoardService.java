@@ -114,11 +114,10 @@ public class BoardService  {
 		
 		BoardDAO dao = new BoardDAO();
 		 try {
-			System.out.println(mboard_no);
-			listCnt = dao.listCnt(mboard_no); // 총 게시물의 갯수 출력?
-			System.out.println("총 게시글 수 = "+listCnt);
-			
+			 
+			listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
 			list = dao.boardList(mboard_no, startPage, endPage); 
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

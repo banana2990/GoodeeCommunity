@@ -198,7 +198,7 @@ $("#ct_send").click(function(){
 	var $content = $("input[name='writer']");
 	
 	
-	var parma = {};
+	var param = {};
 	
 	param.writer = $("input[name='writer']").val();
 	param.subject = $("input[name='subject']").val();
