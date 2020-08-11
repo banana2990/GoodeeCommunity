@@ -66,6 +66,4 @@ public class MemberDTO {
 		this.newName = newName;
 	}
 	
-	
-	
 }

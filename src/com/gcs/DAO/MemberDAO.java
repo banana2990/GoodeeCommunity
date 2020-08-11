@@ -22,7 +22,7 @@ public class MemberDAO {
 			con = ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 	
 	public void resClose() {
@@ -117,7 +117,7 @@ public class MemberDAO {
 		int success = ps.executeUpdate();
 		
 		return success;	
-		
+
 	}	
-			
+
 }

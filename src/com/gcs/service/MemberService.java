@@ -123,8 +123,6 @@ public class MemberService {
 			System.out.println("찾은 id :"+obj);
 			resp.getWriter().println(obj);
 		}
-		
-		
 	}
 
 	public void sendMail() throws IOException {
@@ -250,16 +248,5 @@ public class MemberService {
 			resp.setContentType("text/html; charset=UTF-8");
 			resp.getWriter().println(obj);
 		}
-		
 	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
