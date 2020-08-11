@@ -134,5 +134,16 @@ public class BoardService  {
 		}
 
 	}
+	
+	//updateForm
+	public void updateForm() throws ServletException, IOException {
+		BoardDAO dao = new BoardDAO();
+		String idx = req.getParameter("idx");//idx는 req에서 뽑아낼 수 있다
+		System.out.println("수정IDX : "+idx);
+		BoardDTO dto = dao.detail(idx);//detail에서 그냥 가져옴, board dto를 반환함
+		req.setAttribute("bbs", dto);
+		RequestDispatcher dis = req.getRequestDispatcher("updateForm.jsp");
+		dis.forward(req, resp);
+	}
 
 }

@@ -198,7 +198,7 @@ $("#ct_send").click(function(){
 	var $content = $("input[name='writer']");
 	
 	
-	var parma = {};
+	var param = {};
 	
 	param.writer = $("input[name='writer']").val();
 	param.subject = $("input[name='subject']").val();
@@ -208,7 +208,7 @@ $("#ct_send").click(function(){
 	
 	$.ajax({
         type: "post",
-        url: "ctwrite",
+        url: "contactWrite",
         data: param,
         dataType: "JSON",
         success: function(data){

@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;;
 
-@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView"})
+@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm"})
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -76,6 +76,10 @@ public class BoardController extends HttpServlet {
 			boardService.delmngcomment();
 			break;
 
+		case "/updateForm":
+			System.out.println("수정 폼 이동 요청");
+			boardService.updateForm();
+			break;
 		}
 	}
 }
