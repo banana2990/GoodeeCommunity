@@ -10,7 +10,8 @@ public class BoardDTO {
 	private String bo_content;
 	private Date bo_reg_date;
 	private int bo_bHit;
-	private String boardname;
+	private String boardName;
+	private String nickName;
 	
 	private int comment_no;
 	private String co_content;
@@ -60,10 +61,10 @@ public class BoardDTO {
 		this.bo_bHit = bo_bHit;
 	}
 	public String getBoardname() {
-		return boardname;
+		return boardName;
 	}
-	public void setBoardname(String boardname) {
-		this.boardname = boardname;
+	public void setBoardname(String boardName) {
+		this.boardName = boardName;
 	}
 	public int getComment_no() {
 		return comment_no;
@@ -82,5 +83,11 @@ public class BoardDTO {
 	}
 	public void setCo_reg_date(Date co_reg_date) {
 		this.co_reg_date = co_reg_date;
+	}
+	public String getNickName() {
+		return nickName;
+	}
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
 	}
 }

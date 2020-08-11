@@ -13,9 +13,9 @@
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 		<title>관리자 카테고리별 댓글 가져오기</title>
 		<style>
-				table, th, td {
+				table, th, td,tr {
 					border: 1px solid olive;
-					border-collapse: collapse;
+					border-collapse : collapse;
 					padding : 5px 10px;		
 					}
 		</style>
@@ -81,34 +81,77 @@
         </nav>
         
         <div id="contents">
-        
-        <div class="table">
-			 <table>
-					<tr> 
-						<th>no.</th> 
-						<th>게시판</th> 
-						<th>내용</th> 
-						<th>작성자</th> 
-						<th>등록일</th>
-						<th>삭제</th>
-					</tr>
-					<c:forEach items="${list}" var="bbs">
+	        <div class="contents_table">
+				 <table>
+						<tr> 
+							<th style="width : 10px " >no.</th> 
+							<th>게시판</th> 
+							<th style="width : 400px;">내용</th> 
+							<th style="width : 130px">작성자</th> 
+							<th>등록일</th>
+							<th>삭제</th>
+						</tr>
 						<tr>
-							<td> ${bbs.comment_no} </td>
-							<td> bbs.mBoard 게시판가져오기 필요 </td>
-							<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
-							<td> ${bbs.id} </td>
-							<td> ${bbs.co_reg_date} </td>							
-							<td> <a href="delmngcomment?comment_no=${bbs.comment_no}">삭제 </a></td>
+							<td>1</td>
+							<td>자유</td>
+							<td style="text-align: left">나도 할래</td>
+							<td>나는 ui전문가</td>
+							<td>2020.07.31</td>
+							<td><input type="button" value="삭제"/></td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>학습</td>
+							<td style="text-align: left">commit 어떻게 해요?</td>
+							<td>우유좋아좋아</td>
+							<td>2020.07.31</td>
+							<td><input type="button" value="삭제"/></td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>유머</td>
+							<td style="text-align: left">이거 사진 언제 올라와요?</td>
+							<td>우윳빛깔준호</td>
+							<td>2020.07.31</td>
+							<td><input type="button" value="삭제"/></td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>익명</td>
+							<td style="text-align: left">아 진짜 극공감</td>
+							<td>sts마스터</td>
+							<td>2020.07.31</td>
+							<td><input type="button" value="삭제"/></td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>익명</td>
+							<td style="text-align: left">나만 빠른 거 아니었어?</td>
+							<td></td>
+							<td>2020.07.31</td>
+							<td><input type="button" value="삭제"/></td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>익명</td>
+							<td style="text-align: left">집 가고 싶다</td>
+							<td></td>
+							<td>2020.07.31</td>
+							<td><input type="button" value="삭제"/></td>
+						</tr>
+					<c:forEach items="${list}" var="member">
+
+						<tr>
+							<td> ${member.comment_no} </td>
+							<td> ${member.mboard_no} </td>
+							<td> <a href="detail?board_no=${member.board_no}"> ${member.co_content} </a></td>
+							<td> ${member.id} </td>
+							<td> ${member.co_reg_date} </td>							
+							<td> <a href="delmngcomment?comment_no=${member.comment_no}">삭제 </a></td>
 						</tr>		
 					</c:forEach>
 				</table>            
         </div>
-      
-        </div>
-        
-    
-        
 	</body>
 	
 	<script>

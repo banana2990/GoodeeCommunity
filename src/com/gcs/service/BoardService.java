@@ -2,21 +2,16 @@ package com.gcs.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-
-import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import com.gcs.DAO.BoardDAO;
-import com.gcs.DAO.MemberDAO;
 import com.gcs.DTO.BoardDTO;
 import com.google.gson.Gson;
+
 
 public class BoardService  {
 	
@@ -26,14 +21,6 @@ public class BoardService  {
 	public BoardService(HttpServletRequest req, HttpServletResponse resp) {
 		this.req = req;
 		this.resp = resp;
-	}
-
-	public void comread() throws ServletException, IOException {
-		BoardDAO dao = new BoardDAO();
-		ArrayList<BoardDTO> list = dao.commentlist();
-		req.setAttribute("list", list);
-		RequestDispatcher dis = req.getRequestDispatcher("mngcomment.jsp");
-		dis.forward(req, resp);		
 	}
 
 	public void write() throws ServletException, IOException {
@@ -47,11 +34,42 @@ public class BoardService  {
 		BoardDAO dao = new BoardDAO();
 		if(dao.write(mboard_no, id, subject, content)) {
 			msg = "글이 작성되었습니다.";
-		}
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
+			dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
+			dis.forward(req, resp);
+		}		
 	}
 
-	public void boardlist(String mBoard_no) throws IOException {
+	public void comread() throws ServletException, IOException {
+		BoardDAO dao = new BoardDAO();
+		ArrayList<BoardDTO> list = dao.commentlist();
+		req.setAttribute("list", list);
+		RequestDispatcher dis = req.getRequestDispatcher("mngcomment.jsp");
+		dis.forward(req, resp);	
+	}
+
+	public void delmngcomment() throws ServletException, IOException{
+		String idx = req.getParameter("comment_no");
+		System.out.println("comment_no : "+idx);
+		//DB가 필요한가?
+		BoardDAO dao = new BoardDAO();
+		String page = "/mngcomment";
+		String msg = "수정에 실패했습니다.";
 		
+		if(dao.delmngcomment(idx)) {
+			page = "/mngcomment";
+			msg = "수정에 성공 했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	  	}
+		
+	public void boardlist(String mBoard_no) throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
 	     	 Gson gson = new Gson();	  
        		  BoardDAO dao = new BoardDAO();
@@ -71,34 +89,49 @@ public class BoardService  {
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 		dis.forward(req, resp);
-*/		
+		 */		
 	}
 
-	public void boardList() throws IOException {
+	public void boardList() throws IOException, ServletException {
 		String mboard_no = req.getParameter("mboard_no");
-		String page = req.getParameter("page");
-		int startPage =  (Integer.parseInt(page)*5)-4;
-		int endPage = Integer.parseInt(page)*5;
-		ArrayList<BoardDTO> list = null;
+
+		String pageParam = req.getParameter("curPage");
+		System.out.println("전달받은 curPage의 값 = "+pageParam);
+		int curPage = 1; // 첫 페이지 1 설정
+		int listCnt = 0;
+		if(pageParam != null) {
+			curPage = Integer.parseInt(pageParam);			
+		}
+	
+		int startPage =  (curPage)*5-4;
+		int endPage = (curPage)*5;
 		
 		System.out.println(mboard_no+"/"+page);
+	
+		ArrayList<BoardDTO> list = null;		
+		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
+		
 		BoardDAO dao = new BoardDAO();
-		
-		
-		
 		 try {
+			System.out.println(mboard_no);
+			listCnt = dao.listCnt(mboard_no); // 총 게시물의 갯수 출력?
+			System.out.println("총 게시글 수 = "+listCnt);
+			
 			list = dao.boardList(mboard_no, startPage, endPage); 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			dao.resClose();
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("list", list);
-			Gson gson = new Gson();
-			String obj = gson.toJson(map);
-			System.out.println("jsp로 보내지는 success 값 : "+obj);
-			resp.setContentType("text/html; charset=UTF-8");
-			resp.getWriter().println(obj);
+			
+			Pagination page = new Pagination(listCnt, curPage);
+			
+			req.setAttribute("list", list);
+			req.setAttribute("page", page);
+			
+			RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");
+			dis.forward(req, resp);
 		}
+
 	}
+
 }
