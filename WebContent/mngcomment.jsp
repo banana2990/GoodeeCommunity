@@ -15,7 +15,7 @@
 		<style>
 				table, th, td {
 					border: 1px solid olive;
-					border-collapse: collapse;
+					border-collapse : collapse;
 					padding : 5px 10px;		
 					}
 		</style>
@@ -81,7 +81,6 @@
         </nav>
         
         <div id="contents">
-
 	        <div class="contents_table">
 				 <table>
 						<tr> 
@@ -103,56 +102,60 @@
 						</tr>		
 					</c:forEach>
 				</table>            
-        </div>
-							<td>1</td>
-							<td>자유</td>
-							<td style="text-align: left">나도 할래</td>
-							<td>나는 ui전문가</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>학습</td>
-							<td style="text-align: left">commit 어떻게 해요?</td>
-							<td>우유좋아좋아</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>유머</td>
-							<td style="text-align: left">이거 사진 언제 올라와요?</td>
-							<td>우윳빛깔준호</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>익명</td>
-							<td style="text-align: left">아 진짜 극공감</td>
-							<td>sts마스터</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>익명</td>
-							<td style="text-align: left">나만 빠른 거 아니었어?</td>
-							<td></td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>익명</td>
-							<td style="text-align: left">집 가고 싶다</td>
-							<td></td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-
+        	</div>
         
+       			<div>
+       				<tr>
+					<td>1</td>
+					<td>자유</td>
+					<td style="text-align: left">나도 할래</td>
+					<td>나는 ui전문가</td>
+					<td>2020.07.31</td>
+					<td><input type="button" value="삭제"/></td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>학습</td>
+					<td style="text-align: left">commit 어떻게 해요?</td>
+					<td>우유좋아좋아</td>
+					<td>2020.07.31</td>
+					<td><input type="button" value="삭제"/></td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>유머</td>
+					<td style="text-align: left">이거 사진 언제 올라와요?</td>
+					<td>우윳빛깔준호</td>
+					<td>2020.07.31</td>
+					<td><input type="button" value="삭제"/></td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>익명</td>
+					<td style="text-align: left">아 진짜 극공감</td>
+					<td>sts마스터</td>
+					<td>2020.07.31</td>
+					<td><input type="button" value="삭제"/></td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>익명</td>
+					<td style="text-align: left">나만 빠른 거 아니었어?</td>
+					<td></td>
+					<td>2020.07.31</td>
+					<td><input type="button" value="삭제"/></td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>익명</td>
+					<td style="text-align: left">집 가고 싶다</td>
+					<td></td>
+					<td>2020.07.31</td>
+					<td><input type="button" value="삭제"/></td>
+				</tr>
+			</div>
+			
+      <!-- 
         <div class="table">
 			 <table>
 					<tr> 
@@ -174,18 +177,8 @@
 						</tr>		
 					</c:forEach>
 				</table>            
-
-        	</div>
-
+        	 -->
         </div>
-      
-
-        </div>
-
-        
-    
-        
-
 	</body>
 	
 	<script>

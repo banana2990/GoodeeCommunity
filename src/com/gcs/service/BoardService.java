@@ -63,7 +63,7 @@ public class BoardService  {
 	}
 
 
-
+/*
 	public void comread() throws ServletException, IOException {
 		BoardDAO dao = new BoardDAO();
 		ArrayList<BoardDTO> list = dao.commentlist();
@@ -73,7 +73,7 @@ public class BoardService  {
 
 		dis.forward(req, resp);	
 	}
-
+*/
 
 	public void write() throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -122,20 +122,7 @@ public class BoardService  {
 
 	
 
-	public void boardlist(String mBoard_no) throws IOException {
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-	     	 Gson gson = new Gson();	  
-       		  BoardDAO dao = new BoardDAO();
-        		 ArrayList<BoardDTO> list = null;
-        		  try {
-			list= dao.boardlist(mBoard_no);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
-		
-	}
 
 	public void boardlist(String mBoard_no) throws IOException {
 		
@@ -180,9 +167,7 @@ public class BoardService  {
 		
 		
 
-		
-		System.out.println(mboard_no+"/"+page);
-		BoardDAO dao = new BoardDAO();
+
 		
 		
 		
@@ -207,6 +192,6 @@ public class BoardService  {
 
 	}
 
-
+}
 
 
