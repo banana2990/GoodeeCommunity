@@ -106,7 +106,7 @@ crossorigin="anonymous"
 							<li>
 								<a href="board_view?thread=395071\">
 									<h3>
-										<strong class="key-color">${bbs.boardname}</strong> ${bbs.bo_subject }</h3>
+										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
 										<i class="icon-new"></i>
 										<dl class="writing-info"> 
 											<dt class="blind"></dt>
