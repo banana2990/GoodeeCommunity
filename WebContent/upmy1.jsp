@@ -34,8 +34,8 @@
 	    <div class="dmy">
 	        <a href="upmy2.html">내정보</a>
 	    </div>
-	    <div class="lgout">
-	        <a href="#">로그아웃</a>
+	    <div class="logout">
+	        <a href="logout">로그아웃</a>
 	    </div>
 	</div>
 </body>

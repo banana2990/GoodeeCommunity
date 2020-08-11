@@ -59,7 +59,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="mngmember">
+                    <a href="membermanagement.jsp" id="mngmember">
                         <span>회원 관리</span>
                     </a>
                 </li>
@@ -91,65 +91,20 @@
 							<th>등록일</th>
 							<th>삭제</th>
 						</tr>
-						<tr>
-							<td>1</td>
-							<td>자유</td>
-							<td style="text-align: left">나도 할래</td>
-							<td>나는 ui전문가</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>학습</td>
-							<td style="text-align: left">commit 어떻게 해요?</td>
-							<td>우유좋아좋아</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>유머</td>
-							<td style="text-align: left">이거 사진 언제 올라와요?</td>
-							<td>우윳빛깔준호</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>익명</td>
-							<td style="text-align: left">아 진짜 극공감</td>
-							<td>sts마스터</td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>익명</td>
-							<td style="text-align: left">나만 빠른 거 아니었어?</td>
-							<td></td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>익명</td>
-							<td style="text-align: left">집 가고 싶다</td>
-							<td></td>
-							<td>2020.07.31</td>
-							<td><input type="button" value="삭제"/></td>
-						</tr>
-					<c:forEach items="${list}" var="member">
-
-						<tr>
-							<td> ${member.comment_no} </td>
-							<td> ${member.mboard_no} </td>
-							<td> <a href="detail?board_no=${member.board_no}"> ${member.co_content} </a></td>
-							<td> ${member.id} </td>
-							<td> ${member.co_reg_date} </td>							
-							<td> <a href="delmngcomment?comment_no=${member.comment_no}">삭제 </a></td>
-						</tr>		
+										
+					<c:forEach items="${list}" var="bbs">
+					<tr>
+					<td> ${bbs.comment_no} </td>
+					<td> mboard_no </td>
+					<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
+					<td> ${bbs.id} </td>
+					<td> ${bbs.co_reg_date} </td>							
+					<td> <button onclick = "location.href='delmngcomment?comment_no=${bbs.comment_no}'">삭제 </button></td>								
+					</tr>		
 					</c:forEach>
+					
+						
+	
 				</table>            
         </div>
 	</body>

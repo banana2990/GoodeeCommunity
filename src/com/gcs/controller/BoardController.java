@@ -1,6 +1,7 @@
 package com.gcs.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,11 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gcs.service.BoardService;;
+import com.gcs.service.BoardService;
 
-
-@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/boardDetail"})
-
+@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail"})
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -52,7 +51,7 @@ public class BoardController extends HttpServlet {
 			System.out.println(mBoard_no);
 			boardService.boardlist(mBoard_no);
 			break;
-		
+
 		case "/mngcomment": // 관리자 댓글 전체 목록
 			System.out.println("댓글 목록 호출");
 			boardService.comread();			
@@ -83,6 +82,20 @@ public class BoardController extends HttpServlet {
 			boardService.boardDetail();
 			break;
 			
+
+		case "/recomment":				
+			try {
+				boardService.recomment();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;			
+
+		case "/updateForm":
+			System.out.println("수정 폼 이동 요청");
+			boardService.updateForm();
+			break;
+
 		}
 	}
 }

@@ -1,6 +1,7 @@
 package com.gcs.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -132,6 +133,28 @@ public class BoardService  {
 			dis.forward(req, resp);
 		}
 
+	}
+	
+	//updateForm
+	public void updateForm() throws ServletException, IOException {
+		BoardDAO dao = new BoardDAO();
+		String idx = req.getParameter("idx");//idx는 req에서 뽑아낼 수 있다
+		System.out.println("수정IDX : "+idx);
+		BoardDTO dto = dao.detail(idx);//detail에서 그냥 가져옴, board dto를 반환함
+		req.setAttribute("bbs", dto);
+		RequestDispatcher dis = req.getRequestDispatcher("updateForm.jsp");
+		dis.forward(req, resp);
+	}
+
+	public void recomment() throws UnsupportedEncodingException, SQLException {
+		req.setCharacterEncoding("UTF-8");
+		String comment_no = req.getParameter("comment_no");
+		String reco_content = req.getParameter("recomment");	
+		String id =(String) req.getSession().getAttribute("id");
+		System.out.println(comment_no+ reco_content+ id);
+		BoardDAO dao = new BoardDAO();
+		dao.recomment(comment_no, id, reco_content);
+		
 	}
 
 	public void boardDetail() throws ServletException, IOException {

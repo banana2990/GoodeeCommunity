@@ -10,13 +10,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-
 import com.gcs.DTO.MemberDTO;
 
-
-
-public class MemberDAO {
-	
+public class MemberDAO {	
 	Connection con = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;
@@ -93,9 +89,11 @@ public class MemberDAO {
 		ps.setString(5,email);
 		ps.setString(6, emailChk);
 		int result = ps.executeUpdate();
+
 		if(result>0) {
 			success=true;
-		}		
+		}
+		resClose();
 		return success;	
 	}
 
@@ -111,6 +109,7 @@ public class MemberDAO {
 		}else {
 			id="";
 		}
+		resClose();
 		return id;	
 	}
 
@@ -118,10 +117,8 @@ public class MemberDAO {
 		String sql = "UPDATE member SET pw=? WHERE u_email=?";
 		ps = con.prepareStatement(sql);
 		ps.setInt(1, dice);
-		ps.setString(2, email);
-		
+		ps.setString(2, email);		
 		int success = ps.executeUpdate();
-		
 		return success;	
 		
 	}
@@ -170,6 +167,22 @@ public class MemberDAO {
 			resClose();
 		}
 		return result;
+	}
+
+	public void pupload(MemberDTO dto) throws SQLException {
+		String sql ="";
+		String id = dto.getId();
+		System.out.println("ID: "+id);
+		if(dto.getOriName()!=null) { // photo 테이블에 데이터 추가
+			sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (photo_seq.NEXTVAL, ?,?,?)";
+			ps = con.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, dto.getOriName());
+			ps.setString(3, dto.getNewName());
+			ps.executeUpdate();
+		}
+		resClose();
+		
 	}
 
 	public int delete(String[] delList) throws SQLException {

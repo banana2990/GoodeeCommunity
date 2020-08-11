@@ -70,9 +70,9 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
 		        </div>
                 <div class="inner">
                     <button type="button" class="profile">
-                        <div class="profile-img"></div>
+                        <div id="profile_img" class="profile-img"></div>
                     </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -173,13 +173,16 @@ console.log(loginId);
 
 if(loginId!="admin"){}else{location.href="admin_temp.jsp";}
 
-/*
+var profile_img = $("#profile_img");
+var loginbtn = $("#login");
+
 if(loginId==""){
-}else{
-    var loginbtn = document.getElementByClassName("login");
-    loginbtn.style({"display":"hide"});
+	profile_img.css({"display":"none"});	
+}else{    
+    loginbtn.css({"display":"none"});
+    profile_img.css({"display":"block"});
 }
-*/
+
 
 
 function write(){
@@ -208,7 +211,7 @@ $("#ct_send").click(function(){
 	
 	$.ajax({
         type: "post",
-        url: "ctwrite",
+        url: "contactWrite",
         data: param,
         dataType: "JSON",
         success: function(data){

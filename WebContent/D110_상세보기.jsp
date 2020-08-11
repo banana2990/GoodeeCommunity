@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +19,7 @@ crossorigin="anonymous"
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="#">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
@@ -44,22 +42,22 @@ crossorigin="anonymous"
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList?mboard_no=1" id="free">
+                    <a href="boardList.jsp?mboard_no=1">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=2" id="edu">
+                    <a href="boardList.jsp?mboard_no=2">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=3" id="secret">
+                    <a href="boardList.jsp?mboard_no=3">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="D130_오늘점심.html">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -70,7 +68,7 @@ crossorigin="anonymous"
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
                     </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+                    <button class="login">로그인</button>
                 </div>
             </div>
         </nav>
@@ -82,13 +80,13 @@ crossorigin="anonymous"
                 <div class="title_box">
                     <button class="btn">삭제</button>
                     <button class="btn">수정</button>
-                    <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
-                    <h3>${boardDetail.bo_subject }</h3>
+                    <h2><a href="#" class="key_color">자유게시판</a></h2>
+                    <h3>내가 만약......</h3>
                     <dl class="writing_info">
-                        <dd class="writer">${boardDetail.nickName }</dd>
-                        <span class="date">${boardDetail.bo_reg_date }</span>
+                        <dd class="writer">나는 ui전문가</dd>
+                        <span class="date">2020.08.04 15:04</span>
                         <img src="./image/조회수.PNG" alt class="read">
-                        <span class="count">${boardDetail.bo_bHit }</span>
+                        <span class="count">112</span>
                     </dl>
                 </div>
             </div>
@@ -96,7 +94,9 @@ crossorigin="anonymous"
             <div class="section-bot">
                 <div class="view-box">
                     <div class="txt note-editor">
-                        ${boardDetail.bo_content }
+                        <p>텍스트1</p>
+                        <p>텍스트2</p>
+                        <p>텍스트3</p>
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
@@ -133,9 +133,12 @@ crossorigin="anonymous"
                                         </dl>
                                         <div class="txt.box1">
                                             <p>야 이거 겁나 어렵네......</p>
-                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
-                                        </div>
+                                            <form action='recomment?comment_no=2' method="post">    
+                                            <!-- 댓글 불러온 거에서 comment_no는 불러오기 // ajax로 가야하려나...? 아니면 보드 넘버로! 이후 페이지 새로 고침 하면 됨-->                     
+                                            <input type="text" name="recomment" class = "reply-inputbox" style="width : 750px">
+                                            <button type="submit" class="btn-coment-reply">답글</button><button class="btn-coment-reply">취소</button>
+                                       		</form>
+                                       	</div>
                                         <div class="util">
                                             <button type="button" class="btn-like reply-likes">
                                                 <span class="like-count-reply">1</span>
