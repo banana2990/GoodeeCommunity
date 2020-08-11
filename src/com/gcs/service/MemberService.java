@@ -2,6 +2,7 @@ package com.gcs.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
@@ -16,7 +17,9 @@ import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import com.gcs.DAO.MemberDAO;
+import com.gcs.DTO.MemberDTO;
 import com.google.gson.Gson;
 
 public class MemberService {
@@ -189,7 +192,8 @@ public class MemberService {
 		// 파라미터로 받아올 값
 		String email = req.getParameter("email");					
 		System.out.println(email);
-		// 해킹하면 안돼요ㅜ.
+		// 해킹하면 안돼요ㅜ. 
+		//히히
 		String host = "smtp.gmail.com";
 		final String user = "kjy3309@gmail.com";
 		final String password = "wndduf!2";
@@ -253,13 +257,58 @@ public class MemberService {
 		
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+	//관리자 - 회원리스트
+	public void list() throws IOException {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		Gson gson = new Gson();
+		boolean loginChk = false;
+		// 1. 세션체크
+		if (req.getSession().getAttribute("id") != null) {// 로그인 상태 일 경우
+			// 2. 리스트 호출
+			MemberDAO dao = new MemberDAO();
+			ArrayList<MemberDTO> list = null;
+			try {
+				list = dao.list();// 한 건이 아니니깐 arraylist로 받아야함
+				loginChk = true;
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				dao.resClose();
+			}
+			// 3. map에 넣기
+			map.put("list", list);/// ????????
+		}
+		map.put("login", loginChk);// ?????
+		String obj = gson.toJson(map);// 4. Gson 으로 json 형태로 변환
+		System.out.println(obj);
+		resp.setContentType("text/html; charset=UTF-8");
+		resp.getWriter().println(obj);// 5. response 객체로 보내기
+
+	}
+
+	//관리자 - 회원삭제
+	public void delete() throws IOException {
+		String[] delList = req.getParameterValues("delList[]");
+		System.out.println("length : " + delList.length);
+		MemberDAO dao = new MemberDAO();
+		boolean success = false;
+		try {
+			if (dao.delete(delList) == delList.length) {
+				success = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("del", success);
+			Gson gson = new Gson();
+			String obj = gson.toJson(map);
+			System.out.println(obj);
+			resp.getWriter().println(obj);
+		}
+		
+	}
+
 	
 }
