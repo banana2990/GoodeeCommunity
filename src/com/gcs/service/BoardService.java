@@ -135,4 +135,24 @@ public class BoardService  {
 
 	}
 
+	public void boardDetail() throws ServletException, IOException {
+		BoardDTO dto = null;
+		String board_no = req.getParameter("board_no");
+		BoardDAO dao = new BoardDAO();
+		
+		try {
+			dto = dao.boardDetail(board_no);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
+			req.setAttribute("boardDetail", dto);
+			
+			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
+			dis.forward(req, resp);
+		}
+		
+		
+	}
+
 }

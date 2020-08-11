@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +21,7 @@ crossorigin="anonymous"
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="#">
+                <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
@@ -41,22 +44,22 @@ crossorigin="anonymous"
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList.jsp?mboard_no=1">
+                    <a href="boardList?mboard_no=1" id="free">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp?mboard_no=2">
+                    <a href="boardList?mboard_no=2" id="edu">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp?mboard_no=3">
+                    <a href="boardList?mboard_no=3" id="secret">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html">
+                    <a href="D130_오늘점심.html" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -67,7 +70,7 @@ crossorigin="anonymous"
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
                     </button>
-                    <button class="login">로그인</button>
+                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -79,13 +82,13 @@ crossorigin="anonymous"
                 <div class="title_box">
                     <button class="btn">삭제</button>
                     <button class="btn">수정</button>
-                    <h2><a href="#" class="key_color">자유게시판</a></h2>
-                    <h3>내가 만약......</h3>
+                    <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
+                    <h3>${boardDetail.bo_subject }</h3>
                     <dl class="writing_info">
-                        <dd class="writer">나는 ui전문가</dd>
-                        <span class="date">2020.08.04 15:04</span>
+                        <dd class="writer">${boardDetail.nickName }</dd>
+                        <span class="date">${boardDetail.bo_reg_date }</span>
                         <img src="./image/조회수.PNG" alt class="read">
-                        <span class="count">112</span>
+                        <span class="count">${boardDetail.bo_bHit }</span>
                     </dl>
                 </div>
             </div>
@@ -93,9 +96,7 @@ crossorigin="anonymous"
             <div class="section-bot">
                 <div class="view-box">
                     <div class="txt note-editor">
-                        <p>텍스트1</p>
-                        <p>텍스트2</p>
-                        <p>텍스트3</p>
+                        ${boardDetail.bo_content }
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">

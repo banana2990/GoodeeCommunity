@@ -155,6 +155,7 @@ public class BoardDAO {
 			list.add(dto);
 		}
 		
+		
 		System.out.println(list);
 		return list;	}
 
@@ -170,6 +171,33 @@ public class BoardDAO {
 		}
 		
 		return cnt;
+	}
+
+	public BoardDTO boardDetail(String board_no) throws SQLException {
+		BoardDTO dto = new BoardDTO();
+		String sql = "SELECT * FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, b.boardname, m.nickname " + 
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.boardname " + 
+				"FROM board b, mboard m WHERE b.mboard_no = m.mboard_no) b, member m " + 
+				"WHERE b.id= m.id) WHERE board_no=?";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setMboard_no(rs.getInt("mboard_no"));
+			dto.setId(rs.getString("id"));
+			dto.setBo_subject(rs.getString("bo_subject"));
+			dto.setBo_content(rs.getString("bo_content"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
+			dto.setNickName(rs.getString("nickname"));
+			dto.setBoardname(rs.getString("boardname"));
+		}
+		
+		return dto;
+		
 	}
 
 }

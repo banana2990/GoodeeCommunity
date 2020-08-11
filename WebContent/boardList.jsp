@@ -104,7 +104,7 @@ crossorigin="anonymous"
                 	<c:forEach items="${list }" var="bbs">
 	                	<ul>              	
 							<li>
-								<a href="board_view?board_no="+${board_no}>
+								<a href="boardDetail?board_no=${bbs.board_no}">
 									<h3>
 										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
 										<i class="icon-new"></i>
