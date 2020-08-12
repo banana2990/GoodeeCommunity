@@ -129,6 +129,7 @@ public class BoardDAO {
 
 	public ArrayList<BoardDTO> boardList(String mboard_no, int startPage, int endPage) throws SQLException {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
 		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname " + 
 				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname " + 
 				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname " + 
@@ -139,8 +140,7 @@ public class BoardDAO {
 		ps.setInt(2, startPage);
 		ps.setInt(3, endPage);
 		
-		rs = ps.executeQuery();
-		
+		rs = ps.executeQuery();		
 		
 		while(rs.next()) {
 			BoardDTO dto = new BoardDTO();
@@ -156,20 +156,12 @@ public class BoardDAO {
 			
 			list.add(dto);
 		}
-		System.out.println(list);
-		
-		
-		// 좋아요
-		
-		
-		
-		// 댓글
-		
 		
 		return list;	
 	}
 
 	public int listCnt(String mboard_no) throws SQLException {
+		
 		String sql = "SELECT COUNT(*) AS num FROM board WHERE mboard_no=?";
 		int cnt = 0;
 		ps = conn.prepareStatement(sql);
@@ -186,6 +178,7 @@ public class BoardDAO {
 
 	public BoardDTO boardDetail(String board_no) throws SQLException {
 		BoardDTO dto = new BoardDTO();
+		
 		String sql = "SELECT * FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, b.boardname, m.nickname " + 
 				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.boardname " + 
 				"FROM board b, mboard m WHERE b.mboard_no = m.mboard_no) b, member m " + 
@@ -201,10 +194,11 @@ public class BoardDAO {
 			dto.setId(rs.getString("id"));
 			dto.setBo_subject(rs.getString("bo_subject"));
 			dto.setBo_content(rs.getString("bo_content"));
-			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
-			dto.setBo_bHit(rs.getInt("bo_bHit"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));			
 			dto.setNickName(rs.getString("nickname"));
 			dto.setBoardname(rs.getString("boardname"));
+			upHit(rs.getInt("board_no"));
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
 		}
 		
 	
@@ -236,7 +230,7 @@ public class BoardDAO {
 
 
 	private void upHit(int board_no) {
-		String sql = "UPDATE board SET bHit = bHit+1 WHERE board_no = ?";
+		String sql = "UPDATE board SET bo_bHit = bo_bHit+1 WHERE board_no = ?";
 		try {
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, board_no);
@@ -252,7 +246,7 @@ public class BoardDAO {
 		
 		ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			
 			String sql = "SELECT COUNT(board_no) FROM blike WHERE board_no=?";
 
@@ -280,7 +274,7 @@ public class BoardDAO {
 		
 		ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
 			try {
 				ps = conn.prepareStatement(sql);
@@ -302,6 +296,55 @@ public class BoardDAO {
 		return commentCnt;
 		
 	}
+
+
+	public ArrayList<BoardDTO> allBoard(int startPage, int endPage) throws SQLException {
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname " + 
+				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname " + 
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname " + 
+				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND rnum BETWEEN ? AND ? ORDER BY BOARD_NO DESC";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setInt(1, startPage);
+		ps.setInt(2, endPage);
+		
+		rs = ps.executeQuery();		
+		
+		while(rs.next()) {
+			BoardDTO dto = new BoardDTO();
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setMboard_no(rs.getInt("mboard_no"));
+			dto.setId(rs.getString("id"));
+			dto.setBo_subject(rs.getString("bo_subject"));
+			dto.setBo_content(rs.getString("bo_content"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
+			dto.setBoardname(rs.getString("boardName"));
+			dto.setNickName(rs.getString("nickName"));	
+			
+			list.add(dto);
+		}
+		
+		return list;	
+		
+	}
+
+	public int AllListCnt() throws SQLException {
+		String sql = "SELECT COUNT(*) AS num FROM board";
+		int cnt = 0;
+		ps = conn.prepareStatement(sql);
+		
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			cnt = rs.getInt("num");
+		}
+		
+		return cnt;
+	}
+
+
 
 	public boolean update(String mboard_no, String board_no, String bo_subject, String bo_content) {
 		boolean result = false;
@@ -343,3 +386,4 @@ public class BoardDAO {
 	}
 
 }
+

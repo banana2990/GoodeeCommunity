@@ -93,6 +93,7 @@ public class BoardService  {
 	}
 
 	public void boardList() throws IOException, ServletException {
+		
 		String mboard_no = req.getParameter("mboard_no");
 		String pageParam = req.getParameter("curPage");
 		
@@ -114,30 +115,42 @@ public class BoardService  {
 		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
 		
 		BoardDAO dao = new BoardDAO();
-		 try {
-			 
-			listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
-			list = dao.boardList(mboard_no, startPage, endPage); 
-			blikeCnt = dao.blikeCnt(list);
-			commentCnt = dao.commentCnt(list);
+		String location = "boardList.jsp";
 			
-			dao.commentCnt(list);
-			
+		try {
+			if(mboard_no == null || mboard_no.length() < 1) {
+				location= "index.jsp";
+				list = dao.allBoard(startPage, endPage);
+				listCnt = dao.AllListCnt();
+			} else {
+				list = dao.boardList(mboard_no, startPage, endPage);
+				listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
+				
+				// 공지사항이면 index로 보낸다.
+				if(Integer.parseInt(mboard_no) == 4) {
+					location = "index.jsp";
+				}
+			}				
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			dao.resClose();
-			
-			Pagination page = new Pagination(listCnt, curPage);
-			
-			req.setAttribute("list", list);
-			req.setAttribute("blikeCnt", blikeCnt);
-			req.setAttribute("commentCnt", commentCnt);
-			req.setAttribute("page", page);
-			
-			RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");
-			dis.forward(req, resp);
 		}
+		
+		
+		// 얘내는 자체적으로 prepareStatement 종료시켜줌
+		blikeCnt = dao.blikeCnt(list);
+		commentCnt = dao.commentCnt(list);						
+		
+		dao.resClose();
+		
+		Pagination page = new Pagination(listCnt, curPage);
+		
+		req.setAttribute("list", list);
+		req.setAttribute("blikeCnt", blikeCnt);
+		req.setAttribute("commentCnt", commentCnt);
+		req.setAttribute("page", page);
+		
+		RequestDispatcher dis = req.getRequestDispatcher(location);
+		dis.forward(req, resp);
 
 	}
 	
