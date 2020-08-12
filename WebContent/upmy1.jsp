@@ -32,7 +32,7 @@
 	        </ul>
 	    </div>
 	    <div class="dmy">
-	        <a href="upmy2.html">내정보</a>
+	        <a href="upmy2.jsp">내정보</a>
 	    </div>
 	    <div class="logout">
 	        <a href="logout">로그아웃</a>

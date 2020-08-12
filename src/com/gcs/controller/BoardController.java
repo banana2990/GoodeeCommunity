@@ -105,6 +105,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("글 삭제");
 			boardService.del();
 			break;
+			
 		}
 	}
 }

@@ -94,7 +94,6 @@ public class BoardService  {
 
 	public void boardList() throws IOException, ServletException {
 		String mboard_no = req.getParameter("mboard_no");
-
 		String pageParam = req.getParameter("curPage");
 		
 		System.out.println("전달받은 curPage의 값 = "+pageParam);
