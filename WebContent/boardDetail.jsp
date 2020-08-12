@@ -113,8 +113,13 @@ crossorigin="anonymous"
                         </p>
                         <div class="reply-input">
                             <div class="reply-div">
-                                <input type="text" class="nologin-disabled" disabled placeholder="불쾌감을 주는 욕설과 악성 댓글은 삭제될 수 있습니다.">
-                                <button type="button" class="btn-reply">등록</button>
+                                <form action="reply?board_no=${boardDetail.board_no}" method="post">
+										<input type="hidden" name="no" id="no" value="${ content.board_no }"> 
+										<input type="hidden" name="id" id="id" value="${ id }">
+										<textarea rows="5" cols="50" name="co_content" id="reply_content"></textarea>
+										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
+									</form>
+									
                             </div>
                         </div>
                     </div>
