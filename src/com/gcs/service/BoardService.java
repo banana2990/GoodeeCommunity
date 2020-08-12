@@ -56,7 +56,6 @@ public class BoardService  {
 	public void delmngcomment() throws ServletException, IOException{
 		String idx = req.getParameter("comment_no");
 		System.out.println("comment_no : "+idx);
-		//DB가 필요한가?
 		BoardDAO dao = new BoardDAO();
 		String page = "/mngcomment";
 		String msg = "수정에 실패했습니다.";
@@ -153,12 +152,18 @@ public class BoardService  {
 	//updateForm
 	public void updateForm() throws ServletException, IOException {
 		BoardDAO dao = new BoardDAO();
-		String idx = req.getParameter("idx");//idx는 req에서 뽑아낼 수 있다
-		System.out.println("수정IDX : "+idx);
-		BoardDTO dto = dao.detail(idx);//detail에서 그냥 가져옴, board dto를 반환함
-		req.setAttribute("bbs", dto);
-		RequestDispatcher dis = req.getRequestDispatcher("updateForm.jsp");
-		dis.forward(req, resp);
+		String board_no = req.getParameter("board_no");
+		System.out.println("수정board_no : "+board_no);
+		BoardDTO dto = null;
+		try {
+			dto = dao.boardDetail(board_no);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			req.setAttribute("boardDetail", dto);
+			RequestDispatcher dis = req.getRequestDispatcher("boardUpdate.jsp");
+			dis.forward(req, resp);
+		}
 	}
 
 	public void recomment() throws UnsupportedEncodingException, SQLException {
@@ -190,6 +195,42 @@ public class BoardService  {
 		}
 		
 		
+	}
+
+	//수정
+	public void update() throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		String mboard_no = req.getParameter("mboard_no");
+		String board_no = req.getParameter("board_no");
+		String bo_subject = req.getParameter("subject");
+		String bo_content = req.getParameter("content");
+		System.out.println(mboard_no+"/"+board_no+" / "+bo_subject+" / "+bo_content);
+		BoardDAO dao = new BoardDAO();
+		String page = "boardDetail?board_no="+board_no;
+		String msg = "수정에 실패 했습니다.";
+		if(dao.update(mboard_no,board_no,bo_subject,bo_content)) {
+			msg ="수정에 성공 했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
+	}
+
+	//삭제
+	public void del() throws ServletException, IOException {
+		String board_no = req.getParameter("board_no");
+		String mboard_no = req.getParameter("mboard_no");
+		System.out.println("board_no :"+board_no);
+		BoardDAO dao = new BoardDAO();
+		String page = "boardDetail";
+		String msg = "삭제에 실패 했습니다";
+		if(dao.del(board_no)) {
+			page = "/boardList?mboard_no"+mboard_no;
+			msg = "삭제에 성공 했습니다.";
+		}
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher(page);
+		dis.forward(req, resp);
 	}
 
 }

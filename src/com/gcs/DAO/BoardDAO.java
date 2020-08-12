@@ -227,32 +227,7 @@ public class BoardDAO {
 		
 	}
 
-	public BoardDTO detail(String idx) {
-		String sql = "SELECT board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bHit FROM board WHERE board_no = ?";
-		BoardDTO dto = null;
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, idx);
-			rs = ps.executeQuery();
-			if(rs.next()) {
-				dto = new BoardDTO();
-				dto.setBoard_no(rs.getInt("board_no"));
-				dto.setMboard_no(rs.getInt("mboard_no"));
-				dto.setId(rs.getString("id"));
-				dto.setBo_subject(rs.getString("bo_subject"));
-				dto.setBo_content(rs.getString("bo_content"));
-				dto.setBo_reg_date(rs.getDate("bo_reg_date"));
-				dto.setBo_bHit(rs.getInt("bo_bHit"));
-				upHit(dto.getBoard_no());//데이터를 가져오는데 성공하면 조회수를 올려 준다.
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		}finally {
-			resClose();
-		}
-		return dto;
-	}
+
 
 	private void upHit(int board_no) {
 		String sql = "UPDATE board SET bo_bHit = bo_bHit+1 WHERE board_no = ?";
@@ -322,6 +297,7 @@ public class BoardDAO {
 		
 	}
 
+
 	public ArrayList<BoardDTO> allBoard(int startPage, int endPage) throws SQLException {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
@@ -368,4 +344,45 @@ public class BoardDAO {
 		return cnt;
 	}
 
+
+
+	public boolean update(String mboard_no, String board_no, String bo_subject, String bo_content) {
+		boolean result = false;
+		String sql = "UPDATE board SET mboard_no=?, bo_subject=?, bo_content=? WHERE board_no=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, mboard_no);
+			ps.setString(2, bo_subject);
+			ps.setString(3, bo_content);
+			ps.setString(4, board_no);
+			
+			if(ps.executeUpdate()>0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;
+	}
+
+	public boolean del(String board_no) {
+		String sql ="DELETE FROM board WHERE board_no=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_no);
+			
+			if(ps.executeUpdate()>0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;
+	}
 }
+

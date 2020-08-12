@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
-@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail"})
+
+@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del"})
+
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -101,7 +103,16 @@ public class BoardController extends HttpServlet {
 			System.out.println("수정 폼 이동 요청");
 			boardService.updateForm();
 			break;
-
+			
+		case "/update":
+			System.out.println("수정");
+			boardService.update();
+			break;
+			
+		case "/del":
+			System.out.println("글 삭제");
+			boardService.del();
+			break;
 		}
 	}
 }

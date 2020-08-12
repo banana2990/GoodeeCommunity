@@ -264,7 +264,6 @@ $("#ct_send").click(function(){
 })
 
 
-
 	var mboard_no = window.location.search.substring(11);
 	
 	function fn_paging(curPage) {
@@ -273,7 +272,6 @@ $("#ct_send").click(function(){
 		}
 		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
 	}
-
 
 
 </script>

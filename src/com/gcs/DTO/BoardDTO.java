@@ -104,6 +104,4 @@ public class BoardDTO {
 	public void setCommentCnt(String commentCnt) {
 		this.commentCnt = commentCnt;
 	}
-	
-
 }
