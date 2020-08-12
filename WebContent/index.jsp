@@ -20,7 +20,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
@@ -110,10 +110,10 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 <div class="board-swipe">
                     <ul>
                         <li>
-                            <button class="key-color">전체 게시판</button>
+                            <button class="key-color" onclick="location.href='main'">전체 게시판</button>
                         </li>
                         <li>
-                            <button id=notice>공지사항</button>
+                            <button id=notice onclick="location.href='boardList?mboard_no=4'">공지사항</button>
                         </li>
                         <li>
                             <button>인기 글</button>
@@ -264,14 +264,9 @@ $("#ct_send").click(function(){
 })
 
 
-	var mboard_no = window.location.search.substring(11);
-	
 	function fn_paging(curPage) {
-		if(mboard_no.length > 2){
-			mboard_no = window.location.search.substring(21);
-		}
-		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
-	}
+		location.href = "main?curPage="+curPage;
+	}		
 
 
 </script>

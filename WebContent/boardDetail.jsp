@@ -21,7 +21,7 @@ crossorigin="anonymous"
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>

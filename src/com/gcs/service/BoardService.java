@@ -118,13 +118,18 @@ public class BoardService  {
 		String location = "boardList.jsp";
 			
 		try {
-			if(mboard_no == null) {
+			if(mboard_no == null || mboard_no.length() < 1) {
 				location= "index.jsp";
 				list = dao.allBoard(startPage, endPage);
 				listCnt = dao.AllListCnt();
 			} else {
 				list = dao.boardList(mboard_no, startPage, endPage);
 				listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
+				
+				// 공지사항이면 index로 보낸다.
+				if(Integer.parseInt(mboard_no) == 4) {
+					location = "index.jsp";
+				}
 			}				
 		} catch (SQLException e) {
 			e.printStackTrace();

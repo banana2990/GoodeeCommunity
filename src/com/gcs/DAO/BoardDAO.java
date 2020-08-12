@@ -246,7 +246,7 @@ public class BoardDAO {
 		
 		ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			
 			String sql = "SELECT COUNT(board_no) FROM blike WHERE board_no=?";
 
@@ -274,7 +274,7 @@ public class BoardDAO {
 		
 		ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
 		
-		for (int i = 0; i < 5; i++) {
+		for (int i = 0; i < list.size(); i++) {
 			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
 			try {
 				ps = conn.prepareStatement(sql);
