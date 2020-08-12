@@ -92,7 +92,6 @@ public class MemberService {
 		boolean success = false;
 		
 		MemberDAO dao = new MemberDAO();
-		
 		try {
 			success = dao.join(id,pw,name,nickName,email,emailChk);
 		} catch (SQLException e) {

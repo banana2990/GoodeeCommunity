@@ -71,7 +71,7 @@ public class MemberController extends HttpServlet {
 				
 				case "/logout" :
 					req.getSession().removeAttribute("id");
-					resp.sendRedirect("index.jsp");
+					resp.sendRedirect("main");
 					break;	
 				
 				case "/loginCheck":

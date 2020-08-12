@@ -6,11 +6,22 @@
 	<head>
 	<meta charset="UTF-8">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="manage.css">
+<script
+src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
+</script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script
-	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-		<title>관리자 카테고리별 글 가져오기</title>		
+<title>구디 커뮤니티</title>	
+<style>
+	select {
+	width: 150px;
+	height: 40px;
+	margin: 30px;
+	}
+
+</style>
+
 	</head>
 	
 	<body>
@@ -18,7 +29,7 @@
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="admin_temp.jsp">
+                <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>관리자 페이지</h1>
                 </a>
@@ -34,7 +45,7 @@
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
@@ -71,9 +82,12 @@
             </div>
         </nav>
         
+        <!-- Main Contents -->
         <div id="contents">
+            <div class="mtitle"><h1>게시글 관리</h1></div>   
+                 <div id="contents">
 	    	<div class="select box">
-		        <select name="mngboard" onchange="reload()">
+		        <select name="mngboard" onchange="listCall()">
 					<option value="1">자유게시판</option>
 					<option value="2">학습게시판</option>
 					<option value="3">익명게시판</option>
@@ -82,37 +96,48 @@
 			</div>
 			
 	        <div id="mngboardlist">       
-	         
-	               <table>
-    			     <tr>
-					<th>no.</th> 
-					<th>제목</th> 
-					<th>작성자</th> 
-					<th>조회수</th> 
-					<th>등록일</th>
-					<th>삭제</th>
-				         </tr> 
+	            <table id="listsection">
+    			    <thead>
+    			    <tr style="background-colodr: rgb(138, 190, 59)">
+						<th>no.</th> 
+						<th>제목</th> 
+						<th>작성자</th> 
+						<th>조회수</th> 
+						<th>등록일</th>
+						<th>삭제</th>
+				     </tr> 
+				     </thead>
+					     <tbody>
+					     </tbody>
 				     </table>
 	        </div>
-	      
+
+            <div class="list-paging">
+                <button id="1" class="on">1</button>
+                <button id="2">2</button>
+                <button id="3">3</button>
+                <button id="4">4</button>
+                <button id="5">5</button>
+                <button id="next">next</button>
+                <button class="delete" onclick="del()">삭제</button>
+              </div>   
          </div>
-        
+        </div>
 	</body>
 	
 	<script>
 
-	
-	function reload(){		
+	function listCall(){		
 		var val = $("select[name='mngboard']").val();
 		console.log(val);
 		$.ajax({
-	        type: "get",
+	        type: "post",
 	        url: "mngboard",
 	        data: {"mBoard_no": val},
 	        dataType: "JSON",
 	        success: function(data) {
 	            console.log(data.list);
-	            //drawTable(data.list);
+	            drawTable(data.list);
 	        },
 		    error: function() {
 		        console.log(data);
@@ -120,22 +145,19 @@
 	    });
 	}
 	
-/* 	function drawTable(list){
+	function drawTable(list){
 		var content = "";
 		   $("tbody").empty();   
 		   list.forEach(function(item,num){
-		      //console.log(num,item);
+		      console.log(num,item);
 		      content = "<tr><td>"+item.board_no+"</td>"
 		         +"<td><a href='detail?board_no="+item.board_no+"'>"
-		        +item.bo_subject+"</td></a><td>"+item.user_name
-		         +"</td><td>"+item.id+"</td><td>"+item.bo_bhit+"</td><td>"
-		         +item.bo_bhit  +"</td><td>"+item.bo_reg_date
+		        +item.bo_subject+"</td></a><td>"+item.id+"</td><td>"
+		         +item.bo_bHit +"</td><td>"+item.bo_reg_date
 		         +"</td><td><a href='delboard?board_no="+item.board_no+"'> 삭제 </a></td></tr>";
 		         $("tbody").append(content);
-		   }); */
-		  			   
+		   });
+	}
 		
-
-
-	</script>
+</script>
 </html>
