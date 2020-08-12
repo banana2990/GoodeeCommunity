@@ -6,10 +6,6 @@
 		<c:when test="${sessionScope.id eq null}">
 			<jsp:forward page="/login.jsp"/>
 		</c:when>
-		<c:otherwise>
-			<jsp:forward page="/index.jsp"/>
-		</c:otherwise>
-
 	</c:choose>
 
 <!DOCTYPE html>

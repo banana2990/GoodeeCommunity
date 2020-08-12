@@ -3,7 +3,7 @@
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
 <!DOCTYPE html>
-<html>
+<html id="html">
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
@@ -113,25 +113,64 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                             <button class="key-color">전체 게시판</button>
                         </li>
                         <li>
-                            <button>공지사항</button>
+                            <button id=notice>공지사항</button>
                         </li>
                         <li>
                             <button>인기 글</button>
                         </li>
                     </ul>
                 </div>
+                
                 <div class="list-box">
-                    <!-- 게시글 영역 -->
-                    
-                    <div class="list-paging">
-                      <button id="1" class="on">1</button>
-                      <button id="2">2</button>
-                      <button id="3">3</button>
-                      <button id="4">4</button>
-                      <button id="5">5</button>
-                      <button id="next">next</button>
-                    </div>
+                	<c:forEach items="${list }" var="bbs" varStatus="status">
+	                	<ul>              	
+							<li>
+								<a href="boardDetail?board_no=${bbs.board_no}">
+									<h3>
+										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
+										<i class="icon-new"></i>
+										<dl class="writing-info"> 
+											<dt class="blind"></dt>
+											<c:if test="${bbs.mboard_no eq 3}" >
+												<dd class="writer">익명</dd>
+											</c:if>
+											<c:if test="${bbs.mboard_no ne 3}">
+												<dd class="writer">${bbs.nickName }</dd> 
+											</c:if>
+											<dt class="blind"></dt>
+										<dd>
+											<span class="date">${bbs.bo_reg_date }</span>
+											<span class="count-read">${bbs.bo_bHit }</span>
+											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
+											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
+										</dd>
+									</dl>
+								</a>
+							</li>				
+	                    </ul>
+                    </c:forEach>                         
                 </div>
+
+                <div class="list-paging">  
+                	<c:if test="${page.curPage ne 1}">
+                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
+                    </c:if>             
+                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
+	                     <c:choose>
+		                        <c:when test="${pageNum eq  page.curPage}">
+		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:when>
+		                        <c:otherwise>
+		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
+                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
+                    </c:if>
+                </div>
+                
+            </div>
             </div>
         </div>  
     </div>
@@ -223,6 +262,17 @@ $("#ct_send").click(function(){
      });
 	
 })
+
+
+
+	var mboard_no = window.location.search.substring(11);
+	
+	function fn_paging(curPage) {
+		if(mboard_no.length > 2){
+			mboard_no = window.location.search.substring(21);
+		}
+		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
+	}
 
 
 
