@@ -39,7 +39,10 @@ public class BoardDAO {
 	}
 
 	public ArrayList<BoardDTO> commentlist() {
-		String sql = "SELECT comment_no, board_no, id, co_content, co_reg_date FROM commentary ORDER BY comment_no DESC";
+		String sql = "SELECT ta.comment_no, ta.board_no, ta.id, ta.co_content, ta.co_reg_date, tc.boardname "
+				+ "FROM commentary ta INNER JOIN board tb ON tb.board_no=ta.board_no "
+				+ "INNER JOIN mboard tc ON tb.mBoard_no = tc.mBoard_no "
+				+ "ORDER BY co_reg_date DESC";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {		
 			ps = conn.prepareStatement(sql);
@@ -52,6 +55,7 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				dto.setCo_content(rs.getString("co_content"));
 				dto.setCo_reg_date(rs.getDate("co_reg_date"));
+				dto.setBoardname(rs.getString("boardname"));
 				//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
 				list.add(dto);  
 			}

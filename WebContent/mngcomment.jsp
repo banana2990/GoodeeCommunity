@@ -28,7 +28,7 @@
             <div class="navbar__logo">
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                    <h1>관리자 페이지</h1>
                 </a>
             </div>
             <div class="search-input">
@@ -95,15 +95,13 @@
 					<c:forEach items="${list}" var="bbs">
 					<tr>
 					<td> ${bbs.comment_no} </td>
-					<td> mboard_no </td>
+					<td> ${bbs.boardname}</td>
 					<td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
 					<td> ${bbs.id} </td>
 					<td> ${bbs.co_reg_date} </td>							
 					<td> <button onclick = "location.href='delmngcomment?comment_no=${bbs.comment_no}'">삭제 </button></td>								
 					</tr>		
-					</c:forEach>
-					
-						
+					</c:forEach>					
 	
 				</table>            
         </div>

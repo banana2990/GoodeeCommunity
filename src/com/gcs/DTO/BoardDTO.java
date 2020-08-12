@@ -18,7 +18,6 @@ public class BoardDTO {
 	private Date co_reg_date;
 	private String blike_cnt;
 	private String commentCnt;
-		
 	
 	public int getBoard_no() {
 		return board_no;
