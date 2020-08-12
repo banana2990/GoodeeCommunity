@@ -224,7 +224,5 @@ $("#ct_send").click(function(){
 	
 })
 
-
-
 </script>
 </html>

@@ -80,23 +80,32 @@ crossorigin="anonymous"
             <!--게시글 상세보기-->
             <div class="section_top">
                 <div class="title_box">
-                    <input type="button" value="삭제" onclick="location.href='del?board_no=${boardDetail.board_no}&mboard_no=${boardDetail.mboard_no }'"/>
-                    <input type="button" value="수정" onclick="location.href='updateForm?board_no=${boardDetail.board_no}'"/>
+                    
+            	<form action="update?board_no=${boardDetail.board_no }" method="post">
+            		<select name="mboard_no">
+            			<option selected>----------</option>
+            			<option value="1">자유게시판</option>
+            			<option value="2">학습게시판</option>
+            			<option value="3">익명게시판</option>
+            		</select>
                     <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
-                    <h3>${boardDetail.bo_subject }</h3>
+                    <h3><input type = "text" name="subject" value="${boardDetail.bo_subject }"/></h3>
                     <dl class="writing_info">
                         <dd class="writer">${boardDetail.nickName }</dd>
                         <span class="date">${boardDetail.bo_reg_date }</span>
                         <img src="./image/조회수.PNG" alt class="read">
                         <span class="count">${boardDetail.bo_bHit }</span>
                     </dl>
+                    <button class="btn">삭제</button>
+                    <input type="submit" value="수정"/>
+                
                 </div>
             </div>
             
             <div class="section-bot">
                 <div class="view-box">
                     <div class="txt note-editor">
-                        ${boardDetail.bo_content }
+                        <textarea name="content" >${boardDetail.bo_content }</textarea></form>
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
@@ -202,9 +211,6 @@ crossorigin="anonymous"
     </div>
 </body>
 <script>
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-	}
+
 </script>
 </html>
