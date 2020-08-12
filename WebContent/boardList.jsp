@@ -163,6 +163,10 @@ crossorigin="anonymous"
 		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
 	}		
 	
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
 	
 </script>
 </html>

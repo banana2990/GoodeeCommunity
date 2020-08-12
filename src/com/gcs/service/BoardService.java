@@ -198,8 +198,7 @@ public class BoardService  {
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
 		}
-		
-		
+				
 	}
 
 	//수정
@@ -236,6 +235,17 @@ public class BoardService  {
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+	}
+
+	public void myBoardList() {
+	
+		
+	}
+
+	//검색
+	public void search() {
+		
+		
 	}
 
 }

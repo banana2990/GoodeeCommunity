@@ -26,7 +26,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="" method="post">
                     <input
                       class="search"
                       type="text"

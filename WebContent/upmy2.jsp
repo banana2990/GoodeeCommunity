@@ -274,7 +274,7 @@
 								</a>
 							</li>				
 	                    </ul>
-                    </c:forEach>                         
+      	</c:forEach>                         
       </div>
       <div class="paging">
         <table>

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gcs.service.BoardService;
 
 
-@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del"})
+@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/myBoardList","/search"})
 
 public class BoardController extends HttpServlet {
 
@@ -113,7 +113,14 @@ public class BoardController extends HttpServlet {
 			System.out.println("글 삭제");
 			boardService.del();
 			break;
+		case "/myBoardList":
+			System.out.println("내 글보기");
+			boardService.myBoardList();
+			break;
 			
+		case "/search":
+			System.out.println("검색");
+			break;
 		}
 	}
 }
