@@ -6,10 +6,6 @@
 		<c:when test="${sessionScope.id eq null}">
 			<jsp:forward page="/login.jsp"/>
 		</c:when>
-		<c:otherwise>
-			<jsp:forward page="/index.jsp"/>
-		</c:otherwise>
-
 	</c:choose>
 
 <!DOCTYPE html>
@@ -30,7 +26,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>

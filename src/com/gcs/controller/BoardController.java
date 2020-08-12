@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
-@WebServlet({"/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail"})
+
+@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del"})
+
 public class BoardController extends HttpServlet {
 
 	@Override
@@ -36,6 +38,11 @@ public class BoardController extends HttpServlet {
 		BoardService boardService = new BoardService(req, resp);
 		
 		switch(reqAddr) {
+		case "/main":
+			System.out.println("메인 페이지");
+			boardService.boardList();
+			break;
+		
 		case "/boardList":
 			System.out.println("게시판 리스트 띄우기");
 			boardService.boardList();
@@ -58,6 +65,7 @@ public class BoardController extends HttpServlet {
 			break;
 			
 		case "/writeView" :
+			System.out.println("writeView");
 			System.out.println(req.getSession().getAttribute("id"));
 			if(req.getSession().getAttribute("id") == null) {
 				String writeMsg = "로그인 후 이용가능합니다.";
@@ -95,7 +103,16 @@ public class BoardController extends HttpServlet {
 			System.out.println("수정 폼 이동 요청");
 			boardService.updateForm();
 			break;
-
+			
+		case "/update":
+			System.out.println("수정");
+			boardService.update();
+			break;
+			
+		case "/del":
+			System.out.println("글 삭제");
+			boardService.del();
+			break;
 		}
 	}
 }

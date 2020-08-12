@@ -21,7 +21,7 @@ crossorigin="anonymous"
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
@@ -80,8 +80,8 @@ crossorigin="anonymous"
             <!--게시글 상세보기-->
             <div class="section_top">
                 <div class="title_box">
-                    <button class="btn">삭제</button>
-                    <button class="btn">수정</button>
+                    <input type="button" value="삭제" onclick="location.href='del?board_no=${boardDetail.board_no}&mboard_no=${boardDetail.mboard_no }'"/>
+                    <input type="button" value="수정" onclick="location.href='updateForm?board_no=${boardDetail.board_no}'"/>
                     <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
                     <h3>${boardDetail.bo_subject }</h3>
                     <dl class="writing_info">
@@ -202,6 +202,9 @@ crossorigin="anonymous"
     </div>
 </body>
 <script>
-
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
 </script>
 </html>
