@@ -15,13 +15,13 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 <title>구디 커뮤니티</title>
 </head>
 <body>
-	<div id="container">
+		<div id="container">
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="admin_temp.jsp">
+                <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                    <h1>관리자 페이지</h1>
                 </a>
             </div>
             <div class="search-input">
@@ -35,19 +35,19 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
-                 <h2>전체 게시판</h2>
+                <h2>전체 게시판</h2>
                 <li>
                     <a href="mngboard.jsp" id="mngboard">
                         <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="mngcomment.jsp" id="mngcomment">
+                    <a href="mngcomment" id="mngcomment">
                         <span>댓글 관리</span>
                     </a>
                 </li>

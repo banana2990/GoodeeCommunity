@@ -20,7 +20,7 @@
             <div class="navbar__logo">
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                    <h1>관리자 페이지</h1>
                 </a>
             </div>
             <div class="search-input">
@@ -56,7 +56,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#" id="ask">
+                    <a href="contact.jsp" id="ask">
                         <span>문의사항 내역</span>
                     </a>
                 </li>
@@ -64,9 +64,9 @@
             
             <div class="top-util">
                 <div class="inner">
+                	<button onclick="location.href='logout'"> 로그아웃 </button>
                     <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
+                        <div class="profile-img"></div> </button>
                     <button class="login" onclick="location.href='login.jsp'">로그인</button>
                     <button onclick="location.href='photo_test.jsp'">포토임시확인용</button>
                 </div>
