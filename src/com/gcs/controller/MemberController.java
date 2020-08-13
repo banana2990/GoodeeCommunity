@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate"})
 
 public class MemberController extends HttpServlet {
 
@@ -110,6 +110,20 @@ public class MemberController extends HttpServlet {
 					
 				case "/memberDel":
 					service.delete();
+					break;
+					
+				case "/memberout":
+					service.out();
+					break;		
+				
+				case "/myPageList":
+					System.out.println("MYLIST");
+					service.mylist();
+					break;
+					
+				case "/myUpdate":					
+					System.out.println("내프로필 업데이트 요청");
+				    	service.myUpdate();
 					break;
 			}
 	}
