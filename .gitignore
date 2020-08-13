@@ -1,0 +1,7 @@
+build/
+.classpath
+.project
+.settings/
+WebContent/WEB-INF/lib/commons-dbcp2-2.1.1.jar
+WebContent/WEB-INF/lib/cos.jar
+WebContent/WEB-INF/lib/
