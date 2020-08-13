@@ -142,7 +142,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
 											<span class="date">${bbs.bo_reg_date }</span>
 											<span class="count-read">${bbs.bo_bHit }</span>
 											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
-											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
+											<span class="count-comment">${commentCnt[status.index] }</span>
 										</dd>
 									</dl>
 								</a>

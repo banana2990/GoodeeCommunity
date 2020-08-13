@@ -15,39 +15,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.ReplyService;
 
-
- 
 @WebServlet("/reply")
 public class ReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String uri = request.getRequestURI();
-		String ctx = request.getContextPath();
+	private void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String uri = req.getRequestURI();
+		String ctx = req.getContextPath();
 		String reqAddr = uri.substring(ctx.length());
-		System.out.println("uri : " + uri);
-		System.out.println("ctx : " + ctx);
-		System.out.println("reqAddr : " + reqAddr);
 		
-		ReplyService replyService = new ReplyService(request, response);
+		ReplyService replyService = new ReplyService(req, resp);
 		
 		
 		switch(reqAddr) {
 		case "/reply":
 			replyService.reply();
 			break;
+
 		}
 	}
 		
 	
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("get");
-		doProcess(request, response);
+		doProcess(req, resp);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)	throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)	throws ServletException, IOException {
 		System.out.println("post");
-		doProcess(request, response);
+		doProcess(req, resp);
 	
 
 	}

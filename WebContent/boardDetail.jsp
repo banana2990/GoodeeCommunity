@@ -100,7 +100,7 @@ crossorigin="anonymous"
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
-                            <span class="like-count">0</span>
+                            <span class="like-count">1</span>
                         </button>
                     </div>
                 </div>
@@ -109,14 +109,14 @@ crossorigin="anonymous"
                     <div class="reply-area">
                         <p class="total">
                             <span class="message">댓글</span>
-                            <span class="key-color">2</span>
+                            <span class="key-color">${commentCnt }</span>
                         </p>
                         <div class="reply-input">
                             <div class="reply-div">
                                 <form action="reply?board_no=${boardDetail.board_no}" method="post">
 										<input type="hidden" name="no" id="no" value="${ content.board_no }"> 
 										<input type="hidden" name="id" id="id" value="${ id }">
-										<textarea rows="5" cols="50" name="co_content" id="reply_content"></textarea>
+										<input type="text" name="co_content" id="reply_content" class="nologin-disabled">
 										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
 									</form>
 									
@@ -126,32 +126,35 @@ crossorigin="anonymous"
 
                     <div class="reply-list">
                         <ul>
-                            <li data-commentid="1027890">
-                                <div class="reply">
-                                    <div class="profile-img"></div>
-                                    <div class="txt-area">
-                                        <dl class="writing-info">
-                                            <dd class="writer">아무개</dd>
-                                            <dd>
-                                                <span class="date">2020.08.05 11:12</span>
-                                            </dd>
-                                        </dl>
-                                        <div class="txt.box1">
-                                            <p>야 이거 겁나 어렵네......</p>
-                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
-                                        </div>
-                                        <div class="util">
-                                            <button type="button" class="btn-like reply-likes">
-                                                <span class="like-count-reply">1</span>
-                                            </button>
-                                            <button type="button" class="btn-rereply">답글쓰기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li data-commentid="102789">
+                        	<c:forEach items="${commentList }"  var="comment">                       
+	                            <li data-commentid="1027890">
+	                                <div class="reply">
+	                                    <div class="profile-img"></div>
+	                                    <div class="txt-area">
+	                                        <dl class="writing-info">
+	                                            <dd class="writer">${comment.nickName }</dd>
+	                                            <dd>
+	                                                <span class="date">${comment.co_reg_date }</span>
+	                                            </dd>
+	                                        </dl>
+	                                        <div class="txt.box1">
+	                                            <p>${comment.co_content }</p>
+	                                            <!-- <input type="text" value="" class = "reply-inputbox" style="width : 750px">
+	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button> -->
+	                                        </div>
+	                                        <div class="util">
+	                                            <button type="button" class="btn-like reply-likes">
+	                                                <span class="like-count-reply">0</span>
+	                                            </button>
+	                                            <button type="button" class="btn-rereply">답글쓰기</button>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </li>
+                            </c:forEach>
+			
+							
+                            <!-- <li data-commentid="102789">
                                 <div class="reply">
                                     <div class="profile-img2"></div>
                                     <div class="txt-area2">
@@ -173,10 +176,11 @@ crossorigin="anonymous"
                                         </div>
                                     </div>
                                 </div>
-                            </li>
-                        </ul>
-                    </div>         
-                </div>
+                            </li>           -->                    
+                        </ul>                        
+                    </div>                                      
+                </div><!-- section-bot 끝 -->
+                
                 <button class="btn-foot" location.href="#">이전</button>
                 <button class="btn-foot" location.href="#">다음</button>
                 <button class="btn-list" location.href="#">목록으로</button>
@@ -211,5 +215,6 @@ crossorigin="anonymous"
 	if(msg != ""){
 		alert(msg);
 	}
+
 </script>
 </html>

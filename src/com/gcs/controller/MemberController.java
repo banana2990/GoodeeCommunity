@@ -40,7 +40,7 @@ public class MemberController extends HttpServlet {
 					String pw = req.getParameter("pw");
 					System.out.println("login: "+id+ " Password: "+pw);
 					String msg =  "로그인 실패하였습니다.";
-					String page = "index.jsp";
+					String page = "main";
 					try {
 					if(service.login(id,pw)) {
 						msg = "환영합니다 "+id+"님!";
