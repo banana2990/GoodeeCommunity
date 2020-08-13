@@ -19,6 +19,10 @@ public class BoardDTO {
 	private String blike_cnt;
 	private int commentCnt;
 	
+	private int recomment_no;
+	private String reco_content;
+	private Date reco_reg_date;
+		
 	public int getBoard_no() {
 		return board_no;
 	}
@@ -102,5 +106,29 @@ public class BoardDTO {
 	}
 	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
+	}
+	public String getBoardName() {
+		return boardName;
+	}
+	public void setBoardName(String boardName) {
+		this.boardName = boardName;
+	}
+	public int getRecomment_no() {
+		return recomment_no;
+	}
+	public void setRecomment_no(int recomment_no) {
+		this.recomment_no = recomment_no;
+	}
+	public String getReco_content() {
+		return reco_content;
+	}
+	public void setReco_content(String reco_content) {
+		this.reco_content = reco_content;
+	}
+	public Date getReco_reg_date() {
+		return reco_reg_date;
+	}
+	public void setReco_reg_date(Date reco_reg_date) {
+		this.reco_reg_date = reco_reg_date;
 	}
 }

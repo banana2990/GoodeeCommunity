@@ -10,9 +10,16 @@
 	</head>
 	
 	<body>
+	
+	
 	<form action="photoUp" method ="post" enctype="multipart/form-data">
 	<br/>
-	<input type="text" name="id"/>
+	id 	<input type="text" name="id"/><br/>
+	pw <input type="text" name="pw"/><br/>
+	name <input type="text" name="name"/><br/>
+	nickName <input type="text" name="nickName"/>	<br/>
+	u_email <input type="text" name="u_email"/><br/>
+		
 	<br/>
 	<input type="file" name="photo"/>
 	<br/>

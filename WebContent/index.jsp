@@ -26,7 +26,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="" method="post">
                     <input
                       class="search"
                       type="text"
@@ -210,7 +210,7 @@ var loginId = "${sessionScope.id}";
 // 세션에 저장된 경우 로그인버튼을 비활성화하기
 console.log(loginId);
 
-if(loginId!="admin"){}else{location.href="admin_temp.jsp";}
+if(loginId!="admin"){}else{location.href="admin_main.jsp";}
 
 var profile_img = $("#profile_img");
 var loginbtn = $("#login");
@@ -235,10 +235,11 @@ function write(){
 $("#ct_send").click(function(){
 	
 	var $writer = $("input[name='writer']");
-	var $subject = $("input[name='writer']");
-	var $c_email = $("input[name='writer']");
-	var $content = $("input[name='writer']");
+	var $subject = $("input[name='subject']");
+	var $c_email = $("input[name='c_email']");
+	var $content = $("input[name='content']");
 	
+	console.log($write,$subject,$c_email,$content);
 	
 	var param = {};
 	
@@ -247,21 +248,21 @@ $("#ct_send").click(function(){
 	param.c_email = $("input[name='c_email']").val();
 	param.content = $("input[name='content']").val();
 	
-	
 	$.ajax({
         type: "post",
         url: "contactWrite",
         data: param,
         dataType: "JSON",
         success: function(data){
-        	
+        	console.log(data.contactmsg);
+        	alert("msg");
         },
         error: function(error){
            console.log(error);
         }
-     });
-	
-})
+     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
+});
 
 
 	function fn_paging(curPage) {

@@ -150,7 +150,8 @@ public class MemberDAO {
 		return list;
 		
 	}
-
+	
+	//회원탈퇴 
 	public boolean memberDel(String id) {
 		String sql = "DELETE FROM member WHERE id=?";
 		boolean result = false;
@@ -218,8 +219,51 @@ public class MemberDAO {
 		
 		return list;
 	}
+	
+	//회원정보 조회
+	public MemberDTO mylist(String id) {
+		System.out.println(id);
+		System.out.println("MYLIST3");
 
+		MemberDTO dto = new MemberDTO();
+		String sql  = "SELECT nickName, name FROM member WHERE id =?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1,id);
+			rs = ps.executeQuery();
+			System.out.println("MYLIST4");
+			while(rs.next()){
+				dto.setName(rs.getString("name"));
+				dto.setNickName(rs.getString("nickName"));
+				}
 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return dto;
+	}
+	
+	//회원 정보 수정
+		public boolean myUpdate(String id, String nickName, String name, String pw) {
+			String sql = "UPDATE member SET nickName=?, name=?, pw=? WHERE id=?";
+			boolean result = false;		
+			try {
+				ps = con.prepareStatement(sql);
+				ps.setString(1, nickName);
+				ps.setString(2, name);
+				ps.setString(3, pw);
+				ps.setString(4, id);
+				if (ps.executeUpdate()>0) {
+					result = true;
+				}
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			} finally {
+				resClose();
+			}
+			return result;
+		}
+	
 }	
 
 

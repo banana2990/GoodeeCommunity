@@ -26,9 +26,9 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="main">
+                <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                    <h1>관리자 페이지</h1>
                 </a>
             </div>
             <div class="search-input">
@@ -42,30 +42,30 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </form>
             </div>	
             
-            <button class="write">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList.jsp">
-                        <span>자유 게시판</span>
+                    <a href="mngboard.jsp" id="mngboard">
+                        <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
-                        <span>학습 게시판</span>
+                    <a href="mngcomment" id="mngcomment">
+                        <span>댓글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
-                        <span>익명 게시판</span>
+                    <a href="membermanagement.jsp" id="mngmember">
+                        <span>회원 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
-                        <span>오늘 점심 뭐먹지?</span>
+                    <a href="contact.jsp" id="ask">
+                        <span>문의사항 내역</span>
                     </a>
                 </li>
             </ul>
@@ -90,6 +90,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                                     <option value="1">자유게시판</option>
                                     <option value="2">학습게시판</option>
                                     <option value="3">익명게시판</option>
+                                    <option value="4">공지</option>
                             		<!--  세션 스코프 확인했을 때 관리자면 공지사항 option 추가 -->
                                 </select>
                                 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			

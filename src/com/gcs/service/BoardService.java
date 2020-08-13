@@ -207,8 +207,7 @@ public class BoardService  {
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
 		}
-		
-		
+				
 	}
 
 	//수정
@@ -245,6 +244,48 @@ public class BoardService  {
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher(page);
 		dis.forward(req, resp);
+	}
+
+	//관리자 게시글 상세보기
+	public void mboardDetail() throws ServletException, IOException {
+		BoardDTO dto = null;
+		String board_no = req.getParameter("board_no");
+		BoardDAO dao = new BoardDAO();
+		
+		try {
+			dto = dao.mboardDetail(board_no);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
+			req.setAttribute("boardDetail", dto);
+			
+			RequestDispatcher dis = req.getRequestDispatcher("mboardDetail.jsp");
+			dis.forward(req, resp);
+		}
+		
+		
+	}
+	
+	//회원 본인 댓글 삭제
+	public void delcom() throws ServletException, IOException {
+		String idx = req.getParameter("board_no");
+		String id = (String) req.getSession().getAttribute("id");
+		System.out.println("board_no : "+idx+" id: "+id);
+		BoardDAO dao = new BoardDAO();			
+		dao.delcom(idx,id); //근데 끝나고 어디로 가?
+	  	}
+	
+	
+	public void myBoardList() {
+	
+		
+	}
+
+	//검색
+	public void search() {
+		
+		
 	}
 
 }
