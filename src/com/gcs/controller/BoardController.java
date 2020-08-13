@@ -120,12 +120,13 @@ public class BoardController extends HttpServlet {
 		case "/mngboardDetail":
 			System.out.println("관리자글 상세보기 게시글 번호"+req.getParameter("board_no"));
 			boardService.mboardDetail();
-
+		break;
+/*
 		case "/myBoardList":
 			System.out.println("내 글보기");
 			boardService.myBoardList();
 			break;
-			
+*/			
 		case "/search":
 			System.out.println("검색");
 			break;
