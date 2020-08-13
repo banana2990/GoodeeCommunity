@@ -151,7 +151,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 		   list.forEach(function(item,num){
 		      console.log(num,item);
 		      content = "<tr><td>"+item.board_no+"</td>"
-		         +"<td><a href='detail?board_no="+item.board_no+"'>"
+		         +"<td><a href='mngboardDetail?board_no="+item.board_no+"'>" // 위치 조정 필요...
 		        +item.bo_subject+"</td></a><td>"+item.id+"</td><td>"
 		         +item.bo_bHit +"</td><td>"+item.bo_reg_date
 		         +"</td><td><a href='delboard?board_no="+item.board_no+"'> 삭제 </a></td></tr>";

@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gcs.service.BoardService;
 
 
-@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del"})
+@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom"})
 
 public class BoardController extends HttpServlet {
 
@@ -72,12 +72,16 @@ public class BoardController extends HttpServlet {
 				req.setAttribute("writeMsg", writeMsg);
 				RequestDispatcher dis = req.getRequestDispatcher("index.jsp");
 				dis.forward(req, resp);
-			} else {
+			} else if(req.getSession().getAttribute("id").equals("admin")){
+				resp.sendRedirect("mngwrite.jsp");
+			}	else {
 				resp.sendRedirect("write.jsp");
 			}
 			break;
 
 		case "/deletecom":
+			System.out.println("회원 본인 댓글 삭제");
+			boardService.delcom();
 			break;
 			
 		case "/delmngcomment"://관리자 댓글 삭제
@@ -112,6 +116,11 @@ public class BoardController extends HttpServlet {
 		case "/del":
 			System.out.println("글 삭제");
 			boardService.del();
+			break;
+			
+		case "/mngboardDetail":
+			System.out.println("관리자글 상세보기 게시글 번호"+req.getParameter("board_no"));
+			boardService.mboardDetail();
 			break;
 		}
 	}

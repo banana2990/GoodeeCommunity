@@ -1,22 +1,16 @@
 package com.gcs.DAO;
 
-import java.io.IOException;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 
-
-public class ReplyDAO {
-	
+public class ReplyDAO {	
 	Connection conn = null;
 	PreparedStatement ps = null;
 	ResultSet rs = null;

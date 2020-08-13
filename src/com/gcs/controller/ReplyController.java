@@ -36,8 +36,6 @@ public class ReplyController extends HttpServlet {
 		case "/reply":
 			replyService.reply();
 			break;
-			
-
 		}
 	}
 		

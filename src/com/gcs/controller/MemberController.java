@@ -44,7 +44,7 @@ public class MemberController extends HttpServlet {
 					try {
 					if(service.login(id,pw)) {
 						msg = "환영합니다 "+id+"님!";
-						page = "index.jsp";
+						page = "main";
 						req.getSession().setAttribute("id", id);
 					}}catch(Exception e) {}
 					finally {

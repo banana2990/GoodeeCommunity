@@ -39,7 +39,8 @@ public class BoardDAO {
 	}
 
 	public ArrayList<BoardDTO> commentlist() {
-		String sql = "SELECT ta.comment_no, ta.board_no, ta.id, ta.co_content, ta.co_reg_date, tc.boardname "
+		String sql = 				
+				"SELECT ta.comment_no, ta.board_no, ta.id, ta.co_content, ta.co_reg_date, tc.boardname "
 				+ "FROM commentary ta INNER JOIN board tb ON tb.board_no=ta.board_no "
 				+ "INNER JOIN mboard tc ON tb.mBoard_no = tc.mBoard_no "
 				+ "ORDER BY co_reg_date DESC";
@@ -55,8 +56,7 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				dto.setCo_content(rs.getString("co_content"));
 				dto.setCo_reg_date(rs.getDate("co_reg_date"));
-				dto.setBoardname(rs.getString("boardname"));
-				//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
+				dto.setBoardname(rs.getString("boardname"));//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
 				list.add(dto);  
 			}
 		} catch (SQLException e) {
@@ -388,5 +388,54 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
+	public BoardDTO mboardDetail(String board_no) throws SQLException {
+		BoardDTO dto = new BoardDTO();
+		
+		String sql = "SELECT * FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, b.boardname, m.nickname " + 
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.boardname " + 
+				"FROM board b, mboard m WHERE b.mboard_no = m.mboard_no) b, member m " + 
+				"WHERE b.id= m.id) WHERE board_no=?";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setMboard_no(rs.getInt("mboard_no"));
+			dto.setId(rs.getString("id"));
+			dto.setBo_subject(rs.getString("bo_subject"));
+			dto.setBo_content(rs.getString("bo_content"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));			
+			dto.setNickName(rs.getString("nickname"));
+			dto.setBoardname(rs.getString("boardname"));
+			upHit(rs.getInt("board_no"));
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
+		}	
+		return dto;
+	}
+
+	public boolean delcom(String idx, String id) {
+		String sql = "DELETE FROM commentary WHERE id=? and board_no=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, idx);			
+			int success = ps.executeUpdate();
+			if(success > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;
+	}
+		
+	
+	
 }
 

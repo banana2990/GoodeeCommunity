@@ -1,22 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
-
 <!DOCTYPE html>
-<html id="html">
+<html>
 <head>
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="style.css" />
-<script src="index.js" defer></script>
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
+<link rel="stylesheet" href="style.css">
 <script
-src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-<title>구디 커뮤니티</title>
+src="https://kit.fontawesome.com/fbff03f786.js"
+crossorigin="anonymous"
+></script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
 <body>
-	<div id="container">
+   <div id="container">
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
@@ -36,7 +35,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='writeView'">
+            <button class="write" onclick="location.href='write.jsp'">
                 글쓰기
             </button>
     
@@ -65,62 +64,42 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </ul>
             
             <div class="top-util">
-            	<div class="boxx">
-                    <jsp:include page="upmy1.jsp"/>
-		        </div>
                 <div class="inner">
                     <button type="button" class="profile">
-                        <div id="profile_img" class="profile-img"></div>
+                        <div class="profile-img"></div>
                     </button>
-                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
+                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
-        
+
         <!-- Main Contents -->
         <div id="contents">
-            <div class="section-top">
-                <div class="img-swipe">
-                    <!-- 이미지 필요!!! -->
-                    	메인 이미지 영역입니다.
-                </div>
-                <div class="today-memo">
-                	<form action="#" method="post">
-	                	<table>
-	                	 	<tr>
-	                	 		<h1 style= "margin-left:60px;">오늘의 메모</h1>
-	                	 	</tr>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" name="" id="" value=""/></td>
-							</tr>
-							<tr>
-								<th>내용</th>
-								<td><textarea name="" id="" cols="30" rows="15"></textarea></td>
-							</tr>
-							<tr>
-								<td colspan="2" style= "text-align:center;"><input type="button" value="저장" id="" /></td>
-							</tr>
-						</table>
-					</form>
-                </div>
-            </div>
-
             <div class="section-bot">
                 <div class="board-swipe">
                     <ul>
                         <li>
-                            <button class="key-color" onclick="location.href='main'">전체 게시판</button>
-                        </li>
-                        <li>
-                            <button id=notice onclick="location.href='boardList?mboard_no=4'">공지사항</button>
-                        </li>
-                        <li>
-                            <button>인기 글</button>
+                           	<button class="key-color" style="top : -35px">${list[0].boardname}</button>
                         </li>
                     </ul>
+                <!-- 게시글 검색바 -->
+                <div class="board_search-input">
+	                <form class="searchbar" action="#" method="get" >
+	                    <select>
+							<option>제목</option>
+							<option>작성자</option>
+							<option>제목+내용</option>
+						</select>
+	                    <input
+	                      class="search"
+	                      type="text"
+	                      name="search"
+	                    />
+	                    <button style="left : 100px"><i class="fas fa-search"></i></button>
+	                </form>
+            	</div>
                 </div>
-                
+		
                 <div class="list-box">
                 	<c:forEach items="${list }" var="bbs" varStatus="status">
 	                	<ul>              	
@@ -169,106 +148,21 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                         	<button onClick="fn_paging('${page.nextPage }')">next</button> 
                     </c:if>
                 </div>
-                
-            </div>
             </div>
         </div>  
     </div>
-
-    <div class="helpIcon">
-        <i class="far fa-comment-dots"></i>   
-    </div>
-  
-    <div class="helpIcon__content">
-        <div class="helpIcon__title">
-            <br><br>
-            <p>무엇을 도와드릴까요?</p>
-            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
-        </div>
-        <div class="helpIcon__input">
-            <form action="contactWrite" method="post">
-            <br><br>
-            <input type="text" name="writer" placeholder="   작성자"> 
-            <input type="text" name="subject" placeholder="   제목">
-            <input type="text" name="c_email" placeholder="   이메일">
-            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
-            <br><br>
-            <button id="ct_send">보내기</button>
-            </form>
-        </div>
-    </div>
 </body>
 <script>
-
-var writeMsg = "${writeMsg}";
-if(writeMsg != ""){
-	alert(writeMsg);
-	location.href = "login.jsp";
-}
-
-var loginId = "${sessionScope.id}";
-// 세션에 저장된 경우 로그인버튼을 비활성화하기
-console.log(loginId);
-
-if(loginId!="admin"){}else{location.href="admin_main.jsp";}
-
-var profile_img = $("#profile_img");
-var loginbtn = $("#login");
-
-if(loginId==""){
-	profile_img.css({"display":"none"});	
-}else{    
-    loginbtn.css({"display":"none"});
-    profile_img.css({"display":"block"});
-}
-
-
-
-function write(){
-	if("${sessionScope.id}" == null ){
-		alert("로그인이 필요합니다.")
-	}else{
-		location.href="write.jsp";
-	}
-}
-
-$("#ct_send").click(function(){
 	
-	var $writer = $("input[name='writer']");
-	var $subject = $("input[name='subject']");
-	var $c_email = $("input[name='c_email']");
-	var $content = $("input[name='content']");
+	var mboard_no = window.location.search.substring(11);
 	
-	console.log($write,$subject,$c_email,$content);
-	
-	var param = {};
-	
-	param.writer = $("input[name='writer']").val();
-	param.subject = $("input[name='subject']").val();
-	param.c_email = $("input[name='c_email']").val();
-	param.content = $("input[name='content']").val();
-	
-	$.ajax({
-        type: "post",
-        url: "contactWrite",
-        data: param,
-        dataType: "JSON",
-        success: function(data){
-        	console.log(data.contactmsg);
-        	alert("msg");
-        },
-        error: function(error){
-           console.log(error);
-        }
-     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
-
-});
-
-
 	function fn_paging(curPage) {
-		location.href = "main?curPage="+curPage;
+		if(mboard_no.length > 2){
+			mboard_no = window.location.search.substring(21);
+		}
+		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
 	}		
-
-
+	
+	
 </script>
 </html>
