@@ -100,7 +100,7 @@ crossorigin="anonymous"
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
-                            <span class="like-count">0</span>
+                            <span class="like-count">1</span>
                         </button>
                     </div>
                 </div>
