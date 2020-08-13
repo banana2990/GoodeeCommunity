@@ -17,7 +17,7 @@ public class BoardDTO {
 	private String co_content;
 	private Date co_reg_date;
 	private String blike_cnt;
-	private String commentCnt;
+	private int commentCnt;
 	
 	public int getBoard_no() {
 		return board_no;
@@ -97,10 +97,10 @@ public class BoardDTO {
 	public void setBlike_cnt(String blike_cnt) {
 		this.blike_cnt = blike_cnt;
 	}
-	public String getCommentCnt() {
+	public int getCommentCnt() {
 		return commentCnt;
 	}
-	public void setCommentCnt(String commentCnt) {
+	public void setCommentCnt(int commentCnt) {
 		this.commentCnt = commentCnt;
 	}
 }

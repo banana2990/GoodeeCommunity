@@ -274,29 +274,25 @@ public class BoardDAO {
 		return blikeCnt;
 	}
 
-	public ArrayList<BoardDTO> commentCnt(ArrayList<BoardDTO> list) {
+	public ArrayList<Integer> commentCnt(ArrayList<BoardDTO> list) {
 		
-		ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
+		ArrayList<Integer> commentCnt = new ArrayList<Integer>();
 		
 		for (int i = 0; i < list.size(); i++) {
-			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
+			String sql = "SELECT COUNT(*) FROM commentary WHERE board_no=?";
 			try {
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, list.get(i).getBoard_no());
 				rs = ps.executeQuery();
 				
 				if(rs.next()) {
-					BoardDTO dto = new BoardDTO();
-					dto.setCommentCnt(rs.getString("COUNT(*)"));
-					commentCnt.add(dto);
+					commentCnt.add(i, rs.getInt("COUNT(*)"));
 					ps.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
-		
 		return commentCnt;
 		
 	}
@@ -388,5 +384,73 @@ public class BoardDAO {
 		}
 		return result;
 	}
+
+	public ArrayList<Integer> recommentCnt(ArrayList<BoardDTO> list, ArrayList<Integer> commentCnt) {
+		
+		for (int i = 0; i < list.size(); i++) {
+			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE c.comment_no=r.comment_no AND board_no=?";
+
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, list.get(i).getBoard_no());
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					commentCnt.add(i,commentCnt.get(i)+(rs.getInt("COUNT(*)")));
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return commentCnt;
+	}
+
+	public ArrayList<BoardDTO> commentList(String board_no) throws SQLException {
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql = "SELECT c.comment_no, c.board_no, c.id, c.co_reg_date, c.co_content, m.nickname FROM commentary c, member m "
+				+ "WHERE c.id = m.id AND board_no = ? ORDER BY comment_no ASC";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			BoardDTO dto = new BoardDTO();
+			dto.setComment_no(rs.getInt("comment_no"));
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setId(rs.getString("id"));
+			dto.setCo_reg_date(rs.getDate("co_reg_date"));
+			dto.setCo_content(rs.getString("co_content"));
+			dto.setNickName(rs.getString("nickname"));
+			list.add(dto);
+		}
+		
+		return list;
+	}
+
+	public int detailCommentCnt(String board_no) {
+		int cnt = 0;
+		
+		String sql = "SELECT COUNT(*) FROM commentary WHERE board_no=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_no);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				cnt = rs.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			resClose();
+		}
+		
+		return cnt;
+	}
+
+
 }
 
