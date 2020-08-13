@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
-
-<<<<<<< HEAD
 @WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom","/myBoardList","/search"})
 
 public class BoardController extends HttpServlet {
