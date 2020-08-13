@@ -125,6 +125,7 @@ public class MemberController extends HttpServlet {
 					System.out.println("내프로필 업데이트 요청");
 				    	service.myUpdate();
 					break;
+					
 			}
 	}
 }

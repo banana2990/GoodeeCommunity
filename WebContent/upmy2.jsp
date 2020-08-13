@@ -294,7 +294,7 @@
       </div>
       <div class="overlay"></div>
       <div class="cl">
-        <a href="upmy1.html"><button>Close</button></a>
+        <a href="main"><button>Close</button></a>
       </div>
 
 
