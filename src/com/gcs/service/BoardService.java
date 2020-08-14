@@ -140,7 +140,7 @@ public class BoardService  {
 		// 얘내는 자체적으로 prepareStatement 종료시켜줌
 		blikeCnt = dao.blikeCnt(list);
 		commentCnt = dao.commentCnt(list);
-		commentCnt = dao.recommentCnt(list, commentCnt);
+		//commentCnt = dao.recommentCnt(list, commentCnt); //이 부분이 있으면 모든 게시글 코멘트 개수가 같아짐
 
 		dao.resClose();
 		
