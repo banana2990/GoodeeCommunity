@@ -39,7 +39,8 @@ public class BoardDAO {
 	}
 
 	public ArrayList<BoardDTO> commentlist() {
-		String sql = "SELECT ta.comment_no, ta.board_no, ta.id, ta.co_content, ta.co_reg_date, tc.boardname "
+		String sql = 				
+				"SELECT ta.comment_no, ta.board_no, ta.id, ta.co_content, ta.co_reg_date, tc.boardname "
 				+ "FROM commentary ta INNER JOIN board tb ON tb.board_no=ta.board_no "
 				+ "INNER JOIN mboard tc ON tb.mBoard_no = tc.mBoard_no "
 				+ "ORDER BY co_reg_date DESC";
@@ -55,8 +56,7 @@ public class BoardDAO {
 				dto.setId(rs.getString("id"));
 				dto.setCo_content(rs.getString("co_content"));
 				dto.setCo_reg_date(rs.getDate("co_reg_date"));
-				dto.setBoardname(rs.getString("boardname"));
-				//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
+				dto.setBoardname(rs.getString("boardname"));//게시판을 가져와야함! 게시판을 가져오는 건... 조인...
 				list.add(dto);  
 			}
 		} catch (SQLException e) {
@@ -274,29 +274,25 @@ public class BoardDAO {
 		return blikeCnt;
 	}
 
-	public ArrayList<BoardDTO> commentCnt(ArrayList<BoardDTO> list) {
+	public ArrayList<Integer> commentCnt(ArrayList<BoardDTO> list) {
 		
-		ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
+		ArrayList<Integer> commentCnt = new ArrayList<Integer>();
 		
 		for (int i = 0; i < list.size(); i++) {
-			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
+			String sql = "SELECT COUNT(*) FROM commentary WHERE board_no=?";
 			try {
 				ps = conn.prepareStatement(sql);
 				ps.setInt(1, list.get(i).getBoard_no());
 				rs = ps.executeQuery();
 				
 				if(rs.next()) {
-					BoardDTO dto = new BoardDTO();
-					dto.setCommentCnt(rs.getString("COUNT(*)"));
-					commentCnt.add(dto);
+					commentCnt.add(i, rs.getInt("COUNT(*)"));
 					ps.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 		}
-		
 		return commentCnt;
 		
 	}
@@ -436,12 +432,156 @@ public class BoardDAO {
 		ps.setString(2, search);
 		
 		rs = ps.executeQuery();
+		rs = ps.executeQuery();
 		if(rs.next()) {
-			cnt = rs.getInt("COUNT(*)");
-			System.out.println(cnt);
+			cnt = rs.getInt("num");
 		}
 		
 		return cnt;
 	}
+
+	public ArrayList<Integer> recommentCnt(ArrayList<BoardDTO> list, ArrayList<Integer> commentCnt) {
+		
+		for (int i = 0; i < list.size(); i++) {
+			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE c.comment_no=r.comment_no AND board_no=?";
+
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, list.get(i).getBoard_no());
+				rs = ps.executeQuery();
+				
+				if(rs.next()) {
+					commentCnt.add(i,commentCnt.get(i)+(rs.getInt("COUNT(*)")));
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return commentCnt;
+	}
+
+	public ArrayList<BoardDTO> commentList(String board_no) throws SQLException {
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql = "SELECT c.comment_no, c.board_no, c.id, c.co_reg_date, c.co_content, m.nickname FROM commentary c, member m "
+				+ "WHERE c.id = m.id AND board_no = ? ORDER BY comment_no ASC";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		while(rs.next()) {
+			BoardDTO dto = new BoardDTO();
+			dto.setComment_no(rs.getInt("comment_no"));
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setId(rs.getString("id"));
+			dto.setCo_reg_date(rs.getDate("co_reg_date"));
+			dto.setCo_content(rs.getString("co_content"));
+			dto.setNickName(rs.getString("nickname"));
+			list.add(dto);
+		}
+		
+		return list;
+	}
+		
+
+	
+	public BoardDTO mboardDetail(String board_no) throws SQLException {
+		BoardDTO dto = new BoardDTO();
+		
+		String sql = "SELECT * FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, b.boardname, m.nickname " + 
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.boardname " + 
+				"FROM board b, mboard m WHERE b.mboard_no = m.mboard_no) b, member m " + 
+				"WHERE b.id= m.id) WHERE board_no=?";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setMboard_no(rs.getInt("mboard_no"));
+			dto.setId(rs.getString("id"));
+			dto.setBo_subject(rs.getString("bo_subject"));
+			dto.setBo_content(rs.getString("bo_content"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));			
+			dto.setNickName(rs.getString("nickname"));
+			dto.setBoardname(rs.getString("boardname"));
+			upHit(rs.getInt("board_no"));
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
+		}	
+		return dto;
+	}
+
+		
+
+	public int detailCommentCnt(String board_no) {
+		int cnt = 0;
+		
+		String sql = "SELECT COUNT(*) FROM commentary WHERE board_no=?";
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_no);
+			rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				cnt = rs.getInt("COUNT(*)");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally { 
+			resClose();
+		}
+		
+		return cnt;
+	}
+
+
+	
+
+	public boolean delcom(String idx, String id) {
+		String sql = "DELETE FROM commentary WHERE id=? and board_no=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, idx);			
+			int success = ps.executeUpdate();
+			if(success > 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		return result;
+	}
+
+	public boolean write2(String id, String subject, String content) {
+		String sql = "INSERT INTO board (board_no, mBoard_no, id, bo_subject, bo_content, bo_bHit) VALUES (seq_board.NEXTVAL,2,?,?,?,0)";
+		boolean result = false;
+		try {
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, subject);
+			ps.setString(3, content);
+			
+			int success = ps.executeUpdate();
+			System.out.println(success);
+			if(success>0) {
+				result = true;
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return result;	
+	}
+
+
 }
 

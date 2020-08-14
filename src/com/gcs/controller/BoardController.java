@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
-@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom","/myBoardList","/search"})
+@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom","/myBoardList","/search","/memoWrite"})
 
 public class BoardController extends HttpServlet {
 
@@ -47,10 +47,7 @@ public class BoardController extends HttpServlet {
 			boardService.boardList();
 			break;
 			
-		case "/write":
-			boardService.write();
-			System.out.println("글쓰기 요청");
-			break;
+		
 		
 		case "/mngboard": // 관리자 게시판별 게시글 목록
 			String mBoard_no = req.getParameter("mBoard_no");
@@ -130,6 +127,17 @@ public class BoardController extends HttpServlet {
 		case "/search":
 			System.out.println("검색");
 			boardService.search();
+			break;
+			
+		case "/write":
+			boardService.write();
+			System.out.println("글쓰기 요청");
+			break;
+			
+		//메모장 글쓰기
+		case "/memoWrite":
+			System.out.println("메모글쓰기");
+			boardService.memoWrite();
 			break;
 		}
 	}
