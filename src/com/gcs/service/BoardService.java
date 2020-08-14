@@ -151,7 +151,7 @@ public class BoardService  {
 		
 		req.setAttribute("list", list);
 		req.setAttribute("blikeCnt", blikeCnt);
-		req.setAttribute("commentCnt", commentCnt);
+		req.setAttribute("commentCnt", allCommentCnt);
 		req.setAttribute("page", page);
 		
 		RequestDispatcher dis = req.getRequestDispatcher(location);
