@@ -58,4 +58,25 @@ public class ReplyDAO {
 
 		return result;
 	}
+
+	public boolean recommentDel(String recomment_no) {
+		
+		String sql ="DELETE FROM recomment WHERE recomment_no=?";
+		boolean result = false;
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, recomment_no);
+			
+			if(ps.executeUpdate()>0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;
+		
+	}
 }

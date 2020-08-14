@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.ReplyService;
 
-@WebServlet("/reply")
+@WebServlet({"/reply","/recommentDel"})
 public class ReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -31,7 +31,10 @@ public class ReplyController extends HttpServlet {
 		case "/reply":
 			replyService.reply();
 			break;
-
+			
+		case "/recommentDel":
+			replyService.recommentDel();
+			break;
 		}
 	}
 		

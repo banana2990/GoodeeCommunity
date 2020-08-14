@@ -116,10 +116,16 @@ crossorigin="anonymous"
                                 <form action="reply?board_no=${boardDetail.board_no}" method="post">
 										<input type="hidden" name="no" id="no" value="${ content.board_no }"> 
 										<input type="hidden" name="id" id="id" value="${ id }">
-										<input type="text" name="co_content" id="reply_content" class="nologin-disabled">
+										<c:choose>
+                                        	<c:when test="${sessionScope.id eq null}">
+	                            				<input type="text" name="co_content" id="reply_content" class="nologin-disabled" placeholder="로그인 후 댓글을 작성하실 수 있습니다." disabled>
+	                        				</c:when>
+	                        				<c:otherwise>
+	                           					<input type="text" name="co_content" id="reply_content" class="nologin-disabled" >
+	                        				</c:otherwise>
+                        				</c:choose>
 										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
-									</form>
-									
+								</form>									
                             </div>
                         </div>
                     </div>
@@ -132,15 +138,22 @@ crossorigin="anonymous"
 	                                    <div class="profile-img"></div>
 	                                    <div class="txt-area">
 	                                        <dl class="writing-info">
-	                                            <dd class="writer">${comment.nickName }</dd>
+	                                        	<c:choose>
+		                                        	<c:when test="${boardDetail.mboard_no eq 3}">
+			                            				<dd class="writer">익명</dd>
+			                        				</c:when>
+			                        				<c:otherwise>
+			                           					<dd class="writer">${comment.nickName }</dd>
+			                        				</c:otherwise>
+		                        				</c:choose>
 	                                            <dd>
 	                                                <span class="date">${comment.co_reg_date }</span>
 	                                            </dd>
 	                                        </dl>
 	                                        <div class="txt.box1">
 	                                            <p>${comment.co_content }</p>
-	                                            <!-- <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button> -->
+	                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
+	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
 	                                        </div>
 	                                        <div class="util">
 	                                            <button type="button" class="btn-like reply-likes">
@@ -158,20 +171,23 @@ crossorigin="anonymous"
 			                                    <div class="profile-img2"></div>
 			                                    <div class="txt-area2">
 			                                        <dl class="writing-info">
-			                                            <dd class="writer">${recommentList.id}</dd>
+			                                        	<c:choose>
+				                                        	<c:when test="${boardDetail.mboard_no eq 3}">
+					                            				<dd class="writer">익명</dd>
+					                        				</c:when>
+					                        				<c:otherwise>
+					                           					<dd class="writer">${recommentList.id}</dd>
+					                        				</c:otherwise>
+				                        				</c:choose>
 			                                            <dd>
 			                                                <span class="date">${recommentList.reco_reg_date}</span>
 			                                            </dd>
 			                                        </dl>
 			                                        <div class="txt.box1">
 			                                            <p>${recommentList.reco_content }</p>
-			                                            <button class="btn-coment-reply">삭제</button><button class="btn-coment-reply">취소</button>
-			                                        </div>
-			                                        <div class="util">
-			                                            <button type="button" class="btn-like reply-likes">
-			                                                <span class="like-count-reply">0</span>
-			                                            </button>
-			                                            <button type="button" class="btn-rereply">답글쓰기</button>
+			                                            <c:if test="${recommentList.id } eq ${sessionScope.id }">
+			                                            	<button class="btn-coment-reply" onclick="recommentDel(${recommentList.recomment_no})">삭제</button>
+			                                            </c:if>
 			                                        </div>
 			                                    </div>
 			                                </div>
@@ -216,6 +232,14 @@ crossorigin="anonymous"
 	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
+	}
+	
+	function recommentDel(recomment_no){
+		if(confirm("댓글을 삭제하시겠습니까 ?") == true){
+			location.href ="recommentDel?recomment_no="+recomment_no+"&board_no="+${boardDetail.board_no};
+		} else{
+			return;
+		}
 	}
 
 </script>
