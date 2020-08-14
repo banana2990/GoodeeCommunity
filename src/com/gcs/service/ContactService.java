@@ -2,6 +2,7 @@ package com.gcs.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.ContactDAO;
 import com.gcs.DTO.ContactDTO;
+import com.google.gson.Gson;
 
 public class ContactService {
 	
@@ -31,6 +33,7 @@ public class ContactService {
 	}
 
 	public void ctwrite() throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 		String writer = req.getParameter("writer");
 		String subject = req.getParameter("subject");
 		String c_email = req.getParameter("c_email");
@@ -39,8 +42,16 @@ public class ContactService {
 		
 		ContactDAO dao = new ContactDAO();
 		
-		dao.ctwrite(writer, subject, c_email, content);
-		
-		
+		boolean result = dao.ctwrite(writer, subject, c_email, content);
+		if(result){
+			msg = "문의사항을 성공적으로 보냈습니다.";			
+		}
+		HashMap<String,Object> map =  new HashMap<String, Object>();
+		map.put("contactmsg",msg);
+		Gson json = new Gson();
+		String obj = json.toJson(map);
+		System.out.println("result :"+obj);
+		resp.getWriter().println(obj);		
+
 	}
 }

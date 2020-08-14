@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate"})
 
 public class MemberController extends HttpServlet {
 
@@ -40,11 +40,11 @@ public class MemberController extends HttpServlet {
 					String pw = req.getParameter("pw");
 					System.out.println("login: "+id+ " Password: "+pw);
 					String msg =  "로그인 실패하였습니다.";
-					String page = "index.jsp";
+					String page = "main";
 					try {
 					if(service.login(id,pw)) {
 						msg = "환영합니다 "+id+"님!";
-						page = "index.jsp";
+						page = "main";
 						req.getSession().setAttribute("id", id);
 					}}catch(Exception e) {}
 					finally {
@@ -111,6 +111,21 @@ public class MemberController extends HttpServlet {
 				case "/memberDel":
 					service.delete();
 					break;
+					
+				case "/memberout":
+					service.out();
+					break;		
+				
+				case "/myPageList":
+					System.out.println("MYLIST");
+					service.mylist();
+					break;
+					
+				case "/myUpdate":					
+					System.out.println("내프로필 업데이트 요청");
+				    	service.myUpdate();
+					break;
+					
 			}
 	}
 }

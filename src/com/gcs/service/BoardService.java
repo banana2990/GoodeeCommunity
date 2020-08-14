@@ -111,7 +111,8 @@ public class BoardService  {
 	
 		ArrayList<BoardDTO> list = null;		
 		ArrayList<BoardDTO> blikeCnt = null;	
-		ArrayList<BoardDTO> commentCnt = null;	
+		ArrayList<Integer> commentCnt = null;	
+		BoardDTO dto = new BoardDTO();
 		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
 		
 		BoardDAO dao = new BoardDAO();
@@ -138,8 +139,9 @@ public class BoardService  {
 		
 		// 얘내는 자체적으로 prepareStatement 종료시켜줌
 		blikeCnt = dao.blikeCnt(list);
-		commentCnt = dao.commentCnt(list);						
-		
+		commentCnt = dao.commentCnt(list);
+		commentCnt = dao.recommentCnt(list, commentCnt);
+
 		dao.resClose();
 		
 		Pagination page = new Pagination(listCnt, curPage);
@@ -186,14 +188,21 @@ public class BoardService  {
 		BoardDTO dto = null;
 		String board_no = req.getParameter("board_no");
 		BoardDAO dao = new BoardDAO();
+		ArrayList<BoardDTO> commentList = null;
+		ArrayList<BoardDTO> recommentList = null;
+		int commentCnt = 0;
 		
 		try {
 			dto = dao.boardDetail(board_no);
+			commentList = dao.commentList(board_no);
+			commentCnt = dao.detailCommentCnt(board_no);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			dao.resClose();
 			req.setAttribute("boardDetail", dto);
+			req.setAttribute("commentList", commentList);
+			req.setAttribute("commentCnt", commentCnt);
 			
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
@@ -237,6 +246,37 @@ public class BoardService  {
 		dis.forward(req, resp);
 	}
 
+	//관리자 게시글 상세보기
+	public void mboardDetail() throws ServletException, IOException {
+		BoardDTO dto = null;
+		String board_no = req.getParameter("board_no");
+		BoardDAO dao = new BoardDAO();
+		
+		try {
+			dto = dao.mboardDetail(board_no);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
+			req.setAttribute("boardDetail", dto);
+			
+			RequestDispatcher dis = req.getRequestDispatcher("mboardDetail.jsp");
+			dis.forward(req, resp);
+		}
+		
+		
+	}
+	
+	//회원 본인 댓글 삭제
+	public void delcom() throws ServletException, IOException {
+		String idx = req.getParameter("board_no");
+		String id = (String) req.getSession().getAttribute("id");
+		System.out.println("board_no : "+idx+" id: "+id);
+		BoardDAO dao = new BoardDAO();			
+		dao.delcom(idx,id); //근데 끝나고 어디로 가?
+	  	}
+	
+	
 	public void myBoardList() {
 	
 		

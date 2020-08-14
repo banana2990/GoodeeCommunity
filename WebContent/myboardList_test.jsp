@@ -25,7 +25,7 @@ crossorigin="anonymous"
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="search" method="get">
+                <form class="searchbar" action="#" method="get">
                     <input
                       class="search"
                       type="text"
@@ -84,7 +84,7 @@ crossorigin="anonymous"
                     </ul>
                 <!-- 게시글 검색바 -->
                 <div class="board_search-input">
-	                <form class="searchbar" action="search" method="get" >
+	                <form class="searchbar" action="#" method="get" >
 	                    <select>
 							<option>제목</option>
 							<option>작성자</option>
@@ -121,7 +121,7 @@ crossorigin="anonymous"
 											<span class="date">${bbs.bo_reg_date }</span>
 											<span class="count-read">${bbs.bo_bHit }</span>
 											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
-											<span class="count-comment">${commentCnt[status.index]}</span>
+											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
 										</dd>
 									</dl>
 								</a>
@@ -163,10 +163,6 @@ crossorigin="anonymous"
 		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
 	}		
 	
-	var msg = "${msg}";
-	if(msg != ""){
-		alert(msg);
-	}
 	
 </script>
 </html>

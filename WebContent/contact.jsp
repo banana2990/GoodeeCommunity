@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
@@ -10,7 +9,7 @@
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="style.css" />
-		<link rel="stylesheet" type="text/css" href="M05_관리자문의.css" />
+		<link rel="stylesheet" type="text/css" href="M05_contact.css" />
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 		<script src="index.js" defer></script>
 		<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
@@ -20,7 +19,7 @@
 <body>
 		<div id="container">
         <!-- Main Navbar -->
-        <nav class="navbar" id="navbar">
+ <nav class="navbar" id="navbar">
             <div class="navbar__logo">
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
@@ -67,15 +66,15 @@
             </ul>
             
             <div class="top-util">
-                <div class="top-board">문의사항 내역</div>
+            <h2>문의사항 내역</h2>
                 <div class="inner">
                     <button type="button" class="profile">
-                        <div class="profile-img-manager"></div>
+                        <div class="profile-img"></div>
                     </button>
                 </div>
             </div>
         </nav>
-        
+         
         <!-- Main Contents -->
         <div id="contents">
             <div class="section-top">

@@ -189,29 +189,34 @@
         </div>
         <div class="upmy3_2">
           
-          <div class="u3_2">
-            <div><b>닉네임</b>&nbsp;&nbsp;&nbsp;<input type="text" value=""><input type="button" value="닉네임 변경"></div></br>
-          </div>
-          <div class="u3_2">
-            <div><b>이름</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""></div></br>
-          </div>
-          <div class="u3_2">
-            <div><b>비밀번호</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""></div></br>
-          </div>
-          <div class="u3_2">
-            <div><b>비밀번호 확인</b>&nbsp;&nbsp;&nbsp;<input type="text" value=""></div></br>
-          </div>
-          
-        </div>
-        <div class="upfn">
-          <a href="#"><input type="button" value="수정" style="width: 100px; height: 50px;"/></a>
-        </div>
-        <div class="upcant">
-          <a href="#"><input type="button" value="취소" style="width: 100px; height: 50px;"/></a>
-        </div>
+          <form action="myUpdate" method="post">
+	        <div class="upmy3_2">         
+	          <div class="u3_2">
+	            <div><b>닉네임 : </b><input type="text" value="${mylist.nickName }" name="nickName"><input type="button" id="nickChck" value="중복확인"/></div></br>
+	          </div>
+	          <div class="u3_2">
+	            <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div></br>
+	          </div>
+	          <div class="u3_2">
+	            <div><b>비밀번호 : </b><input type="password" name="pw" id="myUserPw"/></div></br>
+	          </div>
+	          <div class="u3_2">
+	            <div><b>비밀번호 확인 : </b><input type="password" id="myUserPwChk"/></div></br>
+	            <font id="chkNotice" size="2"></font>            
+	          </div>        
+	        </div>
+	        
+	        <div class="upfn">
+	          <button id="memUpdate" value="수정" style="width: 100px; height: 50px;"/>
+	        </div>
+        </form>
+	
         <div class="out">
-          <a href="#"> 회원탈퇴</a>
+         <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
+        </div>
+      
+        <div class="out">
+         <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
         </div>
         
       </div>
@@ -289,7 +294,7 @@
       </div>
       <div class="overlay"></div>
       <div class="cl">
-        <a href="upmy1.html"><button>Close</button></a>
+        <a href="main"><button>Close</button></a>
       </div>
 
 
@@ -300,4 +305,77 @@
      </div>
     </div>
   </body>
+  <script>  
+  var msg = "${msg}";
+  if(msg != ""){
+  	alert(msg);
+  }
+  
+		/*닉네임 중복 확인*/
+	  $("#nickChck").click(function(){
+			if($("input[name='nickName']").val() == ""){
+				alert("닉네임을 입력해주세요.");
+			}else{
+				var nickname = $("input[name='nickName']").val(); // id값 가져오기
+				console.log(nickname); // 잘 들어오는 지 확인: 1차
+				
+				$.ajax({
+					type: "get",
+					url: "overlaynick",
+					data: {"nickname":nickname},
+					dataType: "JSON",
+					success: function(data){		
+						if(data.overlay){
+							alert("이미 사용중인 닉네임입니다.");
+							$("input[name='nickName']").val("");
+						}else{
+							alert("사용 가능한 닉네임입니다");
+							overChknic = true;
+						}
+					},
+					error: function(e){
+						console.log(e);
+					}			
+				});
+			}
+		});
+		
+		
+		//회원탈퇴 알림
+		$("#memOut").click(function(){
+			alert("정말 탈퇴 하시겠습니까?");
+		});
+		
+		
+		//비밀번호 확인
+		$(function(){
+			$("#myUserPw").keyup(function(){
+				$('#chkNotice').innerhtml("")
+      	});
+      
+	      $('#myUserPwChk').keyup(function(){
+	
+	        if($("#myUserPw").val() != $("#myUserPwChk").val()){
+	          $("#chkNotice").html("비밀번호가 일치하지 않습니다.<br>");
+	          $("#chkNotice").attr("color","red");
+	        }else{
+	          $("#chkNotice").html("비밀번호가 일치합니다.<br>");
+	          $("#chkNotice").attr("color","green");
+	        }
+
+             });
+		});
+		
+		//수정 확인
+		
+		function memUpdate(){
+			if(confirm("정말 수정하시겠습니까 ?") == true){
+		        location.href="myUpdate";
+		    }else{
+		        return ;
+		    }
+		} 
+  
+  
+  </script>
 </html>

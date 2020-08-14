@@ -17,13 +17,13 @@ crossorigin="anonymous"
 <title>구디 커뮤니티</title>
 </head>
 <body>
-	<div id="container">
+		<div id="container">
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="main">
+                <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                    <h1>관리자 페이지</h1>
                 </a>
             </div>
             <div class="search-input">
@@ -37,30 +37,30 @@ crossorigin="anonymous"
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList?mboard_no=1" id="free">
-                        <span>자유 게시판</span>
+                    <a href="mngboard.jsp" id="mngboard">
+                        <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=2" id="edu">
-                        <span>학습 게시판</span>
+                    <a href="mngcomment" id="mngcomment">
+                        <span>댓글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=3" id="secret">
-                        <span>익명 게시판</span>
+                    <a href="membermanagement.jsp" id="mngmember">
+                        <span>회원 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
-                        <span>오늘 점심 뭐먹지?</span>
+                    <a href="contact.jsp" id="ask">
+                        <span>문의사항 내역</span>
                     </a>
                 </li>
             </ul>
@@ -70,13 +70,13 @@ crossorigin="anonymous"
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
                     </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+                    <button class="login">로그인</button>
                 </div>
             </div>
         </nav>
         
         <!-- Main Contents -->
-        <div id="contents">
+  	<div id="contents">
             <!--게시글 상세보기-->
             <div class="section_top">
                 <div class="title_box">
@@ -100,7 +100,7 @@ crossorigin="anonymous"
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
-                            <span class="like-count">1</span>
+                            <span class="like-count">0</span>
                         </button>
                     </div>
                 </div>
@@ -109,14 +109,14 @@ crossorigin="anonymous"
                     <div class="reply-area">
                         <p class="total">
                             <span class="message">댓글</span>
-                            <span class="key-color">${commentCnt }</span>
+                            <span class="key-color">2</span>
                         </p>
                         <div class="reply-input">
                             <div class="reply-div">
                                 <form action="reply?board_no=${boardDetail.board_no}" method="post">
 										<input type="hidden" name="no" id="no" value="${ content.board_no }"> 
 										<input type="hidden" name="id" id="id" value="${ id }">
-										<input type="text" name="co_content" id="reply_content" class="nologin-disabled">
+										<textarea rows="5" cols="50" name="co_content" id="reply_content"></textarea>
 										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
 									</form>
 									
@@ -126,35 +126,32 @@ crossorigin="anonymous"
 
                     <div class="reply-list">
                         <ul>
-                        	<c:forEach items="${commentList }"  var="comment">                       
-	                            <li data-commentid="1027890">
-	                                <div class="reply">
-	                                    <div class="profile-img"></div>
-	                                    <div class="txt-area">
-	                                        <dl class="writing-info">
-	                                            <dd class="writer">${comment.nickName }</dd>
-	                                            <dd>
-	                                                <span class="date">${comment.co_reg_date }</span>
-	                                            </dd>
-	                                        </dl>
-	                                        <div class="txt.box1">
-	                                            <p>${comment.co_content }</p>
-	                                            <!-- <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button> -->
-	                                        </div>
-	                                        <div class="util">
-	                                            <button type="button" class="btn-like reply-likes">
-	                                                <span class="like-count-reply">0</span>
-	                                            </button>
-	                                            <button type="button" class="btn-rereply">답글쓰기</button>
-	                                        </div>
-	                                    </div>
-	                                </div>
-	                            </li>
-                            </c:forEach>
-			
-							
-                            <!-- <li data-commentid="102789">
+                            <li data-commentid="1027890">
+                                <div class="reply">
+                                    <div class="profile-img"></div>
+                                    <div class="txt-area">
+                                        <dl class="writing-info">
+                                            <dd class="writer">아무개</dd>
+                                            <dd>
+                                                <span class="date">2020.08.05 11:12</span>
+                                            </dd>
+                                        </dl>
+                                        <div class="txt.box1">
+                                            <p>야 이거 겁나 어렵네......</p>
+                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
+                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
+                                        </div>
+                                        <div class="util">
+                                            <button type="button" class="btn-like reply-likes">
+                                                <span class="like-count-reply">1</span>
+                                            </button>
+                                            <button type="button" class="btn-rereply">답글쓰기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <li data-commentid="102789">
                                 <div class="reply">
                                     <div class="profile-img2"></div>
                                     <div class="txt-area2">
@@ -176,45 +173,22 @@ crossorigin="anonymous"
                                         </div>
                                     </div>
                                 </div>
-                            </li>           -->                    
-                        </ul>                        
-                    </div>                                      
-                </div><!-- section-bot 끝 -->
-                
+                            </li>
+                        </ul>
+                    </div>         
+                </div>
                 <button class="btn-foot" location.href="#">이전</button>
                 <button class="btn-foot" location.href="#">다음</button>
                 <button class="btn-list" location.href="#">목록으로</button>
             </div>
         </div>
-    </div>
-
-    <div class="helpIcon">
-        <i class="far fa-comment-dots"></i>   
-    </div>  
-    <div class="helpIcon__content">
-        <div class="helpIcon__title">
-            <br><br>
-            <p>무엇을 도와드릴까요?</p>
-            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
-        </div>
-        <div class="helpIcon__input">
-            <form action="#">
-            <br><br>
-            <input type="text" placeholder="   작성자"> 
-            <input type="text" placeholder="   제목">
-            <input type="text" placeholder="   이메일">
-            <textarea type="text" placeholder="     문의 내용"></textarea>
-            <br><br>
-            <button>보내기</button>
-            </form>
-        </div>
-    </div>
+    </div>   
+            
 </body>
 <script>
 	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
 	}
-
 </script>
 </html>

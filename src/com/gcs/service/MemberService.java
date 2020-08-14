@@ -14,6 +14,8 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -318,8 +320,63 @@ public class MemberService {
 			String obj = gson.toJson(map);
 			System.out.println(obj);
 			resp.getWriter().println(obj);
-		}
+		}		
+	}
+	
+	
+	//마이페이지 상세보기
+	public void mylist() throws ServletException, IOException{
+		System.out.println("MYLIST2");
+		String id = (String) req.getSession().getAttribute("id");		
+		MemberDAO dao = new MemberDAO();		
+		ArrayList <MemberDTO> mylist = null;		
+		
+		MemberDTO dto = dao.mylist(id);
+		
+		System.out.println(mylist);
+		req.setAttribute("mylist", dto);
+		RequestDispatcher dis = req.getRequestDispatcher("upmy2.jsp");
+		dis.forward(req, resp);
+		System.out.println("MYLIST6");
 		
 	}
+	//회원탈퇴
+	public void out() throws IOException, ServletException {
+		String id = (String) req.getSession().getAttribute("id");
+		MemberDAO dao = new MemberDAO();	
+		boolean success = false;
+		success = dao.memberDel(id);
+		if(success) {
+			req.getSession().removeAttribute("id");
+			resp.sendRedirect("main");
+		} 
+		
+	}
+	
+	//회원 수정
+		public void myUpdate() throws IOException, ServletException {
+			MemberDAO dao = new MemberDAO();
+			String id = (String) req.getSession().getAttribute("id");
+			String nickName = req.getParameter("nickName");
+			System.out.println(nickName);
+			String name =  req.getParameter("name");
+			System.out.println(name);
+			String pw = req.getParameter("pw");			
+			String msg = "수정에 실패했습니다.";
+			
+			boolean success = false;
+			success =  dao.myUpdate(id, nickName, name, pw);
+			
+			if (success) {
+				msg = "수정에 성공했습니다.";
+				req.setAttribute("msg", msg);
+				RequestDispatcher dis =  req.getRequestDispatcher("main");
+				dis.forward(req, resp);
+			} else {
+				req.setAttribute("msg", msg);
+				RequestDispatcher dis =  req.getRequestDispatcher("upmy2.jsp");
+				dis.forward(req, resp);
+			}
+		}
 
 }
