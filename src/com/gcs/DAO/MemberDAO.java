@@ -255,6 +255,7 @@ public class MemberDAO {
 		System.out.println("삭제한 갯수 : "+delCount);
 		return delCount;
 	}
+	
 	// 회원 목록 - 관리자
 	public ArrayList<MemberDTO> list() throws SQLException {
 		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
@@ -273,12 +274,12 @@ public class MemberDAO {
 		}		
 		return list;
 	}
-	//회원 본인 정보 조회
+	//회원 및 관리자  정보 조회 
 	public MemberDTO mylist(String id) {
 		System.out.println(id);
 		System.out.println("MYLIST3");
 		MemberDTO dto = new MemberDTO();
-		String sql  = "SELECT nickName, name FROM member WHERE id =?";
+		String sql  = "SELECT nickName, name,id FROM member WHERE id =?";
 		try {
 			ps = con.prepareStatement(sql);
 			ps.setString(1,id);
@@ -293,6 +294,7 @@ public class MemberDAO {
 		}		
 		return dto;
 	}
+	
 	//회원 본인 정보 수정
 	public boolean myUpdate(String id, String nickName, String name, String pw) {
 		String sql = "UPDATE member SET nickName=?, name=?, pw=? WHERE id=?";
@@ -313,6 +315,29 @@ public class MemberDAO {
 		}
 		return result;
 	}
+	
+	//관리자 회원 정보 수정
+		public boolean mngUpdate(String id, String nickName, String name) {
+			
+			String sql = "UPDATE member SET nickName=?, name=? WHERE id=?";
+			boolean result = false;		
+			try {
+				ps = con.prepareStatement(sql);
+				ps.setString(1, nickName);
+				ps.setString(2, name);				
+				ps.setString(3, id);
+				if (ps.executeUpdate()>0) {
+					result = true;
+				}
+			} catch (SQLException e) {			
+				e.printStackTrace();
+			} finally {
+				resClose();
+			}
+			return result;
+			
+		}
+	
 
 }	
 
