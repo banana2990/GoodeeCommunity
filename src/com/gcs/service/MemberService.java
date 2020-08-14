@@ -266,7 +266,7 @@ public class MemberService {
 			MemberDTO dto = pservice.upload();
 			dao.pupload(dto);
 			if(dto.getNewName()!=null) {
-				dao = new MemberDAO(); // 위의 dao.update(dto)[l:85]에서 finally로 resClose()까지 해버렸었기에 커넥션 재 생성이 필요함
+				dao = new MemberDAO(); // 위의 dao.pupload(dto)에서 finally로 resClose()까지 해버렸었기에 커넥션 재생성이 필요함
 				id = dto.getId();
 				System.out.println(dao.getFileName(String.valueOf(id)));
 				String prevFileName = dao.getFileName(String.valueOf(id)); // 이전파일 이름을 가져와야함
@@ -379,6 +379,59 @@ public class MemberService {
 			RequestDispatcher dis =  req.getRequestDispatcher("upmy2.jsp");
 			dis.forward(req, resp);
 		}
+	}
+	
+	//관리자 회원 상세보기
+	public void mngdetail() throws ServletException, IOException {
+			
+		String id = req.getParameter("id");		
+		MemberDAO dao = new MemberDAO();		
+		ArrayList <MemberDTO> mylist = null;		
+
+		MemberDTO dto = dao.mylist(id);
+
+		System.out.println(mylist);
+		req.setAttribute("mylist", dto);
+		RequestDispatcher dis = req.getRequestDispatcher("mngMemberDetail.jsp");
+		dis.forward(req, resp);	
+	}
+		
+	//관리자 회원탈퇴
+	public void mngOut() throws IOException, ServletException {
+		String id = req.getParameter("id");
+		MemberDAO dao = new MemberDAO();	
+		boolean success = false;
+		success = dao.memberDel(id);
+		if(success) {				
+			resp.sendRedirect("membermanagement.jsp");
+		} 
+
+	}
+	
+	//관리자 회원 수정하기
+	public void mngUpdate() throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+
+		String id = req.getParameter("id");
+		System.out.println(id);
+		String nickName = req.getParameter("nickName");
+		System.out.println(nickName);
+		String name =  req.getParameter("name");
+		System.out.println(name);					
+		String msg = "수정에 실패했습니다.";
+
+		boolean success = false;
+		success =  dao.mngUpdate(id, nickName, name);
+
+		if (success) {
+			msg = "수정에 성공했습니다.";
+			req.setAttribute("msg", msg);
+
+		} else {
+			req.setAttribute("msg", msg);				
+		}
+		RequestDispatcher dis =  req.getRequestDispatcher("mngdetail?id="+id);
+		dis.forward(req, resp);
 	}
 
 }

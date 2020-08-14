@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -170,26 +169,23 @@
     </style>
   </head>
   <body>
-    
+     
 
     <div class="overlay"></div>
-
-    <div class="upmy1">
-      <div class="upmy2">
-        <div class="upmy3_1">
-          
+    
+    <div class="upmy1">    
+      <div class="upmy2">      
+        <div class="upmy3_1">          
           <div class="upimge">
             <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
             <div class="u">
               <a href="photoUp"><button>등록</button></a> <!-- 처음 가입시에 무조건 사진을 등록하고, 수정으로 변경?-->
               <a href="photoDel"><button>삭제</button></a>  <!-- 삭제되면 처음 가입사진으로 수정됨 -->
             </div>
-          </div>
-          
+          </div>          
         </div>
-        <div class="upmy3_2">
-          
-          <form action="myUpdate" method="post">
+        
+        <form action="myUpdate" method="post">
 	        <div class="upmy3_2">         
 	          <div class="u3_2">
 	            <div><b>닉네임 : </b><input type="text" value="${mylist.nickName }" name="nickName"><input type="button" id="nickChck" value="중복확인"/></div></br>
@@ -207,18 +203,14 @@
 	        </div>
 	        
 	        <div class="upfn">
-	          <button id="memUpdate" value="수정" style="width: 100px; height: 50px;"/>
+	          <button id="memUpdate" value="수정" style="width: 100px; height: 50px;">수정</button>
 	        </div>
         </form>
-	
+        
         <div class="out">
          <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
         </div>
       
-        <div class="out">
-         <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
-        </div>
-        
       </div>
       <div class="upmy2_1">
           <ul>
@@ -253,33 +245,16 @@
           </ul>
       </div>
       <div class="dap">
-        <c:forEach items="${list }" var="bbs" varStatus="status">
-	                	<ul>              	
-							<li>
-								<a href="boardDetail?board_no=${bbs.board_no}">
-									<h3>
-										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
-										<i class="icon-new"></i>
-										<dl class="writing-info"> 
-											<dt class="blind"></dt>
-											<c:if test="${bbs.mboard_no eq 3}" >
-												<dd class="writer">익명</dd>
-											</c:if>
-											<c:if test="${bbs.mboard_no ne 3}">
-												<dd class="writer">${bbs.nickName }</dd> 
-											</c:if>
-											<dt class="blind"></dt>
-										<dd>
-											<span class="date">${bbs.bo_reg_date }</span>
-											<span class="count-read">${bbs.bo_bHit }</span>
-											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
-											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
-										</dd>
-									</dl>
-								</a>
-							</li>				
-	                    </ul>
-      	</c:forEach>                         
+        <table style="border-collapse: collapse; margin: 0; padding: 0;">
+          <tr style="height: 25px;">
+            <td style="width: 600px;">[자유게시판] 헬스장 회원별 유형...txt   </td>
+            <td rowspan="2" style="width: 70px;"></td>
+          </tr>
+          <tr style="height: 25px;">
+            <td style="width: 600px;">3대500정준호     11:44             50     ♡  10</td>
+            <td></td>
+          </tr>
+        </table>
       </div>
       <div class="paging">
         <table>
@@ -305,7 +280,8 @@
      </div>
     </div>
   </body>
-  <script>  
+  <script>
+  
   var msg = "${msg}";
   if(msg != ""){
   	alert(msg);
@@ -374,7 +350,13 @@
 		    }else{
 		        return ;
 		    }
-		} 
+		}
+		
+		
+
+
+
+	  
   
   
   </script>

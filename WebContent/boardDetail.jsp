@@ -199,9 +199,9 @@ crossorigin="anonymous"
                     </div>                                      
                 </div><!-- section-bot 끝 -->
                 
-                <button class="btn-foot" location.href="#">이전</button>
-                <button class="btn-foot" location.href="#">다음</button>
-                <button class="btn-list" location.href="#">목록으로</button>
+                <button class="btn-foot" onclick='location.href="boardDetail?board_no=${boardDetail.board_no}"'>이전</button>
+                <button class="btn-foot" onclick='location.href="boardDetail?board_no=${boardDetail.board_no}}"'>다음</button>
+                <button class="btn-list" onclick='location.href="boardList?mboard_no=${boardDetail.mboard_no}"'>목록으로</button>
             </div>
         </div>
     </div>
