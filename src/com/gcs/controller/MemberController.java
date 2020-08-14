@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate","/myUpdate","/mngUpdate","/mngdetail","/mngOut"})
 
 public class MemberController extends HttpServlet {
 
@@ -123,7 +123,21 @@ public class MemberController extends HttpServlet {
 					
 				case "/myUpdate":					
 					System.out.println("내프로필 업데이트 요청");
-			    	service.myUpdate();
+			    		service.myUpdate();
+					break;
+					
+				case "/mngdetail":
+					System.out.println("관리자 회원 상세 조회로 보내기");
+					service.mngdetail();
+					break;	
+					
+				case "/mngUpdate":					
+					System.out.println("관리자 회원 수정");
+				    	service.mngUpdate();
+					break;
+					
+				case "/mngOut":
+					service.mngOut();
 					break;
 					
 			}
