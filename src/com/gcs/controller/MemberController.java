@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate","/myUpdate","/mngUpdate","/mngdetail","/mngOut"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate","/mngUpdate","/mngdetail","/mngOut"})
 
 public class MemberController extends HttpServlet {
 
