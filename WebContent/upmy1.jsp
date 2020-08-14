@@ -16,7 +16,7 @@
 	<div id="btn">
 	    <div class="imge">
 	        <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
-	        <div class="nic">나는 ui 전문가</div>
+	        <div class="nic">${sessionScope.id} 님 반가워요.</div>
 	    </div>
 	    <div class="alert">
 	    	
@@ -32,9 +32,7 @@
 	        </ul>
 	    </div>
 	    <div class="dmy">
-	        <a href="upmy2.jsp">내정보</a>
-	    </div>
-	    <div class="logout">
+	        <a href="myPageList">내정보</a>
 	        <a href="logout">로그아웃</a>
 	    </div>
 	</div>
