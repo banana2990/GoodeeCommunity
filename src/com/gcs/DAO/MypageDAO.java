@@ -111,7 +111,7 @@ ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();
 	}
 
 	public ArrayList<BoardDTO> commentCnt(ArrayList<BoardDTO> list) {
-ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
+		ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
