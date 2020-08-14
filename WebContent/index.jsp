@@ -26,7 +26,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="" method="post">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -85,23 +85,14 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     	메인 이미지 영역입니다.
                 </div>
                 <div class="today-memo">
-                	<form action="#" method="post">
-	                	<table>
-	                	 	<tr>
-	                	 		<h1 style= "margin-left:60px;">오늘의 메모</h1>
-	                	 	</tr>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" name="" id="" value=""/></td>
-							</tr>
-							<tr>
-								<th>내용</th>
-								<td><textarea name="" id="" cols="30" rows="15"></textarea></td>
-							</tr>
-							<tr>
-								<td colspan="2" style= "text-align:center;"><input type="button" value="저장" id="" /></td>
-							</tr>
-						</table>
+                	<form action="memoWrite" method="post">
+	                	 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
+								<div class="note-editing-area">
+				                	<textarea name="content" class="mtextarea"></textarea>
+				                </div>  
+				                <div class="btn-box">					
+					                <button class="register">등록</button>     		
+            					</div> 
 					</form>
                 </div>
             </div>
@@ -268,7 +259,10 @@ $("#ct_send").click(function(){
 	function fn_paging(curPage) {
 		location.href = "main?curPage="+curPage;
 	}		
-
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
 
 </script>
 </html>

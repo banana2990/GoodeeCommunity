@@ -93,13 +93,13 @@ public class MemberController extends HttpServlet {
 					service.findpw();
 					break;
 
-				case "/photoUp":
+				case "/photoUp": // 사진 업로드
 					id = req.getParameter("id");					
 					service.upload(id);							
 					break;
 					
 				/*
-				case "/photoDel":
+				case "/photoDel": // 사진 수정
 					 id = req.getParameter("id");					 
 					break;
 				*/	
@@ -123,7 +123,7 @@ public class MemberController extends HttpServlet {
 					
 				case "/myUpdate":					
 					System.out.println("내프로필 업데이트 요청");
-				    	service.myUpdate();
+			    	service.myUpdate();
 					break;
 					
 			}

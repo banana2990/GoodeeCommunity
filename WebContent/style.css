@@ -301,8 +301,11 @@ dd {
     color: #585858;
 }
 
+.mtextarea{
+	resize : none;
+}
 
-a, button, label, input, select, textarea {
+a, button, label, input, select {
     outline: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
