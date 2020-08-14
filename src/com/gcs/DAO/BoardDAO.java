@@ -386,6 +386,7 @@ public class BoardDAO {
 	}
 
 	public ArrayList<Integer> recommentCnt(ArrayList<BoardDTO> list, ArrayList<Integer> commentCnt) {
+		ArrayList<Integer> allCnt = new ArrayList<Integer>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE c.comment_no=r.comment_no AND board_no=?";
@@ -396,14 +397,15 @@ public class BoardDAO {
 				rs = ps.executeQuery();
 				
 				if(rs.next()) {
-					commentCnt.add(i,commentCnt.get(i)+(rs.getInt("COUNT(*)")));
+					allCnt.add(i,commentCnt.get(i)+rs.getInt("COUNT(*)"));
 					ps.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
-		return commentCnt;
+		
+		return allCnt;
 	}
 
 	public ArrayList<BoardDTO> commentList(String board_no) throws SQLException {
