@@ -135,7 +135,7 @@ function drawTalbe(list){
 	$("tbody").empty();
 	list.forEach(function(item,num){
 		console.log(num,item);
-		content = "<tr><td><a href='m_memberlist?id="+item.id+"'>"+item.id+"</a></td>"
+		content = "<tr><td><a href='mngdetail?id="+item.id+"'>"+item.id+"</a></td>"
 		+"<td>"+item.name+"</td>"
 		+"<td>"+item.nickName+"</td>"
 		+"<td>"+item.u_email+"</td>"

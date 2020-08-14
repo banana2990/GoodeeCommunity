@@ -112,6 +112,7 @@ public class BoardService  {
 		ArrayList<BoardDTO> list = null;		
 		ArrayList<BoardDTO> blikeCnt = null;	
 		ArrayList<Integer> commentCnt = null;	
+		ArrayList<Integer> allCommentCnt = null;	
 		BoardDTO dto = new BoardDTO();
 		System.out.println(mboard_no+"게시판번호 /  curPage"+curPage);
 		
@@ -140,8 +141,10 @@ public class BoardService  {
 		// 얘내는 자체적으로 prepareStatement 종료시켜줌
 		blikeCnt = dao.blikeCnt(list);
 		commentCnt = dao.commentCnt(list);
-		commentCnt = dao.recommentCnt(list, commentCnt);
-
+		System.out.println(commentCnt);
+		allCommentCnt = dao.recommentCnt(list, commentCnt);
+		System.out.println(allCommentCnt);
+		
 		dao.resClose();
 		
 		Pagination page = new Pagination(listCnt, curPage);

@@ -122,7 +122,7 @@ public class MypageDAO {
 				
 				if(rs.next()) {
 					BoardDTO dto = new BoardDTO();
-					dto.setCommentCnt(rs.getString("COUNT(*)"));
+					dto.setCommentCnt(rs.getInt("COUNT(*)"));
 					commentCnt.add(dto);
 					ps.close();
 				}

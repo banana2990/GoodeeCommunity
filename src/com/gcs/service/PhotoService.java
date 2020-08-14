@@ -23,8 +23,8 @@ public class PhotoService {
 		String savePath = "C:/upload/gcsmember";
 		// 용량제한 
 		int maxSize = 10*1024*1024;
-		String oriFileName = "";
-		String newFileName = "";
+		String oriName = "";
+		String newName = "";
 		MemberDTO dto = new MemberDTO();
 		
 		try {
@@ -37,15 +37,15 @@ public class PhotoService {
 				dto.setPhoto_no(Integer.parseInt(photo_no));
 			}
 						
-			oriFileName = multi.getFilesystemName("photo");// 원본파일명 추출
-			if(oriFileName!=null) { // 업로드한 파일이 있다면
-				String ext = oriFileName.substring(oriFileName.lastIndexOf("."));
-				newFileName = System.currentTimeMillis()+ext; // 새 파일명 생성
-				File oldFile = new File(savePath+oriFileName); // java의 File 객체는 파일, 경로, 디렉토리 모두 포함 => 여기서는 파일 경로를 의미해서 사용됨
-				File newFile = new File(savePath+newFileName);
+			oriName = multi.getFilesystemName("photo");// 원본파일명 추출
+			if(oriName!=null) { // 업로드한 파일이 있다면
+				String ext = oriName.substring(oriName.lastIndexOf("."));
+				newName = System.currentTimeMillis()+ext; // 새 파일명 생성
+				File oldFile = new File(savePath+oriName); // java의 File 객체는 파일, 경로, 디렉토리 모두 포함 => 여기서는 파일 경로를 의미해서 사용됨
+				File newFile = new File(savePath+newName);
 				oldFile.renameTo(newFile); // 파일명 변경
-				dto.setOriName(oriFileName);
-				dto.setNewName(newFileName);				
+				dto.setOriName(oriName);
+				dto.setNewName(newName);				
 			}
 			
 		} catch (IOException e) {
@@ -53,6 +53,7 @@ public class PhotoService {
 		} 
 		return dto;	
 	}
+		
 //파일삭제
 	public void delete(String fileName) {
 		File file = new File("C:/upload/gcsmember"+fileName);

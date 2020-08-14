@@ -7,9 +7,11 @@ public class MemberDTO {
 	private String nickName;
 	private String u_email;
 	private boolean u_email_checked;
+	/*사진에 관련된 내용*/	
 	private int photo_no;
 	private String oriName;
 	private String newName;
+	
 	public String getId() {
 		return id;
 	}
