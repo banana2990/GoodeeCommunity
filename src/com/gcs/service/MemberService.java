@@ -380,5 +380,58 @@ public class MemberService {
 			dis.forward(req, resp);
 		}
 	}
+	
+	//관리자 회원 상세보기
+	public void mngdetail() throws ServletException, IOException {
+			
+		String id = req.getParameter("id");		
+		MemberDAO dao = new MemberDAO();		
+		ArrayList <MemberDTO> mylist = null;		
+
+		MemberDTO dto = dao.mylist(id);
+
+		System.out.println(mylist);
+		req.setAttribute("mylist", dto);
+		RequestDispatcher dis = req.getRequestDispatcher("mngMemberDetail.jsp");
+		dis.forward(req, resp);	
+	}
+		
+	//관리자 회원탈퇴
+	public void mngOut() throws IOException, ServletException {
+		String id = req.getParameter("id");
+		MemberDAO dao = new MemberDAO();	
+		boolean success = false;
+		success = dao.memberDel(id);
+		if(success) {				
+			resp.sendRedirect("membermanagement.jsp");
+		} 
+
+	}
+	
+	//관리자 회원 수정하기
+	public void mngUpdate() throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+
+		String id = req.getParameter("id");
+		System.out.println(id);
+		String nickName = req.getParameter("nickName");
+		System.out.println(nickName);
+		String name =  req.getParameter("name");
+		System.out.println(name);					
+		String msg = "수정에 실패했습니다.";
+
+		boolean success = false;
+		success =  dao.mngUpdate(id, nickName, name);
+
+		if (success) {
+			msg = "수정에 성공했습니다.";
+			req.setAttribute("msg", msg);
+
+		} else {
+			req.setAttribute("msg", msg);				
+		}
+		RequestDispatcher dis =  req.getRequestDispatcher("mngdetail?id="+id);
+		dis.forward(req, resp);
+	}
 
 }
