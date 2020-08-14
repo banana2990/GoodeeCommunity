@@ -463,22 +463,16 @@ public class BoardDAO {
 
 		
 
-	public int detailCommentCnt(String board_no) {
+	public int detailCommentCnt(String board_no) throws SQLException {
 		int cnt = 0;
 		
 		String sql = "SELECT COUNT(*) FROM commentary WHERE board_no=?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, board_no);
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				cnt = rs.getInt("COUNT(*)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally { 
-			resClose();
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			cnt = rs.getInt("COUNT(*)");
 		}
 		
 		return cnt;
@@ -503,6 +497,51 @@ public class BoardDAO {
 			resClose();
 		}
 		return result;
+	}
+
+	public ArrayList<BoardDTO> recommentList(ArrayList<BoardDTO> commentList) throws SQLException {
+		String sql = "SELECT comment_no, recomment_no, id, reco_reg_date, reco_content FROM recomment WHERE comment_no=?";
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		for (int i = 0; i < commentList.size(); i++) {
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, commentList.get(i).getComment_no());
+				
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					BoardDTO dto = new BoardDTO();
+					dto.setComment_no(rs.getInt("comment_no"));
+					dto.setRecomment_no(rs.getInt("recomment_no"));
+					dto.setId(rs.getString("id"));
+					dto.setReco_reg_date(rs.getDate("reco_reg_date"));
+					dto.setReco_content(rs.getString("reco_content"));
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				ps.close();
+			}
+			
+		}
+
+		return list;
+	}
+
+	public int detailRecommentCnt(int commentCnt, String board_no) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE c.comment_no=r.comment_no AND board_no=?";
+		int allCnt = 0;
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			allCnt = rs.getInt("COUNT(*)")+commentCnt;
+		}
+
+		return allCnt;
 	}
 
 }

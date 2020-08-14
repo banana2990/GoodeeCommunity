@@ -151,7 +151,7 @@ public class BoardService  {
 		
 		req.setAttribute("list", list);
 		req.setAttribute("blikeCnt", blikeCnt);
-		req.setAttribute("commentCnt", commentCnt);
+		req.setAttribute("commentCnt", allCommentCnt);
 		req.setAttribute("page", page);
 		
 		RequestDispatcher dis = req.getRequestDispatcher(location);
@@ -194,18 +194,22 @@ public class BoardService  {
 		ArrayList<BoardDTO> commentList = null;
 		ArrayList<BoardDTO> recommentList = null;
 		int commentCnt = 0;
+		int AllCommentCnt = 0;
 		
 		try {
 			dto = dao.boardDetail(board_no);
-			commentList = dao.commentList(board_no);
-			commentCnt = dao.detailCommentCnt(board_no);
+			commentList = dao.commentList(board_no); // 댓글리스트
+			commentCnt = dao.detailCommentCnt(board_no); // 댓글개수
+			AllCommentCnt = dao.detailRecommentCnt(commentCnt, board_no);
+			recommentList =  dao.recommentList(commentList); // 댓글리스트를 받아서... 대댓글리스트를 가져옴
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			dao.resClose();
 			req.setAttribute("boardDetail", dto);
 			req.setAttribute("commentList", commentList);
-			req.setAttribute("commentCnt", commentCnt);
+			req.setAttribute("commentCnt", AllCommentCnt);
+			req.setAttribute("recommentList", recommentList);
 			
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
