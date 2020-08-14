@@ -126,7 +126,7 @@ public class BoardService  {
 				list = dao.boardList(mboard_no, startPage, endPage);
 				listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
 				
-				// 공지사항이면 index로 보낸다.
+				
 				if(Integer.parseInt(mboard_no) == 4) {
 					location = "index.jsp";
 				}
@@ -243,9 +243,35 @@ public class BoardService  {
 	}
 
 	//검색
-	public void search() {
+	public void search() throws IOException, ServletException{
+		ArrayList<BoardDTO> list = null;		
+		ArrayList<BoardDTO> blikeCnt = null;	
+		ArrayList<BoardDTO> commentCnt = null;	
+		
+		String search = req.getParameter("search");
+		String pageParam = req.getParameter("curPage");		
+		
+		BoardDAO dao = new BoardDAO();
+		try {
+			if(search == null || search.length() < 1) {
+				// 검색결과가 없다라는 메시지를 보여준다..
+			}else {
+				list = dao.search(search);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		blikeCnt = dao.blikeCnt(list);
+		commentCnt = dao.commentCnt(list);						
+		dao.resClose();
 		
 		
+		req.setAttribute("list", list);
+		req.setAttribute("blikeCnt", blikeCnt);
+		req.setAttribute("commentCnt", commentCnt);
+		
+		RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");
+		dis.forward(req, resp);
 	}
-
 }

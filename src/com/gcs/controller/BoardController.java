@@ -120,6 +120,7 @@ public class BoardController extends HttpServlet {
 			
 		case "/search":
 			System.out.println("검색");
+			boardService.search();
 			break;
 		}
 	}
