@@ -385,6 +385,61 @@ public class BoardDAO {
 		return result;
 	}
 
+
+	//검색
+	public ArrayList<BoardDTO> search(String search) throws SQLException {
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		String sql = "SELECT rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, boardname, nickname " + 
+				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname " + 
+				"FROM (SELECT board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname  " + 
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname " + 
+				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND bo_subject like ? OR bo_content like ? ORDER BY BOARD_NO DESC)";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, "%"+search+"%");
+		ps.setString(2, "%"+search+"%");
+		rs = ps.executeQuery();		
+		
+		while(rs.next()) {
+			BoardDTO dto = new BoardDTO();
+			dto.setBoard_no(rs.getInt("board_no"));
+			dto.setMboard_no(rs.getInt("mboard_no"));
+			dto.setId(rs.getString("id"));
+			dto.setBo_subject(rs.getString("bo_subject"));
+			dto.setBo_content(rs.getString("bo_content"));
+			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
+			dto.setBo_bHit(rs.getInt("bo_bHit"));
+			dto.setBoardname(rs.getString("boardName"));
+			dto.setNickName(rs.getString("nickName"));	
+			
+			list.add(dto);
+		}
+		
+		return list;	
+	}
+
+	public int listCnt2(String search) throws SQLException {
+		
+		String sql = "SELECT COUNT(*)"+
+				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname "+
+				"FROM (SELECT board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname "+
+				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname "+
+				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND bo_subject like ? OR bo_content like ? ORDER BY BOARD_NO DESC)";
+		int cnt = 0;
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, search);
+		ps.setString(2, search);
+		
+		rs = ps.executeQuery();
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			cnt = rs.getInt("num");
+		}
+		
+		return cnt;
+	}
+
 	public ArrayList<Integer> recommentCnt(ArrayList<BoardDTO> list, ArrayList<Integer> commentCnt) {
 		ArrayList<Integer> allCnt = new ArrayList<Integer>();
 		
@@ -463,26 +518,21 @@ public class BoardDAO {
 
 		
 
-	public int detailCommentCnt(String board_no) {
+	public int detailCommentCnt(String board_no) throws SQLException {
 		int cnt = 0;
 		
 		String sql = "SELECT COUNT(*) FROM commentary WHERE board_no=?";
-		try {
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, board_no);
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
-				cnt = rs.getInt("COUNT(*)");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally { 
-			resClose();
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			cnt = rs.getInt("COUNT(*)");
 		}
 		
 		return cnt;
 	}
+
 
 	
 
@@ -504,6 +554,75 @@ public class BoardDAO {
 		}
 		return result;
 	}
+
+	public ArrayList<BoardDTO> recommentList(ArrayList<BoardDTO> commentList) throws SQLException {
+		String sql = "SELECT comment_no, recomment_no, id, reco_reg_date, reco_content FROM recomment WHERE comment_no=?";
+		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+		
+		for (int i = 0; i < commentList.size(); i++) {
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, commentList.get(i).getComment_no());
+				
+				rs = ps.executeQuery();
+				while(rs.next()) {
+					BoardDTO dto = new BoardDTO();
+					dto.setComment_no(rs.getInt("comment_no"));
+					dto.setRecomment_no(rs.getInt("recomment_no"));
+					dto.setId(rs.getString("id"));
+					dto.setReco_reg_date(rs.getDate("reco_reg_date"));
+					dto.setReco_content(rs.getString("reco_content"));
+					list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				ps.close();
+			}
+			
+		}
+
+		return list;
+	}
+
+	public int detailRecommentCnt(int commentCnt, String board_no) throws SQLException {
+		String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE c.comment_no=r.comment_no AND board_no=?";
+		int allCnt = 0;
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			allCnt = rs.getInt("COUNT(*)")+commentCnt;
+		}
+
+		return allCnt;
+	}
+
+	public boolean write2(String id, String subject, String content) {
+		String sql = "INSERT INTO board (board_no, mBoard_no, id, bo_subject, bo_content, bo_bHit) VALUES (seq_board.NEXTVAL,2,?,?,?,0)";
+		boolean result = false;
+		try {
+			conn.setAutoCommit(false);
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, subject);
+			ps.setString(3, content);
+			
+			int success = ps.executeUpdate();
+			System.out.println(success);
+			if(success>0) {
+				result = true;
+				conn.commit();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		return result;	
+	}
+
 
 }
 

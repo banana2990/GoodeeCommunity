@@ -84,7 +84,7 @@ public class MypageDAO {
 	}
 
 	public ArrayList<BoardDTO> blikeCnt(ArrayList<BoardDTO> list) {
-ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();
+		ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			

@@ -128,7 +128,7 @@ public class BoardService  {
 				list = dao.boardList(mboard_no, startPage, endPage);
 				listCnt = dao.listCnt(mboard_no); // 총 게시물의 개수
 				
-				// 공지사항이면 index로 보낸다.
+				
 				if(Integer.parseInt(mboard_no) == 4) {
 					location = "index.jsp";
 				}
@@ -194,18 +194,22 @@ public class BoardService  {
 		ArrayList<BoardDTO> commentList = null;
 		ArrayList<BoardDTO> recommentList = null;
 		int commentCnt = 0;
+		int AllCommentCnt = 0;
 		
 		try {
 			dto = dao.boardDetail(board_no);
-			commentList = dao.commentList(board_no);
-			commentCnt = dao.detailCommentCnt(board_no);
+			commentList = dao.commentList(board_no); // 댓글리스트
+			commentCnt = dao.detailCommentCnt(board_no); // 댓글개수
+			AllCommentCnt = dao.detailRecommentCnt(commentCnt, board_no);
+			recommentList =  dao.recommentList(commentList); // 댓글리스트를 받아서... 대댓글리스트를 가져옴
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
 			dao.resClose();
 			req.setAttribute("boardDetail", dto);
 			req.setAttribute("commentList", commentList);
-			req.setAttribute("commentCnt", commentCnt);
+			req.setAttribute("commentCnt", AllCommentCnt);
+			req.setAttribute("recommentList", recommentList);
 			
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
@@ -286,9 +290,72 @@ public class BoardService  {
 	}
 
 	//검색
-	public void search() {
+	public void search() throws IOException, ServletException{
 		
+		String search = req.getParameter("search");
+		String pageParam = req.getParameter("curPage");		
+		System.out.println("전달받은 curPage의 값 = "+pageParam);
 		
+		int curPage = 1;// 첫 페이지 1 설정
+		int listCnt = 0;
+		if(pageParam != null) {
+			curPage = Integer.parseInt(pageParam);
+		}
+		
+		int startPage = (curPage)*5-4;
+		int endPage = (curPage)*5;
+		
+		System.out.println(search+"/"+curPage);
+		
+		ArrayList<BoardDTO> list = null;		
+		ArrayList<BoardDTO> blikeCnt = null;	
+		ArrayList<Integer> commentCnt = null;	
+		BoardDTO dto = new BoardDTO();
+		System.out.println(search+"게시판번호 /  curPage"+curPage);
+		
+		BoardDAO dao = new BoardDAO();
+		
+		try {
+			if(search == null || search.length() < 1) {
+				// 검색결과가 없다라는 메시지를 보여준다..
+			}else {
+				list = dao.search(search);
+				listCnt = dao.listCnt2(search); // 총 게시물의 개수
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		// 얘내는 자체적으로 prepareStatement 종료시켜줌
+		blikeCnt = dao.blikeCnt(list);
+		commentCnt = dao.commentCnt(list);
+		commentCnt = dao.recommentCnt(list, commentCnt);
+		
+		dao.resClose();
+		
+		req.setAttribute("list", list);
+		req.setAttribute("blikeCnt", blikeCnt);
+		req.setAttribute("commentCnt", commentCnt);
+		
+		RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");
+		dis.forward(req, resp);
 	}
 
+	//메모장 글쓰기
+	public void memoWrite() throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		String id =(String) req.getSession().getAttribute("id");
+		String subject = req.getParameter("subject");
+		String content = req.getParameter("content");
+		String msg = "글 작성에 실패했습니다.";
+		
+		BoardDAO dao = new BoardDAO();
+		if(dao.write2(id, subject, content)) {
+			msg = "글이 작성되었습니다.";
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("main");
+			dis.forward(req, resp);		
+		}		
+		
+	}
 }

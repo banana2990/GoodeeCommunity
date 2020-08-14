@@ -25,7 +25,7 @@ crossorigin="anonymous"
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -84,7 +84,7 @@ crossorigin="anonymous"
                     </ul>
                 <!-- 게시글 검색바 -->
                 <div class="board_search-input">
-	                <form class="searchbar" action="#" method="get" >
+	                <form class="searchbar" action="search" method="get" >
 	                    <select>
 							<option>제목</option>
 							<option>작성자</option>

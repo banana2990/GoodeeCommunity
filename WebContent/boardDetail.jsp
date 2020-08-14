@@ -150,33 +150,35 @@ crossorigin="anonymous"
 	                                        </div>
 	                                    </div>
 	                                </div>
-	                            </li>
-                            </c:forEach>
-			
-							
-                            <!-- <li data-commentid="102789">
-                                <div class="reply">
-                                    <div class="profile-img2"></div>
-                                    <div class="txt-area2">
-                                        <dl class="writing-info">
-                                            <dd class="writer">아무개2</dd>
-                                            <dd>
-                                                <span class="date">2020.08.05 13:21</span>
-                                            </dd>
-                                        </dl>
-                                        <div class="txt.box1">
-                                            <p>대댓글 대박이네......</p>
-                                            <button class="btn-coment-reply">삭제</button><button class="btn-coment-reply">취소</button>
-                                        </div>
-                                        <div class="util">
-                                            <button type="button" class="btn-like reply-likes">
-                                                <span class="like-count-reply">0</span>
-                                            </button>
-                                            <button type="button" class="btn-rereply">답글쓰기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>           -->                    
+	                            </li>              
+								<c:forEach items="${recommentList }"  var="recommentList">
+									<c:if test="${recommentList.comment_no eq  comment.comment_no}">
+			                            <li data-commentid="102789">
+			                                <div class="reply">
+			                                    <div class="profile-img2"></div>
+			                                    <div class="txt-area2">
+			                                        <dl class="writing-info">
+			                                            <dd class="writer">${recommentList.id}</dd>
+			                                            <dd>
+			                                                <span class="date">${recommentList.reco_reg_date}</span>
+			                                            </dd>
+			                                        </dl>
+			                                        <div class="txt.box1">
+			                                            <p>${recommentList.reco_content }</p>
+			                                            <button class="btn-coment-reply">삭제</button><button class="btn-coment-reply">취소</button>
+			                                        </div>
+			                                        <div class="util">
+			                                            <button type="button" class="btn-like reply-likes">
+			                                                <span class="like-count-reply">0</span>
+			                                            </button>
+			                                            <button type="button" class="btn-rereply">답글쓰기</button>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </li>
+		                            </c:if>
+	                            </c:forEach>
+                            </c:forEach>                        
                         </ul>                        
                     </div>                                      
                 </div><!-- section-bot 끝 -->
