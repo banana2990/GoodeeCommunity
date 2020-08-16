@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -531,10 +532,7 @@ public class BoardDAO {
 		}
 		
 		return cnt;
-	}
-
-
-	
+	}	
 
 	public boolean delcom(String idx, String id) {
 		String sql = "DELETE FROM commentary WHERE id=? and board_no=?";
@@ -621,6 +619,50 @@ public class BoardDAO {
 			e.printStackTrace();
 		} 
 		return result;	
+	}
+
+	public  List<BoardDTO> prev(String board_no, String mBoard_no) {
+		String sql = "SELECT MAX(BOARD_NO) AS board_no, mBoard_no FROM board WHERE BOARD_NO < ? AND MBOARD_NO = ? GROUP BY mboard_no";
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_no);
+			ps.setString(2, mBoard_no);
+			rs = ps.executeQuery();
+			BoardDTO dto = new BoardDTO();			
+			while(rs.next()) {
+				System.out.println("받은 보드넘버 : "+rs.getInt("board_no"));					
+					dto.setBoard_no(rs.getInt("board_no"));					
+					dto.setMboard_no(rs.getInt("mboard_no"));
+					list.add(dto);			
+			}
+		} catch (SQLException e) {		
+			e.printStackTrace();
+		}	finally{resClose();}
+		return list;
+	}
+	
+
+	public List<BoardDTO> next(String board_no, String mBoard_no) {
+		String sql = "SELECT MIN(BOARD_NO) AS board_no, mBoard_no FROM board WHERE BOARD_NO > ? AND MBOARD_NO = ? GROUP BY mboard_no";
+		List<BoardDTO> list = new ArrayList<BoardDTO>();
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, board_no);
+			ps.setString(2, mBoard_no);
+			rs = ps.executeQuery();
+			BoardDTO dto = new BoardDTO();	
+			
+			while(rs.next()) {
+				System.out.println("받은 보드넘버 : "+rs.getInt("board_no"));				
+					dto.setBoard_no(rs.getInt("board_no"));					
+					dto.setMboard_no(rs.getInt("mboard_no"));
+					list.add(dto);				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally{resClose();}
+		return list;	
 	}
 
 

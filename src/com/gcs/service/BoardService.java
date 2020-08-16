@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.List;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -210,7 +212,6 @@ public class BoardService  {
 			req.setAttribute("commentList", commentList);
 			req.setAttribute("commentCnt", AllCommentCnt);
 			req.setAttribute("recommentList", recommentList);
-			
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
 		}
@@ -269,9 +270,7 @@ public class BoardService  {
 			
 			RequestDispatcher dis = req.getRequestDispatcher("mboardDetail.jsp");
 			dis.forward(req, resp);
-		}
-		
-		
+		}		
 	}
 	
 	//회원 본인 댓글 삭제
@@ -281,13 +280,10 @@ public class BoardService  {
 		System.out.println("board_no : "+idx+" id: "+id);
 		BoardDAO dao = new BoardDAO();			
 		dao.delcom(idx,id); //근데 끝나고 어디로 가?
-	  	}
-	
+	  	}	
 	
 	public void myBoardList() {
-	
-		
-	}
+		}
 
 	//검색
 	public void search() throws IOException, ServletException{
@@ -337,7 +333,7 @@ public class BoardService  {
 		req.setAttribute("blikeCnt", blikeCnt);
 		req.setAttribute("commentCnt", commentCnt);
 		
-		RequestDispatcher dis = req.getRequestDispatcher("boardList.jsp");
+		RequestDispatcher dis = req.getRequestDispatcher("searchresult.jsp");
 		dis.forward(req, resp);
 	}
 
@@ -356,6 +352,56 @@ public class BoardService  {
 			RequestDispatcher dis = req.getRequestDispatcher("main");
 			dis.forward(req, resp);		
 		}		
+		
+	}
+	
+	public void prev() throws ServletException, IOException {
+		String board_no = req.getParameter("board_no");
+		String mBoard_no = req.getParameter("mBoard_no");
+		BoardDAO dao = new BoardDAO();
+		List<BoardDTO> list = dao.prev(board_no, mBoard_no);
+		String msg = "이전 글이 존재하지 않습니다.";
+		System.out.println(list.size());		
+		RequestDispatcher dis = null;
+		if(list.isEmpty()) {
+			req.setAttribute("msg", msg);
+			if(req.getSession().getAttribute("id").equals("admin")) {
+				dis = req.getRequestDispatcher("mngboardDetail?mBoard_no="+mBoard_no);
+				} else {
+					dis = req.getRequestDispatcher("boardList?mBoard_no="+mBoard_no);}			
+		}else {
+			req.setAttribute("boardDetail", list.get(0));
+			if(req.getSession().getAttribute("id").equals("admin")) {
+				dis = req.getRequestDispatcher("mngboardDetail?board_no="+list.get(0).getBoard_no());
+			}else {
+				dis = req.getRequestDispatcher("boardDetail?board_no="+list.get(0).getBoard_no());}			
+		}
+		dis.forward(req, resp);
+		
+	}
+
+	public void next() throws ServletException, IOException {
+		String board_no = req.getParameter("board_no");
+		String mBoard_no = req.getParameter("mBoard_no");
+		BoardDAO dao = new BoardDAO();
+		List<BoardDTO> list = dao.next(board_no, mBoard_no);
+		String msg = "다음 글이 존재하지 않습니다.";
+		System.out.println(list.size());		
+		RequestDispatcher dis = null;
+		if(list.isEmpty()) {
+			req.setAttribute("msg", msg);
+			if(req.getSession().getAttribute("id").equals("admin")) {
+				dis = req.getRequestDispatcher("mngboardDetail?mBoard_no="+mBoard_no);
+				} else {
+					dis = req.getRequestDispatcher("boardList?mBoard_no="+mBoard_no);}			
+		}else {
+			req.setAttribute("boardDetail", list.get(0));
+			if(req.getSession().getAttribute("id").equals("admin")) {
+				dis = req.getRequestDispatcher("mngboardDetail?board_no="+list.get(0).getBoard_no());
+			}else {
+				dis = req.getRequestDispatcher("boardDetail?board_no="+list.get(0).getBoard_no());}			
+		}
+		dis.forward(req, resp);
 		
 	}
 }

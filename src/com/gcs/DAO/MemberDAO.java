@@ -79,31 +79,20 @@ public class MemberDAO {
 	} 
 	// 회원가입
 	public boolean join(String id, String pw, String name, String nickName, String email, String emailChk) throws SQLException{
-		boolean success = false;		
+		boolean success = false;
 		String sql = "INSERT INTO member (id, pw, name, nickName, u_email, u_email_checked) VALUES (?,?,?,?,?,?)";
-		try {
-		ps = con.prepareStatement(sql, new String[] {"id"});
+		ps = con.prepareStatement(sql);
 		ps.setString(1, id);
 		ps.setString(2,pw);
 		ps.setString(3,name);
 		ps.setString(4,nickName);
 		ps.setString(5,email);
-		ps.setString(6, emailChk);		
-		ps.executeUpdate(); // bbs 테이블에 데이터 추가 			
-			rs = ps.getGeneratedKeys();
-			if(rs.next()) {
-					sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (seq_photo.NEXTVAL, ?,'member.png','notuploaded.jpg')";
-					ps = con.prepareStatement(sql);
-					ps.setString(1, id);
-					ps.executeUpdate();
-			System.out.println("가입시 회원 이미지 생성");
-			}
-			success = true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		} finally {resClose();}
-		return success;
+		ps.setString(6, emailChk);
+		int result = ps.executeUpdate();
+		if(result>0) {
+			success=true;
+		}		
+		return success;	
 	}
 	
 	// 사진 업로드 => 업데이트로 해서 로직 바꾸... 기 보다는 
@@ -135,11 +124,9 @@ public class MemberDAO {
 			}else { // 기존 파일이 없는 경우는 INSERT
 				sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (seq_photo.nextVAL, ?,?,?)";
 				ps = con.prepareStatement(sql);
-				ps.setString(1, id);				
-				ps.setString(3, newFileName);
-				if(prevFileName==null) {
-					ps.setString(2, "member.png");	
-				}
+				ps.setString(1, id);			
+				ps.setString(2, prevFileName);
+				ps.setString(3, newFileName);		
 			}
 			ps.executeUpdate();			
 			
@@ -317,8 +304,7 @@ public class MemberDAO {
 	}
 	
 	//관리자 회원 정보 수정
-		public boolean mngUpdate(String id, String nickName, String name) {
-			
+		public boolean mngUpdate(String id, String nickName, String name) {			
 			String sql = "UPDATE member SET nickName=?, name=? WHERE id=?";
 			boolean result = false;		
 			try {

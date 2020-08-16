@@ -58,20 +58,17 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
             <div class="top-util">
-            	<div class="boxx">
+            	<div id="profile_img" class="boxx">
                     <jsp:include page="upmy1.jsp"/>
 		        </div>
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div id="profile_img" class="profile-img"></div>
-                    </button>
+                <div class="inner">                    
                     <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
@@ -189,6 +186,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
         </div>
     </div>
 </body>
+
 <script>
 
 var writeMsg = "${writeMsg}";
@@ -197,15 +195,17 @@ if(writeMsg != ""){
 	location.href = "login.jsp";
 }
 
-var loginId = "${sessionScope.id}";
-// 세션에 저장된 경우 로그인버튼을 비활성화하기
-console.log(loginId);
 
+// 아이디가 있는지 체크
+var loginId = "${sessionScope.id}";
+
+console.log(loginId);
+//관리자 로그인시 관리자 페이지로! // 메인 불러오는 것+문의 불러오기 그 다음에 이동하기
 if(loginId!="admin"){}else{location.href="admin_main.jsp";}
 
+//세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
 var loginbtn = $("#login");
-
 if(loginId==""){
 	profile_img.css({"display":"none"});	
 }else{    

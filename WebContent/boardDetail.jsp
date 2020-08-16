@@ -59,18 +59,18 @@ crossorigin="anonymous"
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
-            <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+			<div class="top-util">
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -80,8 +80,8 @@ crossorigin="anonymous"
             <!--게시글 상세보기-->
             <div class="section_top">
                 <div class="title_box">
-                    <input type="button" value="삭제" onclick="location.href='del?board_no=${boardDetail.board_no}&mboard_no=${boardDetail.mboard_no }'"/>
-                    <input type="button" value="수정" onclick="location.href='updateForm?board_no=${boardDetail.board_no}'"/>
+                    <input type="button" id="boarddel" value="삭제" onclick="location.href='del?board_no=${boardDetail.board_no}&mboard_no=${boardDetail.mboard_no }'"/>
+                    <input type="button" id="boardupdate"  value="수정" onclick="location.href='updateForm?board_no=${boardDetail.board_no}'"/>
                     <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
                     <h3>${boardDetail.bo_subject }</h3>
                     <dl class="writing_info">
@@ -199,8 +199,8 @@ crossorigin="anonymous"
                     </div>                                      
                 </div><!-- section-bot 끝 -->
                 
-                <button class="btn-foot" onclick='location.href="boardDetail?board_no=${boardDetail.board_no}"'>이전</button>
-                <button class="btn-foot" onclick='location.href="boardDetail?board_no=${boardDetail.board_no}}"'>다음</button>
+                <button class="btn-foot" onclick='location.href="prev?board_no=${boardDetail.board_no}&mBoard_no=${boardDetail.mboard_no}"'>이전</button>
+                <button class="btn-foot" onclick='location.href="next?board_no=${boardDetail.board_no}&mBoard_no=${boardDetail.mboard_no}"'>다음</button>
                 <button class="btn-list" onclick='location.href="boardList?mboard_no=${boardDetail.mboard_no}"'>목록으로</button>
             </div>
         </div>
@@ -233,6 +233,14 @@ crossorigin="anonymous"
 	if(msg != ""){
 		alert(msg);
 	}
+
+	var sessionId = "${sessionScope.id}";
+	var writeId = "${boardDetail.id}";
+	console.log(sessionId,"/",writeId);
+	if(sessionId!=writeId){
+		$("#boarddel").css({"display":"none"});
+		$("#boardupdate").css({"display":"none"});
+		}	
 	
 	function recommentDel(recomment_no){
 		if(confirm("댓글을 삭제하시겠습니까 ?") == true){
@@ -240,6 +248,16 @@ crossorigin="anonymous"
 		} else{
 			return;
 		}
+	}
+
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
 	}
 
 </script>

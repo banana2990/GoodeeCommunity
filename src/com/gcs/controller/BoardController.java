@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
-@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom","/myBoardList","/search","/memoWrite"})
+@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView",
+	"/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom",
+	"/myBoardList","/search","/memoWrite","/prev","/next"})
 
 public class BoardController extends HttpServlet {
 
@@ -45,9 +47,7 @@ public class BoardController extends HttpServlet {
 		case "/boardList":
 			System.out.println("게시판 리스트 띄우기");
 			boardService.boardList();
-			break;
-			
-		
+			break;		
 		
 		case "/mngboard": // 관리자 게시판별 게시글 목록
 			String mBoard_no = req.getParameter("mBoard_no");
@@ -139,6 +139,18 @@ public class BoardController extends HttpServlet {
 			System.out.println("메모글쓰기");
 			boardService.memoWrite();
 			break;
+			
+		case "/prev":
+			System.out.println("이전글 불러오기");
+			boardService.prev();
+			break;
+		
+		
+		case "/next":
+			System.out.println("다음글 불러오기");
+			boardService.next();
+			break;
+			
 		}
 	}
 }

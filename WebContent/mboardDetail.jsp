@@ -80,8 +80,8 @@ crossorigin="anonymous"
             <!--게시글 상세보기-->
             <div class="section_top">
                 <div class="title_box">
-                    <input type="button" value="삭제" onclick="location.href='del?board_no=${boardDetail.board_no}&mboard_no=${boardDetail.mboard_no }'"/>
-                    <input type="button" value="수정" onclick="location.href='updateForm?board_no=${boardDetail.board_no}'"/>
+                    <input type="button" id="boarddel" value="삭제" onclick="location.href='del?board_no=${boardDetail.board_no}&mboard_no=${boardDetail.mboard_no }'"/>
+                    <input type="button" id="boardupdate"  value="수정" onclick="location.href='updateForm?board_no=${boardDetail.board_no}'"/>
                     <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
                     <h3>${boardDetail.bo_subject }</h3>
                     <dl class="writing_info">
@@ -100,7 +100,7 @@ crossorigin="anonymous"
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
-                            <span class="like-count">0</span>
+                            <span class="like-count">1</span>
                         </button>
                     </div>
                 </div>
@@ -109,80 +109,102 @@ crossorigin="anonymous"
                     <div class="reply-area">
                         <p class="total">
                             <span class="message">댓글</span>
-                            <span class="key-color">2</span>
+                            <span class="key-color">${commentCnt }</span>
                         </p>
                         <div class="reply-input">
                             <div class="reply-div">
                                 <form action="reply?board_no=${boardDetail.board_no}" method="post">
 										<input type="hidden" name="no" id="no" value="${ content.board_no }"> 
 										<input type="hidden" name="id" id="id" value="${ id }">
-										<textarea rows="5" cols="50" name="co_content" id="reply_content"></textarea>
+										<c:choose>
+                                        	<c:when test="${sessionScope.id eq null}">
+	                            				<input type="text" name="co_content" id="reply_content" class="nologin-disabled" placeholder="로그인 후 댓글을 작성하실 수 있습니다." disabled>
+	                        				</c:when>
+	                        				<c:otherwise>
+	                           					<input type="text" name="co_content" id="reply_content" class="nologin-disabled" >
+	                        				</c:otherwise>
+                        				</c:choose>
 										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
-									</form>
-									
+								</form>									
                             </div>
                         </div>
                     </div>
 
                     <div class="reply-list">
                         <ul>
-                            <li data-commentid="1027890">
-                                <div class="reply">
-                                    <div class="profile-img"></div>
-                                    <div class="txt-area">
-                                        <dl class="writing-info">
-                                            <dd class="writer">아무개</dd>
-                                            <dd>
-                                                <span class="date">2020.08.05 11:12</span>
-                                            </dd>
-                                        </dl>
-                                        <div class="txt.box1">
-                                            <p>야 이거 겁나 어렵네......</p>
-                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
-                                        </div>
-                                        <div class="util">
-                                            <button type="button" class="btn-like reply-likes">
-                                                <span class="like-count-reply">1</span>
-                                            </button>
-                                            <button type="button" class="btn-rereply">답글쓰기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li data-commentid="102789">
-                                <div class="reply">
-                                    <div class="profile-img2"></div>
-                                    <div class="txt-area2">
-                                        <dl class="writing-info">
-                                            <dd class="writer">아무개2</dd>
-                                            <dd>
-                                                <span class="date">2020.08.05 13:21</span>
-                                            </dd>
-                                        </dl>
-                                        <div class="txt.box1">
-                                            <p>대댓글 대박이네......</p>
-                                            <button class="btn-coment-reply">삭제</button><button class="btn-coment-reply">취소</button>
-                                        </div>
-                                        <div class="util">
-                                            <button type="button" class="btn-like reply-likes">
-                                                <span class="like-count-reply">0</span>
-                                            </button>
-                                            <button type="button" class="btn-rereply">답글쓰기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>         
-                </div>
-                <button class="btn-foot" location.href="#">이전</button>
-                <button class="btn-foot" location.href="#">다음</button>
-                <button class="btn-list" location.href="#">목록으로</button>
+                        	<c:forEach items="${commentList }"  var="comment">                       
+	                            <li data-commentid="1027890">
+	                                <div class="reply">
+	                                    <div class="profile-img"></div>
+	                                    <div class="txt-area">
+	                                        <dl class="writing-info">
+	                                        	<c:choose>
+		                                        	<c:when test="${boardDetail.mboard_no eq 3}">
+			                            				<dd class="writer">익명</dd>
+			                        				</c:when>
+			                        				<c:otherwise>
+			                           					<dd class="writer">${comment.nickName }</dd>
+			                        				</c:otherwise>
+		                        				</c:choose>
+	                                            <dd>
+	                                                <span class="date">${comment.co_reg_date }</span>
+	                                            </dd>
+	                                        </dl>
+	                                        <div class="txt.box1">
+	                                            <p>${comment.co_content }</p>
+	                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
+	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
+	                                        </div>
+	                                        <div class="util">
+	                                            <button type="button" class="btn-like reply-likes">
+	                                                <span class="like-count-reply">0</span>
+	                                            </button>
+	                                            <button type="button" class="btn-rereply">답글쓰기</button>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </li>              
+								<c:forEach items="${recommentList }"  var="recommentList">
+									<c:if test="${recommentList.comment_no eq  comment.comment_no}">
+			                            <li data-commentid="102789">
+			                                <div class="reply">
+			                                    <div class="profile-img2"></div>
+			                                    <div class="txt-area2">
+			                                        <dl class="writing-info">
+			                                        	<c:choose>
+				                                        	<c:when test="${boardDetail.mboard_no eq 3}">
+					                            				<dd class="writer">익명</dd>
+					                        				</c:when>
+					                        				<c:otherwise>
+					                           					<dd class="writer">${recommentList.id}</dd>
+					                        				</c:otherwise>
+				                        				</c:choose>
+			                                            <dd>
+			                                                <span class="date">${recommentList.reco_reg_date}</span>
+			                                            </dd>
+			                                        </dl>
+			                                        <div class="txt.box1">
+			                                            <p>${recommentList.reco_content }</p>
+			                                            <c:if test="${recommentList.id } eq ${sessionScope.id }">
+			                                            	<button class="btn-coment-reply" onclick="recommentDel(${recommentList.recomment_no})">삭제</button>
+			                                            </c:if>
+			                                        </div>
+			                                    </div>
+			                                </div>
+			                            </li>
+		                            </c:if>
+	                            </c:forEach>
+                            </c:forEach>                        
+                        </ul>                        
+                    </div>                                      
+                </div><!-- section-bot 끝 -->
+                
+                <button class="btn-foot" onclick='location.href="prev?board_no=${boardDetail.board_no}&mBoard_no=${boardDetail.mboard_no}"'>이전</button>
+                <button class="btn-foot" onclick='location.href="next?board_no=${boardDetail.board_no}&mBoard_no=${boardDetail.mboard_no}"'>다음</button>
+                <button class="btn-list" onclick='location.href="mngboard.jsp"'>목록으로</button> <!-- 이 부분을 해결해야할 거 같네욥... 어디로 이동해야하지 -->
             </div>
         </div>
-    </div>   
+     </div>   
             
 </body>
 <script>

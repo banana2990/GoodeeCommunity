@@ -19,6 +19,8 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	height: 40px;
 	margin: 30px;
 	}
+	#mngboardlist{
+	display: none;}
 
 </style>
 
@@ -88,6 +90,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                  <div id="contents">
 	    	<div class="select box">
 		        <select name="mngboard" onchange="listCall()">
+		        	<option selected value="0"> ----------- </option>
 					<option value="1">자유게시판</option>
 					<option value="2">학습게시판</option>
 					<option value="3">익명게시판</option>
@@ -112,15 +115,18 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 				     </table>
 	        </div>
 
-            <div class="list-paging">
-                <button id="1" class="on">1</button>
-                <button id="2">2</button>
-                <button id="3">3</button>
-                <button id="4">4</button>
-                <button id="5">5</button>
-                <button id="next">next</button>
-                <button class="delete" onclick="del()">삭제</button>
-              </div>   
+           <!--  
+	           <div class="list-paging">
+	                <button id="1" class="on">1</button>
+	                <button id="2">2</button>
+	                <button id="3">3</button>
+	                <button id="4">4</button>
+	                <button id="5">5</button>
+	                <button id="next">next</button>
+	                <button class="delete" onclick="del()">삭제</button>
+	              </div>   
+               -->
+              
          </div>
         </div>
 	</body>
@@ -130,6 +136,8 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	function listCall(){		
 		var val = $("select[name='mngboard']").val();
 		console.log(val);
+
+		if (val!=0){
 		$.ajax({
 	        type: "post",
 	        url: "mngboard",
@@ -143,9 +151,13 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 		        console.log(data);
 		    }
 	    });
+		}else{
+			$("#mngboardlist").css({"display": "none"});
+			}
 	}
 	
 	function drawTable(list){
+		$("#mngboardlist").css({"display": "block"});
 		var content = "";
 		   $("tbody").empty();   
 		   list.forEach(function(item,num){

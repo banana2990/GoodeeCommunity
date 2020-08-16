@@ -33,15 +33,21 @@ public class ReplyService {
 		System.out.println(board_no+id+co_content);
 		
 		ReplyDAO dao = new ReplyDAO();
+		RequestDispatcher dis;
 		if(dao.reply(board_no, id, co_content)) {
-			RequestDispatcher dis = req.getRequestDispatcher("boardDetail?board_no="+board_no);
-			dis.forward(req, resp);
+			if(id.equals("admin")) {
+				dis = req.getRequestDispatcher("mngboardDetail?board_no="+board_no);
+			}	else {
+				dis = req.getRequestDispatcher("boardDetail?board_no="+board_no);}			
 		}else {
 			req.setAttribute("msg", msg);
-			RequestDispatcher dis = req.getRequestDispatcher("boardDetail?board_no="+board_no);
-			dis.forward(req, resp);
-			System.out.println("reply service 끝");
-		}		
+			if(id.equals("admin")) {
+				dis = req.getRequestDispatcher("mngboardDetail?board_no="+board_no);
+			}	else {
+				dis = req.getRequestDispatcher("boardDetail?board_no="+board_no);}			
+		}
+		dis.forward(req, resp);
+		System.out.println("reply service 끝");
 	}
 
 	public void recommentDel() throws ServletException, IOException {

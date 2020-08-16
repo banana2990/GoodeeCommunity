@@ -59,18 +59,18 @@ crossorigin="anonymous"
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
-            <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+           <div class="top-util">
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -211,6 +211,14 @@ crossorigin="anonymous"
     </div>
 </body>
 <script>
-
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
+	}
 </script>
 </html>

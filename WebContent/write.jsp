@@ -49,33 +49,33 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="boardList?mboard_no=1 ">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="boardList?mboard_no=2">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="boardList?mboard_no=3">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="lunchmenu.jsp">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
             <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login">로그인</button>
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -87,6 +87,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 	<div class="select-box">                        
                             <form class="searchbar" action="write" method="post">
                                 <select style="width: 300px" name="mboard_no">
+                              		<option selected> 카테고리를 선택해주세요 </option>
                                     <option value="1">자유게시판</option>
                                     <option value="2">학습게시판</option>
                                     <option value="3">익명게시판</option>
@@ -132,13 +133,21 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	var msg = "${msg}";
 	if(msg == "글이 작성되었습니다."){
 		alert(msg);
-		history.go(-2);
-	}
-	
+		history.go(-3);
+	}	
 	if(msg == "글 작성에 실패했습니다."){
 			alert(msg);
 	}
 
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
+	}
 	
 </script>
 </html>

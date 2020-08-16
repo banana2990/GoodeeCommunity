@@ -5,6 +5,10 @@
 	    	<link rel="stylesheet" type="text/css" href="style.css" />
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
+	#layer .pf{
+	width: 30px;
+	height: 30px;
+	}
 	</style>
 </head>
 <body>
@@ -18,22 +22,23 @@
 	        <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
 	        <div class="nic">${sessionScope.id} 님 반가워요.</div>
 	    </div>
-	    <div class="alert">
-	    	
-	    	<a class="alert_alert">알림</a>
-	    	    	
-	        <ul>
-	        </br>
-	        <a href="#"><li>첫번째 알림~!!!</li></a>
-	        </br>
-	        <a href="#"><li>두번째 알림~!!!</li></a>
-	        </br>
-	        <a href="#"><li>세번째 알림~!!!</li></a>
-	        </ul>
-	    </div>
-	    <div class="dmy">
-	        <a href="myPageList">내정보</a>
-	        <a href="logout">로그아웃</a>
+	    <div>
+		    <div class="alert">		    	
+		    	<a class="alert_alert">알림</a>
+		    	    	
+		        <ul>
+		        </br>
+		        <a href="#"><li>첫번째 알림~!!!</li></a>
+		        </br>
+		        <a href="#"><li>두번째 알림~!!!</li></a>
+		        </br>
+		        <a href="#"><li>세번째 알림~!!!</li></a>
+		        </ul>
+		    </div>
+		    <div class="dmy">
+		        <a href="myPageList">내정보</a>
+		        <a href="logout">로그아웃</a>
+		    </div>
 	    </div>
 	</div>
 </body>
@@ -47,6 +52,6 @@
            function(){layer.addClass('hide')} 
          );
        });
-     });
+     });  
 </script>
 </html>
