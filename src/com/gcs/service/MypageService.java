@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.MypageDAO;
 import com.gcs.DTO.BoardDTO;
+import com.gcs.DTO.MemberDTO;
 
 public class MypageService {
 	HttpServletRequest req = null;
@@ -68,12 +69,37 @@ public class MypageService {
 		req.setAttribute("page", page);
 		
 		RequestDispatcher dis = req.getRequestDispatcher(location);
-		dis.forward(req, resp);
+		dis.forward(req, resp);		
+	}
 
+	public void comalert() {
+		String id = (String) req.getSession().getAttribute("id");
+		MypageDAO dao = new MypageDAO();
+		dao.comalert(id);
 		
 	}
 
-	
+	//사진 업로드	
+		public void upload(String id) {		
+			MypageDAO dao = new MypageDAO();
+			try {
+				PhotoService pservice = new PhotoService(req);
+				MemberDTO dto = pservice.upload();
+				dao.pupload(dto);
+				if(dto.getNewName()!=null) {
+					dao = new MypageDAO(); // 위의 dao.pupload(dto)에서 finally로 resClose()까지 해버렸었기에 커넥션 재생성이 필요함
+					id = dto.getId();
+					System.out.println(dao.getFileName(String.valueOf(id)));
+					String prevFileName = dao.getFileName(String.valueOf(id)); // 이전파일 이름을 가져와야함
+
+					dao = new MypageDAO();
+					dao.updateFileName(prevFileName,dto.getNewName(),dto.getId());// 이전파일 이름 -> 새 파일이름으로 photo table 에서 데이터 변경
+					pservice.delete(prevFileName); // 이전 이름을 가진 파일을 삭제			
+				}
+			} catch (SQLException e) {	
+				e.printStackTrace();
+			}		
+		}
 	
 	
 }

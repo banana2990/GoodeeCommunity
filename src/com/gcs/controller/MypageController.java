@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MypageService;
 
-@WebServlet({"/myboard","/mycomment"})
+@WebServlet({"/myboard","/mycomment","/commentalert","/photoUp","/photoDel"})
 public class MypageController extends HttpServlet {
 
 	@Override
@@ -38,8 +38,26 @@ public class MypageController extends HttpServlet {
 			
 		case "/mycomment":
 			break;
+			
+		case "/commentalert": // 실시간 댓글 알림
+			System.out.println("댓글 알림");
+			service.comalert();
+			break;
+			
+		case "/photoUp": // 사진 업로드
+			String id = req.getParameter("id");					
+			service.upload(id);							
+			break;
+			
+		/*
+		case "/photoDel": // 사진 수정
+			 id = req.getParameter("id");					 
+			break;
+		*/	
+			
+			
 		}
-		
+	
 		
 		
 		

@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate","/mngUpdate","/mngdetail","/mngOut"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail"
+	,"/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate","/mngUpdate","/mngdetail","/mngOut"})
 
 public class MemberController extends HttpServlet {
 
@@ -93,16 +94,7 @@ public class MemberController extends HttpServlet {
 					service.findpw();
 					break;
 
-				case "/photoUp": // 사진 업로드
-					id = req.getParameter("id");					
-					service.upload(id);							
-					break;
-					
-				/*
-				case "/photoDel": // 사진 수정
-					 id = req.getParameter("id");					 
-					break;
-				*/	
+				
 				case "/m_memberlist":
 					System.out.println("회원리스트");
 					service.list();

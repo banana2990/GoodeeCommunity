@@ -95,67 +95,6 @@ public class MemberDAO {
 		return success;	
 	}
 	
-	// 사진 업로드 => 업데이트로 해서 로직 바꾸... 기 보다는 
-	public void pupload(MemberDTO dto) throws SQLException {
-		String sql ="";
-		String id = dto.getId();
-		System.out.println("ID: "+id);
-		if(dto.getOriName()!=null) { // photo 테이블에 데이터 추가
-			sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (photo_seq.NEXTVAL, ?,?,?)";
-			ps = con.prepareStatement(sql);
-			ps.setString(1, id);
-			ps.setString(2, dto.getOriName());
-			ps.setString(3, dto.getNewName());
-			ps.executeUpdate();
-		}
-		resClose();
-	}
-	
-	// 파일명 업데이트
-	public void updateFileName(String prevFileName, String newFileName, String id) {
-		// photo Table에 newFileName 을 새로운 파일명으로 변경		
-		String sql = "";
-		try {
-			if(prevFileName!=null) { // 기존 파일이 있는 경우는 UPDATE
-				sql="UPDATE photo SET newName =? WHERE id=?";
-				ps = con.prepareStatement(sql);
-				ps.setString(1, newFileName);
-				ps.setString(2, id);
-			}else { // 기존 파일이 없는 경우는 INSERT
-				sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (seq_photo.nextVAL, ?,?,?)";
-				ps = con.prepareStatement(sql);
-				ps.setString(1, id);			
-				ps.setString(2, prevFileName);
-				ps.setString(3, newFileName);		
-			}
-			ps.executeUpdate();			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			resClose();
-		}
-	}
-	
-	// 파일명 추출하기
-	public String getFileName(String id) {
-		String newName = null;
-		String sql = "SELECT newName FROM photo WHERE ID=?";			
-		try {
-			ps = con.prepareStatement(sql);
-			ps.setString(1, id);
-			rs = ps.executeQuery();				
-			if(rs.next()) {
-				newName = rs.getString(1);
-			}				
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			resClose();
-		}
-		System.out.println(newName);
-		return newName;
-	}
 	
 	// 이메일로 회원 아이디 찾기
 	public String findid(String email) throws SQLException {

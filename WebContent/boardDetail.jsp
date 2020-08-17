@@ -249,7 +249,7 @@ crossorigin="anonymous"
 			return;
 		}
 	}
-
+/*로그인 되어 있을 시 로그인 버튼 감추기 */
 	var loginId = "${sessionScope.id}";
 	var profile_img = $("#profile_img");
 	var loginbtn = $("#login");

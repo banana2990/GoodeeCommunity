@@ -10,10 +10,21 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script src="index.js" defer></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
 <script
 src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 <title>구디 커뮤니티</title>
+<style>
+textarea{
+	resize: none;
+    width: 229px;
+    height: 350px;
+}
+
+div #comalert{
+background-color: red;
+}
+</style>
+
 </head>
 <body>
 	<div id="container">
@@ -65,8 +76,9 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </ul>
             
             <div class="top-util">
+            	<div id="comalert"></div>
             	<div id="profile_img" class="boxx">
-                    <jsp:include page="upmy1.jsp"/>
+            	<jsp:include page="upmy1.jsp"/>
 		        </div>
                 <div class="inner">                    
                     <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
@@ -88,7 +100,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
 				                	<textarea name="content" class="mtextarea"></textarea>
 				                </div>  
 				                <div class="btn-box">					
-					                <button class="register">등록</button>     		
+					                <button id="memo_register" class="register">등록</button>     		
             					</div> 
 					</form>
                 </div>
@@ -161,7 +173,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </div>
             </div>
         </div>  
-    </div>
+ 
 
     <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
@@ -206,22 +218,24 @@ if(loginId!="admin"){}else{location.href="admin_main.jsp";}
 //세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
 var loginbtn = $("#login");
+
 if(loginId==""){
-	profile_img.css({"display":"none"});	
-}else{    
+	loginbtn.css({"display":"block"});
+	profile_img.css({"display":"none"});
+}else{
     loginbtn.css({"display":"none"});
     profile_img.css({"display":"block"});
 }
 
-
-
-function write(){
+/*
+function write(){ // 얘는 왜 있는 거지
 	if("${sessionScope.id}" == null ){
 		alert("로그인이 필요합니다.")
 	}else{
 		location.href="write.jsp";
 	}
 }
+*/
 
 $("#ct_send").click(function(){
 	
@@ -255,7 +269,6 @@ $("#ct_send").click(function(){
 
 });
 
-
 	function fn_paging(curPage) {
 		location.href = "main?curPage="+curPage;
 	}		
@@ -263,6 +276,32 @@ $("#ct_send").click(function(){
 	if(msg != ""){
 		alert(msg);
 	}
+/*
+ 실시간 댓글 알림: 5초마다
+	var comalert = $("#comalert");
+		
+	window.setInterval("refreshDiv()", 5000);
+	function refreshDiv(){
+		 $("#comalert").load(window.location.href + "#comalert"); // 특정영역 다시 부르기
+		
+		$.ajax({
+	        type: "post",
+	        url: "commentalert",
+	        dataType: "JSON",
+	        success: function(data){
+	        	console.log(data.contactmsg);
+	        	alert("msg");
+	        	comalert.css({"background-color":"red","color":"white"});
+	        	comalert.hthl("N");
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     });	 
+	}
+
+	*/
+	
 
 </script>
 </html>
