@@ -178,17 +178,6 @@ public class BoardService  {
 		}
 	}
 
-	public void recomment() throws UnsupportedEncodingException, SQLException {
-		req.setCharacterEncoding("UTF-8");
-		String comment_no = req.getParameter("comment_no");
-		String reco_content = req.getParameter("recomment");	
-		String id =(String) req.getSession().getAttribute("id");
-		System.out.println(comment_no+ reco_content+ id);
-		BoardDAO dao = new BoardDAO();
-		dao.recomment(comment_no, id, reco_content);
-		
-	}
-
 	public void boardDetail() throws ServletException, IOException {
 		BoardDTO dto = null;
 		String board_no = req.getParameter("board_no");
@@ -214,8 +203,7 @@ public class BoardService  {
 			req.setAttribute("recommentList", recommentList);
 			RequestDispatcher dis = req.getRequestDispatcher("boardDetail.jsp");
 			dis.forward(req, resp);
-		}
-				
+		}				
 	}
 
 	//수정

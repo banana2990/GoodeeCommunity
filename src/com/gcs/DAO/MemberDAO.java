@@ -167,7 +167,7 @@ public class MemberDAO {
 		}
 		return result;
 	}
-	//회원 삭제
+	//회원 삭제 무더기
 	public int delete(String[] delList) throws SQLException {
 		String sql = "DELETE FROM member WHERE id = ?";
 		int delCount = 0;	
@@ -200,10 +200,9 @@ public class MemberDAO {
 		}		
 		return list;
 	}
-	//회원 및 관리자  정보 조회 
+	//회원 및 관리자 정보 조회 
 	public MemberDTO mylist(String id) {
 		System.out.println(id);
-		System.out.println("MYLIST3");
 		MemberDTO dto = new MemberDTO();
 		String sql  = "SELECT nickName, name,id FROM member WHERE id =?";
 		try {

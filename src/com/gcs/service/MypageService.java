@@ -3,6 +3,7 @@ package com.gcs.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gcs.DAO.MypageDAO;
 import com.gcs.DTO.BoardDTO;
 import com.gcs.DTO.MemberDTO;
+import com.google.gson.Gson;
 
 public class MypageService {
 	HttpServletRequest req = null;
@@ -44,7 +46,7 @@ public class MypageService {
 		System.out.println(id+" 아이디 /  curPage"+curPage);
 		
 		MypageDAO dao = new MypageDAO();
-		String location = "myboardList_test.jsp"; // 리로드할 곳 up
+		String location = "upmy2.jsp"; // 리로드할 곳 up
 			
 		try {		
 				list = dao.boardList(id, startPage, endPage);
@@ -86,20 +88,22 @@ public class MypageService {
 				PhotoService pservice = new PhotoService(req);
 				MemberDTO dto = pservice.upload();
 				dao.pupload(dto);
-				if(dto.getNewName()!=null) {
-					dao = new MypageDAO(); // 위의 dao.pupload(dto)에서 finally로 resClose()까지 해버렸었기에 커넥션 재생성이 필요함
-					id = dto.getId();
-					System.out.println(dao.getFileName(String.valueOf(id)));
-					String prevFileName = dao.getFileName(String.valueOf(id)); // 이전파일 이름을 가져와야함
-
-					dao = new MypageDAO();
-					dao.updateFileName(prevFileName,dto.getNewName(),dto.getId());// 이전파일 이름 -> 새 파일이름으로 photo table 에서 데이터 변경
-					pservice.delete(prevFileName); // 이전 이름을 가진 파일을 삭제			
-				}
 			} catch (SQLException e) {	
 				e.printStackTrace();
 			}		
 		}
-	
+
+		public void userphoto() throws IOException {
+			MypageDAO dao = new MypageDAO();
+			String id = (String) req.getSession().getAttribute("id");
+			ArrayList<MemberDTO> list = null;		
+			list = dao.userphoto(id);
+			HashMap<String,Object> map =  new HashMap<String, Object>();
+			map.put("userphoto",list);
+			Gson json = new Gson();
+			String obj = json.toJson(map);
+			System.out.println("result :"+obj);
+			resp.getWriter().println(obj);
+		}
 	
 }

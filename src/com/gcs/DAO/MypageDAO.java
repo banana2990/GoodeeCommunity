@@ -42,7 +42,7 @@ public class MypageDAO {
 	
 	public ArrayList<BoardDTO> boardList(String id, int startPage, int endPage) throws SQLException {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		
+		BoardDTO dto = new BoardDTO();
 		String sql = "SELECT ta.rnum, ta.board_no, ta.mBoard_no, ta.id, ta.bo_subject, ta.bo_reg_date, "
 				+ "ta.bo_bHit, tb.boardname FROM (SELECT ROW_NUMBER()OVER(ORDER BY board_no DESC) AS rnum, "
 				+ "board_no, mBoard_no, id, bo_subject, bo_reg_date, bo_bHit FROM board WHERE id = ?) ta "
@@ -56,7 +56,7 @@ public class MypageDAO {
 		rs = ps.executeQuery();		
 		
 		while(rs.next()) {
-			BoardDTO dto = new BoardDTO();
+			
 			dto.setBoard_no(rs.getInt("board_no"));
 			dto.setMboard_no(rs.getInt("mboard_no"));
 			dto.setId(rs.getString("id"));
@@ -155,7 +155,7 @@ public class MypageDAO {
 			String id = dto.getId();
 			System.out.println("ID: "+id);
 			if(dto.getOriName()!=null) { // photo 테이블에 데이터 추가
-				sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (photo_seq.NEXTVAL, ?,?,?)";
+				sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (seq_photo.NEXTVAL, ?,?,?)";
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, id);
 				ps.setString(2, dto.getOriName());
@@ -209,6 +209,27 @@ public class MypageDAO {
 			}
 			System.out.println(newName);
 			return newName;
+		}
+
+		public ArrayList<MemberDTO> userphoto(String id) {
+			String sql = "SELECT * FROM PHOTO WHERE ID=? ";
+			ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
+			MemberDTO dto = new MemberDTO();
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, id);
+				rs = ps.executeQuery();
+				while(rs.next()) {
+						dto.setOriName(rs.getString("oriName"));
+						dto.setNewName(rs.getString("newName"));
+						list.add(dto);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}	finally {
+				resClose();
+			}
+			return list;
 		}
 		
 	

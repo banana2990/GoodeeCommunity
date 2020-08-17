@@ -1,5 +1,8 @@
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -177,10 +180,10 @@
       <div class="upmy2">      
         <div class="upmy3_1">          
           <div class="upimge">
-            <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
+            <a href="#"><img class="imge_1" id="userphoto" src="image/냥.jpg"/></a>
             <div class="u">
-              <a href="photoUp"><button>등록</button></a> <!-- 처음 가입시에 무조건 사진을 등록하고, 수정으로 변경?-->
-              <a href="photoDel"><button>삭제</button></a>  <!-- 삭제되면 처음 가입사진으로 수정됨 -->
+              <a href="photoUp"><button>등록</button></a> 
+              <a href="photoDel"><button>삭제</button></a>
             </div>
           </div>          
         </div>
@@ -191,13 +194,13 @@
 	            <div><b>닉네임 : </b><input type="text" value="${mylist.nickName }" name="nickName"><input type="button" id="nickChck" value="중복확인"/></div></br>
 	          </div>
 	          <div class="u3_2">
-	            <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div></br>
+	            <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div><br/>
 	          </div>
 	          <div class="u3_2">
-	            <div><b>비밀번호 : </b><input type="password" name="pw" id="myUserPw"/></div></br>
+	            <div><b>비밀번호 : </b><input type="password" name="pw" id="myUserPw"/></div><br/>
 	          </div>
 	          <div class="u3_2">
-	            <div><b>비밀번호 확인 : </b><input type="password" id="myUserPwChk"/></div></br>
+	            <div><b>비밀번호 확인 : </b><input type="password" id="myUserPwChk"/></div><br/>
 	            <font id="chkNotice" size="2"></font>            
 	          </div>        
 	        </div>
@@ -245,28 +248,58 @@
           </ul>
       </div>
       <div class="dap">
-        <table style="border-collapse: collapse; margin: 0; padding: 0;">
-          <tr style="height: 25px;">
-            <td style="width: 600px;">[자유게시판] 헬스장 회원별 유형...txt   </td>
-            <td rowspan="2" style="width: 70px;"></td>
-          </tr>
-          <tr style="height: 25px;">
-            <td style="width: 600px;">3대500정준호     11:44             50     ♡  10</td>
-            <td></td>
-          </tr>
-        </table>
+			<!-- 내가쓴 것들의 목록 -->
+			<div class="list-box">
+                	<c:forEach items="${list }" var="bbs" varStatus="status">
+	                	<ul>              	
+							<li>
+								<a href="boardDetail?board_no=${bbs.board_no}">
+									<h3>
+										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
+										<i class="icon-new"></i>
+										<dl class="writing-info"> 
+											<dt class="blind"></dt>
+											<c:if test="${bbs.mboard_no eq 3}" >
+												<dd class="writer">익명</dd>
+											</c:if>
+											<c:if test="${bbs.mboard_no ne 3}">
+												<dd class="writer">${bbs.nickName }</dd> 
+											</c:if>
+											<dt class="blind"></dt>
+										<dd>
+											<span class="date">${bbs.bo_reg_date }</span>
+											<span class="count-read">${bbs.bo_bHit }</span>
+											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
+											<span class="count-comment">${commentCnt[status.index]}</span>
+										</dd>
+									</dl>
+								</a>
+							</li>				
+	                    </ul>
+                    </c:forEach>                         
+                </div>
+
+                <div class="list-paging">  
+                	<c:if test="${page.curPage ne 1}">
+                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
+                    </c:if>             
+                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
+	                     <c:choose>
+		                        <c:when test="${pageNum eq  page.curPage}">
+		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:when>
+		                        <c:otherwise>
+		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
+                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
+                    </c:if>
+                </div>
+
       </div>
-      <div class="paging">
-        <table>
-          <tr>
-            <td><button><<</button></td>
-            <td><button><</button></td>
-            <td><button>1</button></td>
-            <td><button>></button></td>
-            <td><button>>></button></td>
-          </tr>
-        </table>
-      </div>
+
       <div class="overlay"></div>
       <div class="cl">
         <a href="main"><button>Close</button></a>
@@ -274,11 +307,7 @@
 
 
         </div>
-      </div>
 
-      </div>
-     </div>
-    </div>
   </body>
   <script>
   
@@ -352,10 +381,12 @@
 		    }
 		}
 		
-		
-
-
-
+		function fn_paging(curPage) {
+			if(mboard_no.length > 2){
+				mboard_no = window.location.search.substring(21);
+			}
+			location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
+		}	
 	  
   
   

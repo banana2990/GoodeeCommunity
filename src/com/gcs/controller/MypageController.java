@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MypageService;
 
-@WebServlet({"/myboard","/mycomment","/commentalert","/photoUp","/photoDel"})
+@WebServlet({"/myboard","/mycomment","/commentalert","/photoUp","/photoDel", "/photoUpdate","/userphoto"})
 public class MypageController extends HttpServlet {
 
 	@Override
@@ -50,11 +50,18 @@ public class MypageController extends HttpServlet {
 			break;
 			
 		/*
-		case "/photoDel": // 사진 수정
+		case "/photoDel": // 사진 삭제
 			 id = req.getParameter("id");					 
 			break;
+		
+		case "/photoUpdate": //사진 수정
+			break;
+		
 		*/	
-			
+		
+		case "/userphoto": //사진 불러오기
+			service.userphoto();
+			break;
 			
 		}
 	

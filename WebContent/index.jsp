@@ -10,8 +10,7 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script src="index.js" defer></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script
-src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 <title>구디 커뮤니티</title>
 <style>
 textarea{
@@ -78,7 +77,7 @@ background-color: red;
             <div class="top-util">
             	<div id="comalert"></div>
             	<div id="profile_img" class="boxx">
-            	<jsp:include page="upmy1.jsp"/>
+            		<jsp:include page="upmy1.jsp"/>
 		        </div>
                 <div class="inner">                    
                     <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
@@ -237,6 +236,7 @@ function write(){ // 얘는 왜 있는 거지
 }
 */
 
+//문의사항 보내기
 $("#ct_send").click(function(){
 	
 	var $writer = $("input[name='writer']");

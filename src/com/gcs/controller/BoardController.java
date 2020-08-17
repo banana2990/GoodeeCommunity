@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.gcs.service.BoardService;
 
 @WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView",
-	"/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom",
+	"/updateForm","/boardDetail","/update","/del","/mngboardDetail","/deletecom",
 	"/myBoardList","/search","/memoWrite","/prev","/next"})
 
 public class BoardController extends HttpServlet {
@@ -89,15 +89,6 @@ public class BoardController extends HttpServlet {
 			System.out.println("게시글 상세보기 게시글 번호 ? "+req.getParameter("board_no"));
 			boardService.boardDetail();
 			break;
-			
-
-		case "/recomment":				
-			try {
-				boardService.recomment();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			break;			
 
 		case "/updateForm":
 			System.out.println("수정 폼 이동 요청");

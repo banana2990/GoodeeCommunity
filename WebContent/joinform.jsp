@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>구디 커뮤니티</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    	<link rel="stylesheet" href="style.css">
+	<script src="index.js" defer></script>
+	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
 	
 	.navbar__logo {
@@ -79,6 +83,31 @@
 				</tr>			
 			</table>
 		</div>
+		
+ <div class="helpIcon">
+        <i class="far fa-comment-dots"></i>   
+    </div>
+  
+    <div class="helpIcon__content">
+        <div class="helpIcon__title">
+            <br><br>
+            <p>무엇을 도와드릴까요?</p>
+            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+        </div>
+        <div class="helpIcon__input">
+            <form action="contactWrite" method="post">
+            <br><br>
+            <input type="text" name="writer" placeholder="   작성자"> 
+            <input type="text" name="subject" placeholder="   제목">
+            <input type="text" name="c_email" placeholder="   이메일">
+            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
+            <br><br>
+            <button id="ct_send">보내기</button>
+            </form>
+        </div>
+    </div>
+        
+    </div>
 		
 	</body>
 
@@ -252,7 +281,8 @@
 			$("input[name='id']").focus();
 		}
 	});
-	
+
+	//문의사항 보내기
 	$("#ct_send").click(function(){
 		
 		var $writer = $("input[name='writer']");
@@ -283,6 +313,8 @@
 	     });
 		
 	})
+	
+	
 	
 </script>
 </html>

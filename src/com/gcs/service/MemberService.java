@@ -312,16 +312,14 @@ public class MemberService {
 	}
 	//마이페이지 상세보기
 	public void mylist() throws ServletException, IOException{
-		System.out.println("MYLIST2");
 		String id = (String) req.getSession().getAttribute("id");		
 		MemberDAO dao = new MemberDAO();		
 		ArrayList <MemberDTO> mylist = null;				
 		MemberDTO dto = dao.mylist(id);		
 		System.out.println(mylist);
 		req.setAttribute("mylist", dto);
-		RequestDispatcher dis = req.getRequestDispatcher("upmy2.jsp");
-		dis.forward(req, resp);
-		System.out.println("MYLIST6");		
+		RequestDispatcher dis = req.getRequestDispatcher("myboard");
+		dis.forward(req, resp);	
 	}
 	//회원탈퇴
 	public void out() throws IOException, ServletException {

@@ -2,6 +2,7 @@ package com.gcs.service;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gcs.DAO.BoardDAO;
 import com.gcs.DAO.ReplyDAO;
 
 
@@ -66,7 +68,19 @@ public class ReplyService {
 		
 		
 	}
-
+	
+	public void recomment() throws SQLException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		String comment_no = req.getParameter("comment_no");
+		String reco_content = req.getParameter("recomment");
+		String board_no = req.getParameter("board_no");
+		String id =(String) req.getSession().getAttribute("id");
+		System.out.println(comment_no+ reco_content+ id);
+		ReplyDAO dao = new ReplyDAO();
+		dao.recomment(comment_no, id, reco_content);
+		resp.sendRedirect("boardDetail?board_no="+board_no);
+	}
+	
 
 	}
 	

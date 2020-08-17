@@ -109,7 +109,7 @@ public class MemberController extends HttpServlet {
 					break;		
 				
 				case "/myPageList":
-					System.out.println("MYLIST");
+					System.out.println("회원 상세보기");
 					service.mylist();
 					break;
 					

@@ -152,15 +152,19 @@ crossorigin="anonymous"
 	                                        </dl>
 	                                        <div class="txt.box1">
 	                                            <p>${comment.co_content }</p>
-	                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
+	                                            <div class="util">
+	                	                            <button type="button" class="btn-like reply-likes">
+	                    	                            <span class="like-count-reply">0</span>
+	            	                                </button>
+	                                            </div>
+	                                            <div>
+		                                            <form action = "recomment?comment_no=${comment.comment_no }&board_no=${boardDetail.board_no}" method="post">
+		    	                                        <input type="text" value="" name="recomment" class = "reply-inputbox" style="width : 750px">
+		        	                                  	<button type="submit" class="btn-rereply">답글쓰기</button>
+   	                                        		</form>
+	                                        	</div>
 	                                        </div>
-	                                        <div class="util">
-	                                            <button type="button" class="btn-like reply-likes">
-	                                                <span class="like-count-reply">0</span>
-	                                            </button>
-	                                            <button type="button" class="btn-rereply">답글쓰기</button>
-	                                        </div>
+	                                        
 	                                    </div>
 	                                </div>
 	                            </li>              
@@ -206,9 +210,10 @@ crossorigin="anonymous"
         </div>
     </div>
 
-    <div class="helpIcon">
+     <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
-    </div>  
+    </div>
+  
     <div class="helpIcon__content">
         <div class="helpIcon__title">
             <br><br>
@@ -216,17 +221,18 @@ crossorigin="anonymous"
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
         <div class="helpIcon__input">
-            <form action="#">
+            <form action="contactWrite" method="post">
             <br><br>
-            <input type="text" placeholder="   작성자"> 
-            <input type="text" placeholder="   제목">
-            <input type="text" placeholder="   이메일">
-            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <input type="text" name="writer" placeholder="   작성자"> 
+            <input type="text" name="subject" placeholder="   제목">
+            <input type="text" name="c_email" placeholder="   이메일">
+            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
             <br><br>
-            <button>보내기</button>
+            <button id="ct_send">보내기</button>
             </form>
         </div>
     </div>
+    
 </body>
 <script>
 	var msg = "${msg}";
@@ -234,10 +240,16 @@ crossorigin="anonymous"
 		alert(msg);
 	}
 
-	var sessionId = "${sessionScope.id}";
+	var loginId = "${sessionScope.id}";
+/* 얘를 어떻게 해야 보드 디테일 들어가기 전에 아...! 위부터 읽으니까 위에서 하면 되려나?
+	if(loginId==null){
+		alert("로그인이 필요한 서비스입니다.");
+		location.href="login.jsp"
+		}
+*/
 	var writeId = "${boardDetail.id}";
-	console.log(sessionId,"/",writeId);
-	if(sessionId!=writeId){
+	console.log(loginId,"/",writeId);
+	if(loginId!=writeId){
 		$("#boarddel").css({"display":"none"});
 		$("#boardupdate").css({"display":"none"});
 		}	
@@ -259,6 +271,37 @@ crossorigin="anonymous"
 	    loginbtn.css({"display":"none"});
 	    profile_img.css({"display":"block"});
 	}
+	//문의사항 보내기
+	$("#ct_send").click(function(){
+		
+		var $writer = $("input[name='writer']");
+		var $subject = $("input[name='subject']");
+		var $c_email = $("input[name='c_email']");
+		var $content = $("input[name='content']");
+		
+		console.log($write,$subject,$c_email,$content);
+		
+		var param = {};
+		
+		param.writer = $("input[name='writer']").val();
+		param.subject = $("input[name='subject']").val();
+		param.c_email = $("input[name='c_email']").val();
+		param.content = $("input[name='content']").val();
+		
+		$.ajax({
+	        type: "post",
+	        url: "contactWrite",
+	        data: param,
+	        dataType: "JSON",
+	        success: function(data){
+	        	console.log(data.contactmsg);
+	        	alert("msg");
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
 
+	});
 </script>
 </html>
