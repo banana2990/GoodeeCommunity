@@ -10,7 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MemberService;
 
-@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail","/photoUp","/photoDel","/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate"})
+@WebServlet({"/login", "/join","/overlay","/overlaynick","/findid","/findpw","/mail"
+	,"/m_memberlist","/memberDel","/logout","/myPageList","/memberout","/myUpdate","/mngUpdate","/mngdetail","/mngOut"})
 
 public class MemberController extends HttpServlet {
 
@@ -93,16 +94,7 @@ public class MemberController extends HttpServlet {
 					service.findpw();
 					break;
 
-				case "/photoUp":
-					id = req.getParameter("id");					
-					service.upload(id);							
-					break;
-					
-				/*
-				case "/photoDel":
-					 id = req.getParameter("id");					 
-					break;
-				*/	
+				
 				case "/m_memberlist":
 					System.out.println("회원리스트");
 					service.list();
@@ -117,13 +109,27 @@ public class MemberController extends HttpServlet {
 					break;		
 				
 				case "/myPageList":
-					System.out.println("MYLIST");
+					System.out.println("회원 상세보기");
 					service.mylist();
 					break;
 					
 				case "/myUpdate":					
 					System.out.println("내프로필 업데이트 요청");
-				    	service.myUpdate();
+			    		service.myUpdate();
+					break;
+					
+				case "/mngdetail":
+					System.out.println("관리자 회원 상세 조회로 보내기");
+					service.mngdetail();
+					break;	
+					
+				case "/mngUpdate":					
+					System.out.println("관리자 회원 수정");
+				    	service.mngUpdate();
+					break;
+					
+				case "/mngOut":
+					service.mngOut();
 					break;
 					
 			}

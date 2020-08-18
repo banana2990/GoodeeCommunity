@@ -1,5 +1,4 @@
+.metadata/
 .settings/
-.classpath
-.project
-WebContent/WEB-INF/
-build/
+WebContent/WEB-INF/lib/
+*.class

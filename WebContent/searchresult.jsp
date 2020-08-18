@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
@@ -24,7 +25,7 @@ crossorigin="anonymous"
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -56,18 +57,18 @@ crossorigin="anonymous"
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
-            <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+        	<div class="top-util">
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -78,12 +79,12 @@ crossorigin="anonymous"
                 <div class="board-swipe">
                     <ul>
                         <li>
-                           	<button class="key-color" style="top : -35px">${list[0].boardname}</button>
+                           	<button class="key-color" style="top : -35px">검색 결과</button>
                         </li>
                     </ul>
                 <!-- 게시글 검색바 -->
                 <div class="board_search-input">
-	                <form class="searchbar" action="#" method="get" >
+	                <form class="searchbar" action="search" method="get" >
 	                    <select>
 							<option>제목</option>
 							<option>작성자</option>
@@ -120,7 +121,7 @@ crossorigin="anonymous"
 											<span class="date">${bbs.bo_reg_date }</span>
 											<span class="count-read">${bbs.bo_bHit }</span>
 											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
-											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
+											<span class="count-comment">${commentCnt[status.index]}</span>
 										</dd>
 									</dl>
 								</a>
@@ -162,6 +163,20 @@ crossorigin="anonymous"
 		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
 	}		
 	
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+	
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
+	}
 	
 </script>
 </html>

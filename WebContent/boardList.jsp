@@ -9,6 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 
+<script src="index.js" defer></script>
 <script
 src="https://kit.fontawesome.com/fbff03f786.js"
 crossorigin="anonymous"
@@ -26,7 +27,7 @@ crossorigin="anonymous"
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -58,18 +59,18 @@ crossorigin="anonymous"
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
-            <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+        	<div class="top-util">
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -85,7 +86,7 @@ crossorigin="anonymous"
                     </ul>
                 <!-- 게시글 검색바 -->
                 <div class="board_search-input">
-	                <form class="searchbar" action="#" method="get" >
+	                <form class="searchbar" action="search" method="get" >
 	                    <select>
 							<option>제목</option>
 							<option>작성자</option>
@@ -153,7 +154,8 @@ crossorigin="anonymous"
         </div>  
     </div>
     
-    <div class="helpIcon">
+
+ <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
     </div>
   
@@ -175,6 +177,7 @@ crossorigin="anonymous"
             </form>
         </div>
     </div>
+
 </body>
 <script>
 	
@@ -192,6 +195,17 @@ crossorigin="anonymous"
 		alert(msg);
 	}
 	
+
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
+	}
+	//문의사항 보내기
 	$("#ct_send").click(function(){
 		
 		var $writer = $("input[name='writer']");
@@ -216,6 +230,9 @@ crossorigin="anonymous"
 	        success: function(data){
 
 	        	alert("contactmsg");
+
+	        	console.log(data.contactmsg);
+	        	alert("msg");
 	        },
 	        error: function(error){
 	           console.log(error);
@@ -223,7 +240,6 @@ crossorigin="anonymous"
 	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
 
 	});
-	
 	
 </script>
 </html>

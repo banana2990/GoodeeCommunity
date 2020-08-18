@@ -10,10 +10,20 @@
 <link rel="stylesheet" type="text/css" href="style.css" />
 <script src="index.js" defer></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-<script
-src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 <title>구디 커뮤니티</title>
+<style>
+textarea{
+	resize: none;
+    width: 229px;
+    height: 350px;
+}
+
+div #comalert{
+background-color: red;
+}
+</style>
+
 </head>
 <body>
 	<div id="container">
@@ -26,7 +36,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="" method="post">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -58,20 +68,18 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
             <div class="top-util">
-            	<div class="boxx">
-                    <jsp:include page="upmy1.jsp"/>
+            	<div id="comalert"></div>
+            	<div id="profile_img" class="boxx">
+            		<jsp:include page="upmy1.jsp"/>
 		        </div>
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div id="profile_img" class="profile-img"></div>
-                    </button>
+                <div class="inner">                    
                     <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
@@ -85,23 +93,14 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
                     	메인 이미지 영역입니다.
                 </div>
                 <div class="today-memo">
-                	<form action="#" method="post">
-	                	<table>
-	                	 	<tr>
-	                	 		<h1 style= "margin-left:60px;">오늘의 메모</h1>
-	                	 	</tr>
-							<tr>
-								<th>제목</th>
-								<td><input type="text" name="" id="" value=""/></td>
-							</tr>
-							<tr>
-								<th>내용</th>
-								<td><textarea name="" id="" cols="30" rows="15"></textarea></td>
-							</tr>
-							<tr>
-								<td colspan="2" style= "text-align:center;"><input type="button" value="저장" id="" /></td>
-							</tr>
-						</table>
+                	<form action="memoWrite" method="post">
+	                	 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
+								<div class="note-editing-area">
+				                	<textarea name="content" class="mtextarea"></textarea>
+				                </div>  
+				                <div class="btn-box">					
+					                <button id="memo_register" class="register">등록</button>     		
+            					</div> 
 					</form>
                 </div>
             </div>
@@ -173,7 +172,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
             </div>
             </div>
         </div>  
-    </div>
+ 
 
     <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
@@ -198,6 +197,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script
         </div>
     </div>
 </body>
+
 <script>
 
 var writeMsg = "${writeMsg}";
@@ -206,32 +206,37 @@ if(writeMsg != ""){
 	location.href = "login.jsp";
 }
 
-var loginId = "${sessionScope.id}";
-// 세션에 저장된 경우 로그인버튼을 비활성화하기
-console.log(loginId);
 
+// 아이디가 있는지 체크
+var loginId = "${sessionScope.id}";
+
+console.log(loginId);
+//관리자 로그인시 관리자 페이지로! // 메인 불러오는 것+문의 불러오기 그 다음에 이동하기
 if(loginId!="admin"){}else{location.href="admin_main.jsp";}
 
+//세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
 var loginbtn = $("#login");
 
 if(loginId==""){
-	profile_img.css({"display":"none"});	
-}else{    
+	loginbtn.css({"display":"block"});
+	profile_img.css({"display":"none"});
+}else{
     loginbtn.css({"display":"none"});
     profile_img.css({"display":"block"});
 }
 
-
-
-function write(){
+/*
+function write(){ // 얘는 왜 있는 거지
 	if("${sessionScope.id}" == null ){
 		alert("로그인이 필요합니다.")
 	}else{
 		location.href="write.jsp";
 	}
 }
+*/
 
+//문의사항 보내기
 $("#ct_send").click(function(){
 	
 	var $writer = $("input[name='writer']");
@@ -264,11 +269,39 @@ $("#ct_send").click(function(){
 
 });
 
-
 	function fn_paging(curPage) {
 		location.href = "main?curPage="+curPage;
 	}		
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
+	}
+/*
+ 실시간 댓글 알림: 5초마다
+	var comalert = $("#comalert");
+		
+	window.setInterval("refreshDiv()", 5000);
+	function refreshDiv(){
+		 $("#comalert").load(window.location.href + "#comalert"); // 특정영역 다시 부르기
+		
+		$.ajax({
+	        type: "post",
+	        url: "commentalert",
+	        dataType: "JSON",
+	        success: function(data){
+	        	console.log(data.contactmsg);
+	        	alert("msg");
+	        	comalert.css({"background-color":"red","color":"white"});
+	        	comalert.hthl("N");
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     });	 
+	}
 
+	*/
+	
 
 </script>
 </html>

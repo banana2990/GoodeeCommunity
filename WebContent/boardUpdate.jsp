@@ -7,13 +7,10 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="D110_style.css">
+<link rel="stylesheet" href="write&update.css">
 <script src="index.js" defer></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script
-src="https://kit.fontawesome.com/fbff03f786.js"
-crossorigin="anonymous"
-></script>
+<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 <title>구디 커뮤니티</title>
 </head>
 <body>
@@ -59,18 +56,18 @@ crossorigin="anonymous"
                     </a>
                 </li>
                 <li>
-                    <a href="D130_오늘점심.html" id="lunch">
+                    <a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
-            <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
+           <div class="top-util">
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -79,118 +76,34 @@ crossorigin="anonymous"
         <div id="contents">
             <!--게시글 상세보기-->
             <div class="section_top">
-                <div class="title_box">
-                    
-            	<form action="update?board_no=${boardDetail.board_no }" method="post">
-            		<select name="mboard_no">
-            			<option selected>----------</option>
-            			<option value="1">자유게시판</option>
-            			<option value="2">학습게시판</option>
-            			<option value="3">익명게시판</option>
-            		</select>
-                    <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
-                    <h3><input type = "text" name="subject" value="${boardDetail.bo_subject }"/></h3>
-                    <dl class="writing_info">
-                        <dd class="writer">${boardDetail.nickName }</dd>
-                        <span class="date">${boardDetail.bo_reg_date }</span>
-                        <img src="./image/조회수.PNG" alt class="read">
-                        <span class="count">${boardDetail.bo_bHit }</span>
-                    </dl>
-                    <button class="btn">삭제</button>
-                    <input type="submit" value="수정"/>
-                
-                </div>
-            </div>
-            
-            <div class="section-bot">
-                <div class="view-box">
-                    <div class="txt note-editor">
-                        <textarea name="content" >${boardDetail.bo_content }</textarea></form>
-                    </div>
-                    <div class="share">
-                        <button type="button" class="btn-like thread-likes">
-                            <span class="like-count">0</span>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="reply-box">
-                    <div class="reply-area">
-                        <p class="total">
-                            <span class="message">댓글</span>
-                            <span class="key-color">2</span>
-                        </p>
-                        <div class="reply-input">
-                            <div class="reply-div">
-                                <input type="text" class="nologin-disabled" disabled placeholder="불쾌감을 주는 욕설과 악성 댓글은 삭제될 수 있습니다.">
-                                <button type="button" class="btn-reply">등록</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="reply-list">
-                        <ul>
-                            <li data-commentid="1027890">
-                                <div class="reply">
-                                    <div class="profile-img"></div>
-                                    <div class="txt-area">
-                                        <dl class="writing-info">
-                                            <dd class="writer">아무개</dd>
-                                            <dd>
-                                                <span class="date">2020.08.05 11:12</span>
-                                            </dd>
-                                        </dl>
-                                        <div class="txt.box1">
-                                            <p>야 이거 겁나 어렵네......</p>
-                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
-                                        </div>
-                                        <div class="util">
-                                            <button type="button" class="btn-like reply-likes">
-                                                <span class="like-count-reply">1</span>
-                                            </button>
-                                            <button type="button" class="btn-rereply">답글쓰기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li data-commentid="102789">
-                                <div class="reply">
-                                    <div class="profile-img2"></div>
-                                    <div class="txt-area2">
-                                        <dl class="writing-info">
-                                            <dd class="writer">아무개2</dd>
-                                            <dd>
-                                                <span class="date">2020.08.05 13:21</span>
-                                            </dd>
-                                        </dl>
-                                        <div class="txt.box1">
-                                            <p>대댓글 대박이네......</p>
-                                            <button class="btn-coment-reply">삭제</button><button class="btn-coment-reply">취소</button>
-                                        </div>
-                                        <div class="util">
-                                            <button type="button" class="btn-like reply-likes">
-                                                <span class="like-count-reply">0</span>
-                                            </button>
-                                            <button type="button" class="btn-rereply">답글쓰기</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+	            <h1>글 수정하기</h1>	
+	            <div class="select-box">          
+	           		<form class="searchbar" action="update?board_no=${boardDetail.board_no }" method="post">              
+	                   <select style="width: 300px" name="mboard_no">
+	                  		<option selected> 카테고리를 선택해주세요 </option>
+	                        <option value="1">자유게시판</option>
+	                        <option value="2">학습게시판</option>
+	                        <option value="3">익명게시판</option>
+	                    </select>
+	                                <input type="text" name="subject" class="tit-input" value="${boardDetail.bo_subject }" maxlength="50" >			
+					                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
+					                <div class="note-editing-area">
+					                       <textarea name="content" class="textarea">${boardDetail.bo_content}</textarea>
+					                </div>  
+					                <div class="btn-box">					
+						                <button class="register">수정</button>	           							                  
+						                <input type="button" class="cancle" onclick="cancle()" value="취소">             		
+	            					</div> 
+	            				</form>                                                     
                     </div>         
-                </div>
-                <button class="btn-foot" location.href="#">이전</button>
-                <button class="btn-foot" location.href="#">다음</button>
-                <button class="btn-list" location.href="#">목록으로</button>
-            </div>
-        </div>
+            </div>            
+      </div>
     </div>
 
-    <div class="helpIcon">
+ <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
-    </div>  
+    </div>
+  
     <div class="helpIcon__content">
         <div class="helpIcon__title">
             <br><br>
@@ -198,19 +111,70 @@ crossorigin="anonymous"
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
         <div class="helpIcon__input">
-            <form action="#">
+            <form action="contactWrite" method="post">
             <br><br>
-            <input type="text" placeholder="   작성자"> 
-            <input type="text" placeholder="   제목">
-            <input type="text" placeholder="   이메일">
-            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <input type="text" name="writer" placeholder="   작성자"> 
+            <input type="text" name="subject" placeholder="   제목">
+            <input type="text" name="c_email" placeholder="   이메일">
+            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
             <br><br>
-            <button>보내기</button>
+            <button id="ct_send">보내기</button>
             </form>
         </div>
     </div>
+    
 </body>
-<script>
 
+<script>
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
+	}
+
+	function cancle(){
+		if(confirm("글 수정을 취소하시겠습니까 ?") == true){
+			window.history.back();
+		} else{
+			return;
+		}
+	}
+	//문의사항 보내기
+	$("#ct_send").click(function(){
+		
+		var $writer = $("input[name='writer']");
+		var $subject = $("input[name='subject']");
+		var $c_email = $("input[name='c_email']");
+		var $content = $("input[name='content']");
+		
+		console.log($write,$subject,$c_email,$content);
+		
+		var param = {};
+		
+		param.writer = $("input[name='writer']").val();
+		param.subject = $("input[name='subject']").val();
+		param.c_email = $("input[name='c_email']").val();
+		param.content = $("input[name='content']").val();
+		
+		$.ajax({
+	        type: "post",
+	        url: "contactWrite",
+	        data: param,
+	        dataType: "JSON",
+	        success: function(data){
+	        	console.log(data.contactmsg);
+	        	alert("msg");
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
+	});
+	
 </script>
 </html>

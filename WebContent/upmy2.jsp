@@ -1,7 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -170,55 +172,48 @@
     </style>
   </head>
   <body>
-    
+     
 
     <div class="overlay"></div>
-
-    <div class="upmy1">
-      <div class="upmy2">
-        <div class="upmy3_1">
-          
+    
+    <div class="upmy1">    
+      <div class="upmy2">      
+        <div class="upmy3_1">          
           <div class="upimge">
-            <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
+            <a href="#"><img class="imge_1" id="userphoto" src="image/냥.jpg"/></a>
             <div class="u">
-              <a href="photoUp"><button>등록</button></a> <!-- 처음 가입시에 무조건 사진을 등록하고, 수정으로 변경?-->
-              <a href="photoDel"><button>삭제</button></a>  <!-- 삭제되면 처음 가입사진으로 수정됨 -->
+              <a href="photoUp"><button>등록</button></a> 
+              <a href="photoDel"><button>삭제</button></a>
             </div>
-          </div>
-          
+          </div>          
         </div>
-        <div class="upmy3_2">
-          
-          <form action="myUpdate" method="post">
+        
+        <form action="myUpdate" method="post">
 	        <div class="upmy3_2">         
 	          <div class="u3_2">
 	            <div><b>닉네임 : </b><input type="text" value="${mylist.nickName }" name="nickName"><input type="button" id="nickChck" value="중복확인"/></div></br>
 	          </div>
 	          <div class="u3_2">
-	            <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div></br>
+	            <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div><br/>
 	          </div>
 	          <div class="u3_2">
-	            <div><b>비밀번호 : </b><input type="password" name="pw" id="myUserPw"/></div></br>
+	            <div><b>비밀번호 : </b><input type="password" name="pw" id="myUserPw"/></div><br/>
 	          </div>
 	          <div class="u3_2">
-	            <div><b>비밀번호 확인 : </b><input type="password" id="myUserPwChk"/></div></br>
+	            <div><b>비밀번호 확인 : </b><input type="password" id="myUserPwChk"/></div><br/>
 	            <font id="chkNotice" size="2"></font>            
 	          </div>        
 	        </div>
 	        
 	        <div class="upfn">
-	          <button id="memUpdate" value="수정" style="width: 100px; height: 50px;"/>
+	          <button id="memUpdate" value="수정" style="width: 100px; height: 50px;">수정</button>
 	        </div>
         </form>
-	
+        
         <div class="out">
          <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
         </div>
       
-        <div class="out">
-         <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
-        </div>
-        
       </div>
       <div class="upmy2_1">
           <ul>
@@ -253,7 +248,9 @@
           </ul>
       </div>
       <div class="dap">
-        <c:forEach items="${list }" var="bbs" varStatus="status">
+			<!-- 내가쓴 것들의 목록 -->
+			<div class="list-box">
+                	<c:forEach items="${list }" var="bbs" varStatus="status">
 	                	<ul>              	
 							<li>
 								<a href="boardDetail?board_no=${bbs.board_no}">
@@ -273,25 +270,36 @@
 											<span class="date">${bbs.bo_reg_date }</span>
 											<span class="count-read">${bbs.bo_bHit }</span>
 											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
-											<span class="count-comment">${commentCnt[status.index].commentCnt }</span>
+											<span class="count-comment">${commentCnt[status.index]}</span>
 										</dd>
 									</dl>
 								</a>
 							</li>				
 	                    </ul>
-      	</c:forEach>                         
+                    </c:forEach>                         
+                </div>
+
+                <div class="list-paging">  
+                	<c:if test="${page.curPage ne 1}">
+                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
+                    </c:if>             
+                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
+	                     <c:choose>
+		                        <c:when test="${pageNum eq  page.curPage}">
+		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:when>
+		                        <c:otherwise>
+		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
+                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
+                    </c:if>
+                </div>
+
       </div>
-      <div class="paging">
-        <table>
-          <tr>
-            <td><button><<</button></td>
-            <td><button><</button></td>
-            <td><button>1</button></td>
-            <td><button>></button></td>
-            <td><button>>></button></td>
-          </tr>
-        </table>
-      </div>
+
       <div class="overlay"></div>
       <div class="cl">
         <a href="main"><button>Close</button></a>
@@ -299,13 +307,10 @@
 
 
         </div>
-      </div>
 
-      </div>
-     </div>
-    </div>
   </body>
-  <script>  
+  <script>
+  
   var msg = "${msg}";
   if(msg != ""){
   	alert(msg);
@@ -374,7 +379,15 @@
 		    }else{
 		        return ;
 		    }
-		} 
+		}
+		
+		function fn_paging(curPage) {
+			if(mboard_no.length > 2){
+				mboard_no = window.location.search.substring(21);
+			}
+			location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
+		}	
+	  
   
   
   </script>

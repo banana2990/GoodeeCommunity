@@ -3,6 +3,15 @@ package com.gcs.DTO;
 import java.util.Date;
 
 public class BoardDTO {
+	@Override
+	public String toString() {
+		return "BoardDTO [board_no=" + board_no + ", mboard_no=" + mboard_no + ", id=" + id + ", bo_subject="
+				+ bo_subject + ", bo_content=" + bo_content + ", bo_reg_date=" + bo_reg_date + ", bo_bHit=" + bo_bHit
+				+ ", boardName=" + boardName + ", nickName=" + nickName + ", comment_no=" + comment_no + ", co_content="
+				+ co_content + ", co_reg_date=" + co_reg_date + ", blike_cnt=" + blike_cnt + ", commentCnt="
+				+ commentCnt + ", recomment_no=" + recomment_no + ", reco_content=" + reco_content + ", reco_reg_date="
+				+ reco_reg_date + "]";
+	}
 	private int board_no;
 	private int mboard_no;
 	private String id;

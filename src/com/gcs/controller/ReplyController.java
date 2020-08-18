@@ -1,9 +1,7 @@
 package com.gcs.controller;
 
 import java.io.IOException;
-
-
-
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -15,23 +13,32 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.ReplyService;
 
-@WebServlet("/reply")
+@WebServlet({"/reply","/recommentDel","/recomment"})
 public class ReplyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private void doProcess(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String uri = req.getRequestURI();
 		String ctx = req.getContextPath();
-		String reqAddr = uri.substring(ctx.length());
-		
+		String reqAddr = uri.substring(ctx.length());		
 		ReplyService replyService = new ReplyService(req, resp);
-		
-		
+				
 		switch(reqAddr) {
 		case "/reply":
 			replyService.reply();
 			break;
-
+			
+		case "/recommentDel":
+			replyService.recommentDel();
+			break;
+			
+		case "/recomment":
+			try {
+				replyService.recomment();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} 
+			break;
 		}
 	}
 		

@@ -7,6 +7,10 @@
 	<meta charset="UTF-8">
 	<title>구디 커뮤니티</title>
 	<script src = "https://code.jquery.com/jquery-3.5.1.min.js"> </script>
+	<link rel="stylesheet" href="style.css">
+	<script src="index.js" defer></script>
+	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
 	.navbar__logo {
 		position: absolute;
@@ -48,9 +52,32 @@
 		<h2> 비밀번호 찾기</h2>
 			<div>
 				<p>이메일을 입력해주세요. 입력하신 이메일로 임시 비밀번호를 발송해드립니다.</p>						
-				<p><td>이메일 : <input type="email" name="u_email"> <button id="auth">임시비밀번호 발송</button></td></p>				
+				<p>이메일 : <input type="email" name="u_email"> <button id="auth">임시비밀번호 발송</button></p>				
 			</div>			
 	</div>
+
+    <div class="helpIcon">
+        <i class="far fa-comment-dots"></i>   
+    </div>  
+    <div class="helpIcon__content">
+        <div class="helpIcon__title">
+            <br><br>
+            <p>무엇을 도와드릴까요?</p>
+            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+        </div>
+        <div class="helpIcon__input">
+            <form action="#">
+            <br><br>
+            <input type="text" placeholder="   작성자"> 
+            <input type="text" placeholder="   제목">
+            <input type="text" placeholder="   이메일">
+            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <br><br>
+            <button>보내기</button>
+            </form>
+        </div>
+    </div>
+
 
 </body>	
 
@@ -99,7 +126,37 @@
 			}			
 		});		
 	}
-
+	
+	//문의사항 보내기
+	$("#ct_send").click(function(){
+			
+			var $writer = $("input[name='writer']");
+			var $subject = $("input[name='subject']");
+			var $c_email = $("input[name='c_email']");
+			var $content = $("input[name='content']");
+			
+			console.log($write,$subject,$c_email,$content);
+			
+			var param = {};
+			
+			param.writer = $("input[name='writer']").val();
+			param.subject = $("input[name='subject']").val();
+			param.c_email = $("input[name='c_email']").val();
+			param.content = $("input[name='content']").val();
+			
+			$.ajax({
+		        type: "post",
+		        url: "contactWrite",
+		        data: param,
+		        dataType: "JSON",
+		        success: function(data){
+		        	console.log(data.contactmsg);
+		        	alert("msg");
+		        },
+		        error: function(error){
+		           console.log(error);
+		        }
+		     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
 	
 </script>
 </html>

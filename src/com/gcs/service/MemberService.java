@@ -33,12 +33,13 @@ public class MemberService {
 		this.resp = resp;
 	}
 
+	// 로그인
 	public boolean login(String id, String pw) throws SQLException {
 		MemberDAO dao = new MemberDAO();
 		boolean result = dao.login(id,pw);
 		return result;
 	}
-
+	// 아이디 중복 확인
 	public void overlay() throws IOException {
 		String id = req.getParameter("id"); // 값 받아오기
 		boolean success = false;
@@ -60,7 +61,7 @@ public class MemberService {
 		}
 		
 	}
-	
+	// 닉네임 중복 확인
 	public void overlaynick() throws IOException {
 		String nickname = req.getParameter("nickname"); // 값 받아오기
 		boolean success = false;
@@ -82,7 +83,7 @@ public class MemberService {
 		}
 		
 	}
-
+	// 회원가입 - 사진도 등록됨
 	public void join() throws IOException {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");
@@ -109,7 +110,7 @@ public class MemberService {
 		}	
 		
 	}
-
+	//이메일로 아이디 찾기
 	public void findid(String email) throws IOException {
 		email = req.getParameter("email"); // 값 받아오기
 		String id = "";
@@ -130,7 +131,7 @@ public class MemberService {
 			resp.getWriter().println(obj);
 		}
 	}
-
+	//이메일 인증 보내기
 	public void sendMail() throws IOException {
 		// 파라미터로 받아올 값
 		String email = req.getParameter("email");					
@@ -188,7 +189,7 @@ public class MemberService {
 		}
 		
 	}
-
+	//이메일로 비밀번호 찾기 인증
 	public void findpw() throws IOException {
 		// 파라미터로 받아올 값
 		String email = req.getParameter("email");					
@@ -256,21 +257,9 @@ public class MemberService {
 			resp.getWriter().println(obj);
 		}
 	}
-
-	public void upload(String id) {
+	
+	
 		
-		MemberDAO dao = new MemberDAO();
-		try {
-			PhotoService pservice = new PhotoService(req);
-			MemberDTO dto = pservice.upload();
-			dao.pupload(dto);
-		} catch (SQLException e) {
-		
-			e.printStackTrace();
-		}
-		
-	}
-
 	//관리자 - 회원리스트
 	public void list() throws IOException {
 		HashMap<String, Object> map = new HashMap<String, Object>();
@@ -299,7 +288,6 @@ public class MemberService {
 		resp.getWriter().println(obj);// 5. response 객체로 보내기
 
 	}
-
 	//관리자 - 회원삭제
 	public void delete() throws IOException {
 		String[] delList = req.getParameterValues("delList[]");
@@ -322,23 +310,16 @@ public class MemberService {
 			resp.getWriter().println(obj);
 		}		
 	}
-	
-	
 	//마이페이지 상세보기
 	public void mylist() throws ServletException, IOException{
-		System.out.println("MYLIST2");
 		String id = (String) req.getSession().getAttribute("id");		
 		MemberDAO dao = new MemberDAO();		
-		ArrayList <MemberDTO> mylist = null;		
-		
-		MemberDTO dto = dao.mylist(id);
-		
+		ArrayList <MemberDTO> mylist = null;				
+		MemberDTO dto = dao.mylist(id);		
 		System.out.println(mylist);
 		req.setAttribute("mylist", dto);
-		RequestDispatcher dis = req.getRequestDispatcher("upmy2.jsp");
-		dis.forward(req, resp);
-		System.out.println("MYLIST6");
-		
+		RequestDispatcher dis = req.getRequestDispatcher("myboard");
+		dis.forward(req, resp);	
 	}
 	//회원탈퇴
 	public void out() throws IOException, ServletException {
@@ -352,31 +333,83 @@ public class MemberService {
 		} 
 		
 	}
-	
 	//회원 수정
-		public void myUpdate() throws IOException, ServletException {
-			MemberDAO dao = new MemberDAO();
-			String id = (String) req.getSession().getAttribute("id");
-			String nickName = req.getParameter("nickName");
-			System.out.println(nickName);
-			String name =  req.getParameter("name");
-			System.out.println(name);
-			String pw = req.getParameter("pw");			
-			String msg = "수정에 실패했습니다.";
-			
-			boolean success = false;
-			success =  dao.myUpdate(id, nickName, name, pw);
-			
-			if (success) {
-				msg = "수정에 성공했습니다.";
-				req.setAttribute("msg", msg);
-				RequestDispatcher dis =  req.getRequestDispatcher("main");
-				dis.forward(req, resp);
-			} else {
-				req.setAttribute("msg", msg);
-				RequestDispatcher dis =  req.getRequestDispatcher("upmy2.jsp");
-				dis.forward(req, resp);
-			}
+	public void myUpdate() throws IOException, ServletException {
+		MemberDAO dao = new MemberDAO();
+		String id = (String) req.getSession().getAttribute("id");
+		String nickName = req.getParameter("nickName");
+		System.out.println(nickName);
+		String name =  req.getParameter("name");
+		System.out.println(name);
+		String pw = req.getParameter("pw");			
+		String msg = "수정에 실패했습니다.";
+		
+		boolean success = false;
+		success =  dao.myUpdate(id, nickName, name, pw);
+		
+		if (success) {
+			msg = "수정에 성공했습니다.";
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis =  req.getRequestDispatcher("main");
+			dis.forward(req, resp);
+		} else {
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis =  req.getRequestDispatcher("upmy2.jsp");
+			dis.forward(req, resp);
 		}
+	}
+	
+	//관리자 회원 상세보기
+	public void mngdetail() throws ServletException, IOException {
+			
+		String id = req.getParameter("id");		
+		MemberDAO dao = new MemberDAO();		
+		ArrayList <MemberDTO> mylist = null;		
+
+		MemberDTO dto = dao.mylist(id);
+
+		System.out.println(mylist);
+		req.setAttribute("mylist", dto);
+		RequestDispatcher dis = req.getRequestDispatcher("mngMemberDetail.jsp");
+		dis.forward(req, resp);	
+	}
+		
+	//관리자 회원탈퇴
+	public void mngOut() throws IOException, ServletException {
+		String id = req.getParameter("id");
+		MemberDAO dao = new MemberDAO();	
+		boolean success = false;
+		success = dao.memberDel(id);
+		if(success) {				
+			resp.sendRedirect("membermanagement.jsp");
+		} 
+
+	}
+	
+	//관리자 회원 수정하기
+	public void mngUpdate() throws ServletException, IOException {
+		MemberDAO dao = new MemberDAO();
+
+		String id = req.getParameter("id");
+		System.out.println(id);
+		String nickName = req.getParameter("nickName");
+		System.out.println(nickName);
+		String name =  req.getParameter("name");
+		System.out.println(name);					
+		String msg = "수정에 실패했습니다.";
+
+		boolean success = false;
+		success =  dao.mngUpdate(id, nickName, name);
+
+		if (success) {
+			msg = "수정에 성공했습니다.";
+			req.setAttribute("msg", msg);
+
+		} else {
+			req.setAttribute("msg", msg);				
+		}
+		RequestDispatcher dis =  req.getRequestDispatcher("mngdetail?id="+id);
+		dis.forward(req, resp);
+	}
 
 }
