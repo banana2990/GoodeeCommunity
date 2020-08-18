@@ -293,11 +293,6 @@ function write(){ // 얘는 왜 있는 거지
 
 	*/
 	
-	var writeMsg = "${writeMsg}";
-	if(writeMsg != ""){
-		alert(writeMsg);
-		location.href = "login.jsp";
-	}
 	
 	
 
