@@ -11,6 +11,7 @@
      height: 30px;
      position: absolute;
      right: 10px;
+     z-index: 2;
      
 }
 
@@ -35,7 +36,8 @@
     text-align: center;
     box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1),
     0 12px 24px 0 rgba(0, 0, 0, 0.24);
-    display:none
+    display:none;
+    z-index : 2;
 }
 /* 프로필 클릭했을때 보이는 사진 */
 #btn .imge_1 {  
@@ -590,6 +592,7 @@ input[type="text"]:focus {
     bottom: 60px;
     right: 60px;
     color: #232f46;
+    z-index: 8;
   }
     
   .helpIcon:hover {
@@ -603,8 +606,8 @@ input[type="text"]:focus {
     display: none;
     flex-direction: column;
     align-items: center;
-    right: 250px;
-    bottom: 165px;
+    right: 120px;
+    bottom: 120px;
     border-radius: 10px;
     background-color: whitesmoke;
     box-shadow: 0 10px 20px;

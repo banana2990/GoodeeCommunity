@@ -40,25 +40,19 @@ public class ContactService {
 		String c_email = req.getParameter("c_email");
 		String content = req.getParameter("content");
 		String msg = "문의사항 보내기가 실패했습니다.";
-		
+		System.out.println(content);
 		
 		boolean result = dao.ctwrite(writer, subject, c_email, content);
 		if(result){
 			msg = "문의사항을 성공적으로 보냈습니다.";		
-			req.setAttribute("msg", msg);
-			RequestDispatcher dis = req.getRequestDispatcher("index.jsp");
-			dis.forward(req, resp);
-		}else {
-			req.setAttribute("msg", msg);
-			RequestDispatcher dis = req.getRequestDispatcher("index.jsp");
-			dis.forward(req, resp);
-		}		
+		}
 		
 		HashMap<String,Object> map =  new HashMap<String, Object>();
 		map.put("contactmsg",msg);
 		Gson json = new Gson();
 		String obj = json.toJson(map);
 		System.out.println("result :"+obj);
+		resp.setContentType("text/html; charset=UTF-8");
 		resp.getWriter().println(obj);		
 		
 		
