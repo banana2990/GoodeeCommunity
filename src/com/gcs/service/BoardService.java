@@ -37,14 +37,11 @@ public class BoardService  {
 		BoardDAO dao = new BoardDAO();
 		if(dao.write(mboard_no, id, subject, content)) {
 			msg = "글이 작성되었습니다.";
+		}
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 			dis.forward(req, resp);
-		}else {
-			req.setAttribute("msg", msg);
-			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
-			dis.forward(req, resp);
-		}		
+				
 	}
 
 	public void comread() throws ServletException, IOException {

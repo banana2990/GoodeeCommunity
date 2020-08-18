@@ -76,4 +76,13 @@ public class ContactService {
 		RequestDispatcher dis = req.getRequestDispatcher("contact");
 		dis.forward(req, resp);
 	}
+
+	public void contactMain() throws ServletException, IOException {
+		ContactDAO dao = new ContactDAO();
+		ArrayList<ContactDTO> contact = dao.contactMain();
+		req.setAttribute("contact", contact);
+		RequestDispatcher dis = req.getRequestDispatcher("admin_main.jsp");
+		dis.forward(req, resp);	
+		
+	}
 }

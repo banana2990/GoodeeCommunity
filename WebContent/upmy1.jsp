@@ -58,7 +58,7 @@
            function(){layer.addClass('hide')} 
          );
        });
-      
+      /*
       $.ajax({
   	    type: "post",
         url: "userphoto",
@@ -75,6 +75,7 @@
            console.log(error);
         }
   	  	});
+	  	*/
 });
 </script>
 </html>
