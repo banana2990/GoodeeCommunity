@@ -300,17 +300,12 @@ public class BoardService  {
 		ArrayList<BoardDTO> blikeCnt = null;	
 		ArrayList<Integer> commentCnt = null;	
 		BoardDTO dto = new BoardDTO();
-		System.out.println(search+"게시판번호 /  curPage"+curPage);
 		
 		BoardDAO dao = new BoardDAO();
 		
 		try {
-			if(search == null || search.length() < 1) {
-				// 검색결과가 없다라는 메시지를 보여준다..
-			}else {
-				list = dao.search(search);
-				listCnt = dao.listCnt2(search); // 총 게시물의 개수
-			}
+			list = dao.search(search, startPage, endPage);
+			listCnt = dao.searchListCnt(search); // 총 게시물의 개수
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -319,12 +314,18 @@ public class BoardService  {
 		blikeCnt = dao.blikeCnt(list);
 		commentCnt = dao.commentCnt(list);
 		commentCnt = dao.recommentCnt(list, commentCnt);
+		Pagination page = new Pagination(listCnt, curPage);
 		
+		System.out.println("검색 리스트 : "+list);
+		System.out.println("게시글 좋아요 : "+ blikeCnt);
+		System.out.println("댓글 수 : "+commentCnt);
 		dao.resClose();
 		
 		req.setAttribute("list", list);
 		req.setAttribute("blikeCnt", blikeCnt);
 		req.setAttribute("commentCnt", commentCnt);
+		req.setAttribute("page", page);
+		req.setAttribute("search", search);
 		
 		RequestDispatcher dis = req.getRequestDispatcher("searchresult.jsp");
 		dis.forward(req, resp);

@@ -346,18 +346,19 @@ public class BoardDAO {
 	}
 
 	//검색
-	public ArrayList<BoardDTO> search(String search) throws SQLException {
+	public ArrayList<BoardDTO> search(String search, int startPage, int endPage) throws SQLException {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		
-		String sql = "SELECT rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, boardname, nickname " + 
+		String sql = "SELECT distinct rnum, board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, boardname, nickname " + 
 				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname " + 
 				"FROM (SELECT board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname  " + 
 				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname " + 
-				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND bo_subject like ? OR bo_content like ? ORDER BY BOARD_NO DESC)";
+				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND bo_subject like ?) WHERE rnum BETWEEN ? AND ?";
 		
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, "%"+search+"%");
-		ps.setString(2, "%"+search+"%");
+		ps.setInt(2, startPage);
+		ps.setInt(3, endPage);
 		rs = ps.executeQuery();		
 		
 		while(rs.next()) {
@@ -378,22 +379,21 @@ public class BoardDAO {
 		return list;	
 	}
 
-	public int listCnt2(String search) throws SQLException {
+	public int searchListCnt(String search) throws SQLException {
 		
 		String sql = "SELECT COUNT(*)"+
 				"FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, m.boardname, r.nickname "+
 				"FROM (SELECT board_no, mboard_no, id, bo_subject, bo_content, bo_reg_date, bo_bhit, nickname "+
 				"FROM (SELECT b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname "+
-				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND bo_subject like ? OR bo_content like ? ORDER BY BOARD_NO DESC)";
+				"FROM board b, member m WHERE m.id = b.id)) r, mboard m WHERE r.mboard_no = m.mboard_no AND bo_subject like ? ORDER BY BOARD_NO DESC)";
 		int cnt = 0;
 		ps = conn.prepareStatement(sql);
-		ps.setString(1, search);
-		ps.setString(2, search);
+		ps.setString(1, "%"+search+"%");
 		
 		rs = ps.executeQuery();
-		rs = ps.executeQuery();
+		
 		if(rs.next()) {
-			cnt = rs.getInt("num");
+			cnt = rs.getInt("COUNT(*)");
 		}
 		
 		return cnt;

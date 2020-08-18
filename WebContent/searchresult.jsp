@@ -153,14 +153,10 @@ crossorigin="anonymous"
     </div>
 </body>
 <script>
-	
-	var mboard_no = window.location.search.substring(11);
+
 	
 	function fn_paging(curPage) {
-		if(mboard_no.length > 2){
-			mboard_no = window.location.search.substring(21);
-		}
-		location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
+		location.href = "search?curPage="+curPage+"&search="+"${search}";
 	}		
 	
 	var msg = "${msg}";
