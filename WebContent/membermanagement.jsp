@@ -57,7 +57,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                     </a>
                 </li>
                 <li>
-                    <a href="contact.jsp" id="ask">
+                    <a href="contact" id="ask">
                         <span>문의사항 내역</span>
                     </a>
                 </li>

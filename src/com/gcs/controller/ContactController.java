@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.ContactService;
 
-@WebServlet({"/contact","/contactWrite"})
+@WebServlet({"/contact","/contactWrite","/contactState"})
 public class ContactController extends HttpServlet {
 
 	@Override
@@ -40,6 +40,12 @@ public class ContactController extends HttpServlet {
 			case "/contactWrite":
 				System.out.println("문의사항 작성");
 				contactService.ctwrite();
+				break;
+				
+			case "/contactState":
+				contactService.statusSet();
+				
+				break;
 				
 		}
 	}

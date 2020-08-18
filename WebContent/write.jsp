@@ -109,22 +109,52 @@
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
         <div class="helpIcon__input">
-            <form action="#">
+            <form action="contactWrite" method="post">
             <br><br>
-            <input type="text" placeholder="   작성자"> 
-            <input type="text" placeholder="   제목">
-            <input type="text" placeholder="   이메일">
-            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <input type="text" name="writer" placeholder="   작성자"> 
+            <input type="text" name="subject" placeholder="   제목">
+            <input type="text" name="c_email" placeholder="   이메일">
+            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
             <br><br>
-            <button>보내기</button>
+            <button id="ct_send">보내기</button>
             </form>
         </div>
-    </div>
-        
-        
-                            
+    </div>                       
+
 </body>
 <script>
+
+$("#ct_send").click(function(){
+	
+	var $writer = $("input[name='writer']");
+	var $subject = $("input[name='subject']");
+	var $c_email = $("input[name='c_email']");
+	var $content = $("input[name='content']");
+	
+	console.log($write,$subject,$c_email,$content);
+	
+	var param = {};
+	
+	param.writer = $("input[name='writer']").val();
+	param.subject = $("input[name='subject']").val();
+	param.c_email = $("input[name='c_email']").val();
+	param.content = $("input[name='content']").val();
+	
+	$.ajax({
+        type: "post",
+        url: "contactWrite",
+        data: param,
+        dataType: "JSON",
+        success: function(data){
+
+        	alert("contactmsg");
+        },
+        error: function(error){
+           console.log(error);
+        }
+     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
+});
 
 
 	var loginId = "${sessionScope.id}";

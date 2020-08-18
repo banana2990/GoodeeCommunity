@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
+
 @WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView",
 	"/updateForm","/boardDetail","/update","/del","/mngboardDetail","/deletecom",
 	"/myBoardList","/search","/memoWrite","/prev","/next"})
@@ -141,7 +142,7 @@ public class BoardController extends HttpServlet {
 			System.out.println("다음글 불러오기");
 			boardService.next();
 			break;
-			
+
 		}
 	}
 }

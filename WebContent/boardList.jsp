@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
 <script src="index.js" defer></script>
 <script
 src="https://kit.fontawesome.com/fbff03f786.js"
@@ -153,6 +154,7 @@ crossorigin="anonymous"
         </div>  
     </div>
     
+
  <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
     </div>
@@ -175,7 +177,7 @@ crossorigin="anonymous"
             </form>
         </div>
     </div>
-    
+
 </body>
 <script>
 	
@@ -193,6 +195,7 @@ crossorigin="anonymous"
 		alert(msg);
 	}
 	
+
 	var loginId = "${sessionScope.id}";
 	var profile_img = $("#profile_img");
 	var loginbtn = $("#login");
@@ -225,6 +228,9 @@ crossorigin="anonymous"
 	        data: param,
 	        dataType: "JSON",
 	        success: function(data){
+
+	        	alert("contactmsg");
+
 	        	console.log(data.contactmsg);
 	        	alert("msg");
 	        },

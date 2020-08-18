@@ -54,6 +54,7 @@ public class ContactDAO {
 				dto.setC_email((rs.getString("c_email")));
 				dto.setContent((rs.getString("content")));;
 				dto.setC_status((rs.getString("c_status")));
+				
 				contact.add(dto);  
 			}
 		} catch (SQLException e) {
@@ -90,5 +91,33 @@ public class ContactDAO {
 			resClose();
 		}
 		return result;	
+	}
+
+	public boolean statusSet(String c_status, String contact_no) {
+		
+		String sql = "";
+		boolean result = false;
+		
+		if(c_status.equals("0")) { // 접수를 처리함
+			sql = "UPDATE contact SET c_status=1 WHERE contact_no=?";
+		} else {
+			sql = "UPDATE contact SET c_status=0 WHERE contact_no=?";
+		}
+		
+		try {
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, contact_no);
+			
+			if(ps.executeUpdate()>0) {
+				result = true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			resClose();
+		}
+		
+		return result;
 	}
 }

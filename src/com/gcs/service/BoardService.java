@@ -368,6 +368,7 @@ public class BoardService  {
 		
 	}
 
+
 	public void next() throws ServletException, IOException {
 		String board_no = req.getParameter("board_no");
 		String mBoard_no = req.getParameter("mBoard_no");

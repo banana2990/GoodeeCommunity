@@ -100,7 +100,7 @@ crossorigin="anonymous"
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
-                            <span class="like-count">1</span>
+                            <span class="like-count"></span>
                         </button>
                     </div>
                 </div>
@@ -210,6 +210,7 @@ crossorigin="anonymous"
         </div>
     </div>
 
+
      <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
     </div>
@@ -239,6 +240,39 @@ crossorigin="anonymous"
 	if(msg != ""){
 		alert(msg);
 	}
+	
+	$("#ct_send").click(function(){
+		
+		var $writer = $("input[name='writer']");
+		var $subject = $("input[name='subject']");
+		var $c_email = $("input[name='c_email']");
+		var $content = $("input[name='content']");
+		
+		console.log($write,$subject,$c_email,$content);
+		
+		var param = {};
+		
+		param.writer = $("input[name='writer']").val();
+		param.subject = $("input[name='subject']").val();
+		param.c_email = $("input[name='c_email']").val();
+		param.content = $("input[name='content']").val();
+		
+		$.ajax({
+	        type: "post",
+	        url: "contactWrite",
+	        data: param,
+	        dataType: "JSON",
+	        success: function(data){
+
+	        	alert("contactmsg");
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
+	});
+	
 
 	var loginId = "${sessionScope.id}";
 /* 얘를 어떻게 해야 보드 디테일 들어가기 전에 아...! 위부터 읽으니까 위에서 하면 되려나?
