@@ -32,10 +32,10 @@ public class PhotoService {
 			// 파일명 변경
 			
 			dto.setId(multi.getParameter("id"));
-			String photo_no = multi.getParameter("photo_no");
-			if(photo_no!=null) {
-				dto.setPhoto_no(Integer.parseInt(photo_no));
-			}
+			/*
+			 * String photo_no = multi.getParameter("photo_no"); if(photo_no!=null) {
+			 * dto.setPhoto_no(Integer.parseInt(photo_no)); }
+			 */
 						
 			oriName = multi.getFilesystemName("photo");// 원본파일명 추출
 			if(oriName!=null) { // 업로드한 파일이 있다면

@@ -90,7 +90,7 @@ public class MypageService {
 				dao.pupload(dto);
 			} catch (SQLException e) {	
 				e.printStackTrace();
-			}		
+			} 
 		}
 		
 		// 프로필 사진 불러오기
@@ -100,7 +100,7 @@ public class MypageService {
 			ArrayList<MemberDTO> list = null;		
 			list = dao.userphoto(id);
 			System.out.println(list.get(0).getOriName());
-			
+			//
 			HashMap<String,Object> map =  new HashMap<String, Object>();
 			map.put("userphoto",list.get(0).getOriName());
 			Gson json = new Gson();

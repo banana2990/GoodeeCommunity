@@ -1,4 +1,3 @@
-<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
@@ -8,7 +7,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-        <title>.html</title>
+        <title>마이페이지</title>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="style.css">
+        <script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 
     <style>
@@ -130,11 +132,6 @@
           
           }
 
-
-          
-      
-      
-
       td{
           width: 40px;
           height: 20px;
@@ -182,7 +179,7 @@
           <div class="upimge">
             <a href="#"><img class="imge_1" id="userphoto" src="image/냥.jpg"/></a>
             <div class="u">
-              <a href="photoUp"><button>등록</button></a> 
+              <button onclick="openwindow()">등록</button>
               <a href="photoDel"><button>삭제</button></a>
             </div>
           </div>          
@@ -380,6 +377,20 @@
 		        return ;
 		    }
 		}
+		
+		
+		//사진 업로드 팝업		
+       var openWin;
+		function openwindow(){
+            // window.name = "부모창 이름"; 
+            window.name = "mypagedetail";
+            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+
+            openWin = window.open("photo_test.jsp",
+                    "photoupload", "width=300, height=150, resizable = no, scrollbars = no");
+            openWin.document.getElementById("mypageid").value = "${sessionScope.id}";
+		}
+		
 		
 		function fn_paging(curPage) {
 			if(mboard_no.length > 2){

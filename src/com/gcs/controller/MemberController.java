@@ -68,8 +68,7 @@ public class MemberController extends HttpServlet {
 					System.out.println("닉네임 중복 체크 요청"); //2차확인
 					service.overlaynick();
 					break;	
-					
-				
+									
 				case "/logout" :
 					req.getSession().removeAttribute("id");
 					resp.sendRedirect("main");

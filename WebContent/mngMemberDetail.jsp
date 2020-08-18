@@ -6,9 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="manageDetail.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="manageDetail.css">
 	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -99,10 +99,10 @@
 	                    <div><b>닉네임 : </b><input type="text" value="${mylist.nickName }" name="nickName"><input type="button" id="nickChck" value="중복확인"/></div></br>
 	                </div>
 	                <div class="u3_2">
-	                    <div><b>아이디 : </b><input type="text" name="id" value="${mylist.id}"  readonly></div></br>
+	                    <div><b>아이디 : </b><input type="text" name="id" value="${mylist.id}"  readonly></div><br/>
 	                </div>
 	                <div class="u3_2">
-	                    <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div></br>
+	                    <div><b>이름 : </b><input type="text" name="name" value="${mylist.name}" ></div><br/>
 	                </div>
 	                
 	                
@@ -151,40 +151,54 @@
 	                </ul>
 	            </div>
 	            <div class="dap">
-	                <li>
-	                    <!-- 게시글 상세보기 링크  -->
-	                    <a href="board_view?thread=395071">
-	                        <h3>
-	                            <strong class="key-color">[인기게시판]</strong>
-	                            바람의나라에서 사기당한 썰 푼다.
-	                        </h3>
-	                        <i class="icon-new"></i>
-	                        <!-- 게시글 상세보기 클래스 변경해야됨 -->
-	                        <dl class="writing-info">
-	                            <dt class="blind">writer</dt>
-	                            <dd class="writer">우유빛깔김중열</dd>
-	                            <dt class="blind">etc</dt>
-	                            <dd>
-	                                <span class="date">12:19</span>
-	                                <span class="count-read">152</span>
-	                                <span class="count-likes">22</span>
-	                                <span class="count-comment">25</span>
-	                            </dd>
-	                        </dl>
-	                    </a>
-	                </li>
-	            </div>
-	            
-	            
-	            <div class="manageDetail_paging">
-	                <button id="1" class="on">1</button>
-	                <button id="2">2</button>
-	                <button id="3">3</button>
-	                <button id="4">4</button>
-	                <button id="5">5</button>
-	                <button id="next">next</button>                
-	            </div>
-	        </div>
+	                <div class="list-box">
+                	<c:forEach items="${list }" var="bbs" varStatus="status">
+	                	<ul>              	
+							<li>
+								<a href="boardDetail?board_no=${bbs.board_no}">
+									<h3>
+										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
+										<i class="icon-new"></i>
+										<dl class="writing-info"> 
+											<dt class="blind"></dt>
+											<c:if test="${bbs.mboard_no eq 3}" >
+												<dd class="writer">익명</dd>
+											</c:if>
+											<c:if test="${bbs.mboard_no ne 3}">
+												<dd class="writer">${bbs.nickName }</dd> 
+											</c:if>
+											<dt class="blind"></dt>
+										<dd>
+											<span class="date">${bbs.bo_reg_date }</span>
+											<span class="count-read">${bbs.bo_bHit }</span>
+											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
+											<span class="count-comment">${commentCnt[status.index]}</span>
+										</dd>
+									</dl>
+								</a>
+							</li>				
+	                    </ul>
+                    </c:forEach>                         
+                </div>
+
+                <div class="list-paging">  
+                	<c:if test="${page.curPage ne 1}">
+                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
+                    </c:if>             
+                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
+	                     <c:choose>
+		                        <c:when test="${pageNum eq  page.curPage}">
+		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:when>
+		                        <c:otherwise>
+		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
+                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
+                    </c:if>
+                </div>
            
             
 </body>
@@ -236,5 +250,13 @@
 				});
 			}
 		});
+	
+		function fn_paging(curPage) {
+			if(mboard_no.length > 2){
+				mboard_no = window.location.search.substring(21);
+			}
+			location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
+		}	
+	  
 </script>
 </html>
