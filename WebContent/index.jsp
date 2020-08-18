@@ -42,7 +42,7 @@ background-color: red;
                       type="text"
                       name="search"
                     />
-                    <button><i class="fas fa-search"></i></button>
+                    <button><i class="fas fa-search" id="glass"></i></button>
                 </form>
             </div>	
             
@@ -301,6 +301,13 @@ $("#ct_send").click(function(){
 	}
 
 	*/
+	
+	var writeMsg = "${writeMsg}";
+	if(writeMsg != ""){
+		alert(writeMsg);
+		location.href = "login.jsp";
+	}
+	
 	
 
 </script>
