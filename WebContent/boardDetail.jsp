@@ -153,11 +153,7 @@ crossorigin="anonymous"
 	                                        </dl>
 	                                        <div class="txt.box1">
 	                                            <p>${comment.co_content }</p>
-	                                            <div class="util">
-	                	                            <button type="button" class="btn-like reply-likes">
-	                    	                            <span class="like-count-reply">0</span>
-	            	                                </button>
-	                                            </div>
+
 	                                            <div>
 		                                            <form action = "recomment?comment_no=${comment.comment_no }&board_no=${boardDetail.board_no}" method="post">
 		    	                                        <input type="text" value="" name="recomment" class = "reply-inputbox" style="width : 750px">
