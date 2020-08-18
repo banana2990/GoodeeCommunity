@@ -24,7 +24,7 @@
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"

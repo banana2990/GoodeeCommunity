@@ -42,7 +42,7 @@ background-color: red;
                       type="text"
                       name="search"
                     />
-                    <button><i class="fas fa-search"></i></button>
+                    <button><i class="fas fa-search" id="glass"></i></button>
                 </form>
             </div>	
             
@@ -292,6 +292,8 @@ function write(){ // 얘는 왜 있는 거지
 	}
 
 	*/
+	
+	
 	
 
 </script>
