@@ -54,23 +54,21 @@
            function(){layer.addClass('hide')} 
          );
        });
-  });
-  
-/*
-      // 사용자별 이미지 불러오기
-  	$.ajax({
+      
+      $.ajax({
   	    type: "post",
         url: "userphoto",
         dataType: "JSON",
         success: function(data){
         	console.log(data.userphoto);
-			var userphoto = "";
-        	$("#userphoto").attr('src',"받아온 값");
+			var userphoto = "image/member/"+data.userphoto;  
+			console.log(userphoto);
+        	$("#userphoto").attr('src',userphoto);
         },
         error: function(error){
            console.log(error);
         }
   	  	});
-*/
+});
 </script>
 </html>
