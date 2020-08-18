@@ -277,6 +277,11 @@ public class BoardService  {
 	public void search() throws IOException, ServletException{
 		
 		String search = req.getParameter("search");
+		if(search == "") {
+			search = " #★$★&★&★*★$★%★&★@★$★%★^★@★^★$★";//검색값이 이러면 결과에 일부러 아무것도 안뜨게 함
+		}
+		
+		System.out.println("search확인 : "+search);
 		String pageParam = req.getParameter("curPage");		
 		System.out.println("전달받은 curPage의 값 = "+pageParam);
 		
