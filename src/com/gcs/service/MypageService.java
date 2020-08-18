@@ -3,6 +3,7 @@ package com.gcs.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.DAO.MypageDAO;
 import com.gcs.DTO.BoardDTO;
+import com.gcs.DTO.MemberDTO;
+import com.google.gson.Gson;
 
 public class MypageService {
 	HttpServletRequest req = null;
@@ -43,7 +46,7 @@ public class MypageService {
 		System.out.println(id+" 아이디 /  curPage"+curPage);
 		
 		MypageDAO dao = new MypageDAO();
-		String location = "myboardList_test.jsp"; // 리로드할 곳 up
+		String location = "upmy2.jsp"; // 리로드할 곳 up
 			
 		try {		
 				list = dao.boardList(id, startPage, endPage);
@@ -68,12 +71,39 @@ public class MypageService {
 		req.setAttribute("page", page);
 		
 		RequestDispatcher dis = req.getRequestDispatcher(location);
-		dis.forward(req, resp);
+		dis.forward(req, resp);		
+	}
 
+	public void comalert() {
+		String id = (String) req.getSession().getAttribute("id");
+		MypageDAO dao = new MypageDAO();
+		dao.comalert(id);
 		
 	}
 
-	
-	
+	//사진 업로드	
+		public void upload(String id) {		
+			MypageDAO dao = new MypageDAO();
+			try {
+				PhotoService pservice = new PhotoService(req);
+				MemberDTO dto = pservice.upload();
+				dao.pupload(dto);
+			} catch (SQLException e) {	
+				e.printStackTrace();
+			}		
+		}
+
+		public void userphoto() throws IOException {
+			MypageDAO dao = new MypageDAO();
+			String id = (String) req.getSession().getAttribute("id");
+			ArrayList<MemberDTO> list = null;		
+			list = dao.userphoto(id);
+			HashMap<String,Object> map =  new HashMap<String, Object>();
+			map.put("userphoto",list);
+			Gson json = new Gson();
+			String obj = json.toJson(map);
+			System.out.println("result :"+obj);
+			resp.getWriter().println(obj);
+		}
 	
 }

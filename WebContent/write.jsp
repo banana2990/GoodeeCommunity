@@ -2,12 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 
-	<c:choose>	
-		<c:when test="${sessionScope.id eq null}">
-			<jsp:forward page="/login.jsp"/>
-		</c:when>
-	</c:choose>
- 
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,9 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="write&update.css">
-<script
-src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
-</script>
+<script src="index.js" defer></script>
+<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"> </script>
 
 <title>구디 커뮤니티</title>
 </head>
@@ -49,33 +42,33 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="boardList?mboard_no=1 ">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="boardList?mboard_no=2">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="boardList?mboard_no=3">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="boardList.jsp">
+                    <a href="lunchmenu.jsp">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
             </ul>
             
             <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login">로그인</button>
+            	<div id="profile_img" class="boxx">
+                    <jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
                 </div>
             </div>
         </nav>
@@ -87,10 +80,10 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 	<div class="select-box">                        
                             <form class="searchbar" action="write" method="post">
                                 <select style="width: 300px" name="mboard_no">
+                              		<option selected> 카테고리를 선택해주세요 </option>
                                     <option value="1">자유게시판</option>
                                     <option value="2">학습게시판</option>
                                     <option value="3">익명게시판</option>
-                            		<!--  세션 스코프 확인했을 때 관리자면 공지사항 option 추가 -->
                                 </select>
                                 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
 				                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
@@ -104,7 +97,32 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
             				</form>                                                     
                     </div>                    
             </div>             
-        </div>                       
+        </div>
+        
+         <div class="helpIcon">
+        <i class="far fa-comment-dots"></i>   
+    </div>  
+    <div class="helpIcon__content">
+        <div class="helpIcon__title">
+            <br><br>
+            <p>무엇을 도와드릴까요?</p>
+            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+        </div>
+        <div class="helpIcon__input">
+            <form action="#">
+            <br><br>
+            <input type="text" placeholder="   작성자"> 
+            <input type="text" placeholder="   제목">
+            <input type="text" placeholder="   이메일">
+            <textarea type="text" placeholder="     문의 내용"></textarea>
+            <br><br>
+            <button>보내기</button>
+            </form>
+        </div>
+    </div>
+        
+        
+                            
 </body>
 <script>
 
@@ -132,13 +150,53 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	var msg = "${msg}";
 	if(msg == "글이 작성되었습니다."){
 		alert(msg);
-		history.go(-2);
-	}
-	
+		history.go(-3); // 이거 이동지점을 바꿔야할 거 같은데요!
+	}	
 	if(msg == "글 작성에 실패했습니다."){
 			alert(msg);
 	}
 
+	var loginId = "${sessionScope.id}";
+	var profile_img = $("#profile_img");
+	var loginbtn = $("#login");
+	if(loginId==""){
+		profile_img.css({"display":"none"});	
+	}else{    
+	    loginbtn.css({"display":"none"});
+	    profile_img.css({"display":"block"});
+	}
+	//문의사항 보내기
+	$("#ct_send").click(function(){
+		
+		var $writer = $("input[name='writer']");
+		var $subject = $("input[name='subject']");
+		var $c_email = $("input[name='c_email']");
+		var $content = $("input[name='content']");
+		
+		console.log($write,$subject,$c_email,$content);
+		
+		var param = {};
+		
+		param.writer = $("input[name='writer']").val();
+		param.subject = $("input[name='subject']").val();
+		param.c_email = $("input[name='c_email']").val();
+		param.content = $("input[name='content']").val();
+		
+		$.ajax({
+	        type: "post",
+	        url: "contactWrite",
+	        data: param,
+	        dataType: "JSON",
+	        success: function(data){
+	        	console.log(data.contactmsg);
+	        	alert("msg");
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
+	});
 	
 </script>
 </html>

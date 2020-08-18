@@ -130,19 +130,7 @@
                          --%>
                     </table>
                 </div>
-            <div class="section-bot">
-            <!--페이징-->
-                <div class="list-box">   
-                    <div class="list-paging">
-                    <button id="1" class="on">1</button>
-                    <button id="2">2</button>
-                    <button id="3">3</button>
-                    <button id="4">4</button>
-                    <button id="5">5</button>
-                    <button id="next">next</button>
-                    </div>
-                </div>
-            </div>
+
         </div>  
     </div>
       

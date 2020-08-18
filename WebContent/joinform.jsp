@@ -7,6 +7,10 @@
 <meta charset="UTF-8">
 <title>구디 커뮤니티</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    	<link rel="stylesheet" href="style.css">
+	<script src="index.js" defer></script>
+	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
 	
 	.navbar__logo {
@@ -79,9 +83,10 @@
 				</tr>			
 			</table>
 		</div>
-		<div class="helpIcon">
-      	 	 <i class="far fa-comment-dots"></i>   
-   		</div>
+		
+ <div class="helpIcon">
+        <i class="far fa-comment-dots"></i>   
+    </div>
   
     <div class="helpIcon__content">
         <div class="helpIcon__title">
@@ -100,6 +105,8 @@
             <button id="ct_send">보내기</button>
             </form>
         </div>
+    </div>
+        
     </div>
 		
 	</body>
@@ -274,7 +281,8 @@
 			$("input[name='id']").focus();
 		}
 	});
-	
+
+	//문의사항 보내기
 	$("#ct_send").click(function(){
 		
 		var $writer = $("input[name='writer']");
@@ -305,6 +313,8 @@
 	     });
 		
 	})
+	
+	
 	
 </script>
 </html>
