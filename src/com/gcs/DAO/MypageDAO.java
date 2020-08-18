@@ -149,7 +149,7 @@ public class MypageDAO {
 		
 	}
 
-	// 사진 업로드 => 업데이트로 해서 로직 바꾸... 기 보다는 
+	// 사진 업로드 
 		public void pupload(MemberDTO dto) throws SQLException {
 			String sql ="";
 			String id = dto.getId();
@@ -211,6 +211,7 @@ public class MypageDAO {
 			return newName;
 		}
 
+		// 사용자 사진 가져오기
 		public ArrayList<MemberDTO> userphoto(String id) {
 			String sql = "SELECT * FROM PHOTO WHERE ID=? ";
 			ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();

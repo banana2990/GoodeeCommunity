@@ -90,20 +90,39 @@ public class MypageService {
 				dao.pupload(dto);
 			} catch (SQLException e) {	
 				e.printStackTrace();
-			}		
+			} 
 		}
-
+		
+		// 프로필 사진 불러오기
 		public void userphoto() throws IOException {
 			MypageDAO dao = new MypageDAO();
 			String id = (String) req.getSession().getAttribute("id");
 			ArrayList<MemberDTO> list = null;		
 			list = dao.userphoto(id);
+			System.out.println(list.get(0).getOriName());
+			//
 			HashMap<String,Object> map =  new HashMap<String, Object>();
-			map.put("userphoto",list);
+			map.put("userphoto",list.get(0).getOriName());
 			Gson json = new Gson();
 			String obj = json.toJson(map);
 			System.out.println("result :"+obj);
 			resp.getWriter().println(obj);
 		}
+
+		
+		//사진 삭제하기
+		public void delphoto(String id) {
+			MypageDAO dao = new MypageDAO();
+			PhotoService upload = new PhotoService(req);
+			String fileName = dao.getFileName(id);//파일명 추출(photo)	
+			dao = new MypageDAO();//이미 getFileName 에서 커넥션을 쓰고 반납 했으므로 다시 생성
+			if(fileName != null) {//글 삭제도 되고 지울 파일도 존재할 경우
+				System.out.println("파일 삭제");
+				upload.delete(fileName);
+			}
+			//resp.sendRedirect("./");//다 하고 나서 리스트로 보내기		
+		}
+			
+		
 	
 }

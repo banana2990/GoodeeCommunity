@@ -49,16 +49,16 @@ public class MypageController extends HttpServlet {
 			service.upload(id);							
 			break;
 			
-		/*
+		
 		case "/photoDel": // 사진 삭제
-			 id = req.getParameter("id");					 
+			 id = req.getParameter("id");
+			 service.delphoto(id);
 			break;
 		
 		case "/photoUpdate": //사진 수정
 			break;
-		
-		*/	
-		
+				
+			
 		case "/userphoto": //사진 불러오기
 			service.userphoto();
 			break;

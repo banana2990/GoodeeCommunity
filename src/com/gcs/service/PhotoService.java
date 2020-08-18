@@ -19,8 +19,8 @@ public class PhotoService {
 	
 	// 파일 업로드 수행
 	public MemberDTO upload() {
-		// 저장경로 설정
-		String savePath = "C:/upload/gcsmember";
+		// 저장경로 설정 
+		String savePath = "C:/Users/GDJ26/Desktop/GCS/GoodeecommunityService/WebContent/image/member";
 		// 용량제한 
 		int maxSize = 10*1024*1024;
 		String oriName = "";
@@ -32,10 +32,10 @@ public class PhotoService {
 			// 파일명 변경
 			
 			dto.setId(multi.getParameter("id"));
-			String photo_no = multi.getParameter("photo_no");
-			if(photo_no!=null) {
-				dto.setPhoto_no(Integer.parseInt(photo_no));
-			}
+			/*
+			 * String photo_no = multi.getParameter("photo_no"); if(photo_no!=null) {
+			 * dto.setPhoto_no(Integer.parseInt(photo_no)); }
+			 */
 						
 			oriName = multi.getFilesystemName("photo");// 원본파일명 추출
 			if(oriName!=null) { // 업로드한 파일이 있다면

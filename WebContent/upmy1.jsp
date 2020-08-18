@@ -18,12 +18,12 @@
 <body>
 	<div id="layer">
 	    <div class="pic">
-	        <a class="pic_1" href="#"><img class="pf" id="userphoto" src="image/냥.jpg"  ></a>
+	        <a class="pic_1" href="#"><img class="pf" id="userphoto" src="image/member.png"  ></a>
 	    </div>
 	</div>
 	<div id="btn">
 	    <div class="imge">
-	        <a href="#"><img class="imge_1" id="userphoto" src="image/냥.jpg"/></a>
+	        <a href="#"><img class="imge_1" id="userphotoin" src="image/member.png"/></a>
 	        <div class="nic">${sessionScope.id} 님 반가워요.</div>
 	    </div>
 	    <div>
@@ -58,23 +58,23 @@
            function(){layer.addClass('hide')} 
          );
        });
-  });
-  
-/*
-      // 사용자별 이미지 불러오기
-  	$.ajax({
+      
+      $.ajax({
   	    type: "post",
         url: "userphoto",
         dataType: "JSON",
         success: function(data){
         	console.log(data.userphoto);
-			var userphoto = "";
-        	$("#userphoto").attr('src',"받아온 값");
+			var userphoto = "image/member/"+data.userphoto;  
+			console.log(userphoto);
+        	$("#userphoto").attr('src',userphoto);
+        	$("#userphotoin").attr('src',userphoto);
+        	
         },
         error: function(error){
            console.log(error);
         }
   	  	});
-*/
+});
 </script>
 </html>

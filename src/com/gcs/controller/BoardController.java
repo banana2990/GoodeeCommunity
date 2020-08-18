@@ -29,7 +29,6 @@ public class BoardController extends HttpServlet {
 		proc(req, resp);
 	}
 	
-
 	private void proc(HttpServletRequest req, HttpServletResponse resp) 
 			throws ServletException, IOException{
 		
