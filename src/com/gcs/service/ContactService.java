@@ -34,24 +34,48 @@ public class ContactService {
 
 	public void ctwrite() throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		ContactDAO dao = new ContactDAO();
 		String writer = req.getParameter("writer");
 		String subject = req.getParameter("subject");
 		String c_email = req.getParameter("c_email");
 		String content = req.getParameter("content");
 		String msg = "문의사항 보내기가 실패했습니다.";
 		
-		ContactDAO dao = new ContactDAO();
 		
 		boolean result = dao.ctwrite(writer, subject, c_email, content);
 		if(result){
-			msg = "문의사항을 성공적으로 보냈습니다.";			
-		}
+			msg = "문의사항을 성공적으로 보냈습니다.";		
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);
+		}else {
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("index.jsp");
+			dis.forward(req, resp);
+		}		
+		
 		HashMap<String,Object> map =  new HashMap<String, Object>();
 		map.put("contactmsg",msg);
 		Gson json = new Gson();
 		String obj = json.toJson(map);
 		System.out.println("result :"+obj);
 		resp.getWriter().println(obj);		
+		
+		
+	}
 
+	public void statusSet() throws ServletException, IOException {
+		String c_status = req.getParameter("c_status");
+		String contact_no = req.getParameter("contact_no");
+		String msg = "처리에 실패했습니다.";
+		
+		ContactDAO dao = new ContactDAO();
+		if(dao.statusSet(c_status, contact_no)) {
+			msg = "처리되었습니다.";
+		}
+		
+		req.setAttribute("msg", msg);
+		RequestDispatcher dis = req.getRequestDispatcher("contact");
+		dis.forward(req, resp);
 	}
 }

@@ -288,4 +288,32 @@ public class BoardService  {
 		
 	}
 
+	/*
+	 * public void blikeCall() { BoardDAO dao = new BoardDAO(); int detailLike = 0;
+	 * int status = 0;
+	 * 
+	 * String board_no =req.getParameter("board_no"); String id = (String)
+	 * req.getSession().getAttribute("id");
+	 * 
+	 * System.out.println(board_no+"///"+id);
+	 * 
+	 * try { detailLike = dao.detailLike(board_no); status =
+	 * dao.likeStatus(id,board_no); } catch (SQLException e) { e.printStackTrace();
+	 * } finally { dao.resClose();
+	 * 
+	 * HashMap<String,Object> map = new HashMap<String, Object>();
+	 * map.put("detailLike", detailLike); map.put("status", status); Gson gson = new
+	 * Gson(); String obj = gson.toJson(map); System.out.println("result:"+obj);
+	 * resp.setContentType("text/html; charset=UTF-8");
+	 * resp.getWriter().println(obj);
+	 * 
+	 * req.setAttribute("boardDetail", dto);
+	 * 
+	 * RequestDispatcher dis = req.getRequestDispatcher("mboardDetail.jsp");
+	 * dis.forward(req, resp); }
+	 * 
+	 * 
+	 * }
+	 */
+
 }

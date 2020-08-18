@@ -254,8 +254,8 @@ $("#ct_send").click(function(){
         data: param,
         dataType: "JSON",
         success: function(data){
-        	console.log(data.contactmsg);
-        	alert("msg");
+
+        	alert("contactmsg");
         },
         error: function(error){
            console.log(error);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -59,7 +60,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="contact.jsp" id="ask">
+                    <a href="contact" id="ask">
                         <span>문의사항 내역</span>
                     </a>
                 </li>
@@ -88,59 +89,47 @@
                             <th>접수일</th>
                             <th>상태</th>
                         </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>정준호</td>
-                            <td><div><span>누가 저 사칭...</span>
-                                <p class="arrow_box">누가 저 사칭했습니다. 지금 몸자랑 하고 다니는 사람은 제가 아닙니다 조치 부탁드려요</p>
-                            </div></td>
-                            <td>jjh@gmail.com</td>
-                            <td>20.08.03</td>
-                            <td><button class="btn-table">접수</button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>문의좀</td>
-                            <td><div><span>프로필 등록이...</span>
-                                <p class="arrow_box">프로필 등록이 안되요. 제 프로필을 모두에게 보여주고 싶은데, 그게 안되니깐 너무 답답하고 화가 납니다. 조치 부탁드려요</p>
-                            </div></td>
-                            <td>local@naver.com</td>
-                            <td>20.08.01</td>
-                            <td><button class="btn-table">접수</button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
                         
-<%--                        <c:forEach items="${contact}" var="member">
+                        <!-- 문의사항 리스트 -->
+                        <c:forEach var="contact" items="${contact}">
 						<tr>
-							<td> ${member.contact_no} </td>
-							<td> ${member.writer} </td>
-							<td> ${member.subject} </td>
-							<td> ${member.content} </td>
-							<td> ${member.c_email} </td>							
-							<td> ${member.c_status} </td>
+							<td><p><c:out value="${contact.contact_no}"/></p></td>
+							<td><p><c:out value="${contact.writer}" /></p></td>
+							<td><p><c:out value="${contact.subject}" /></p></td>
+							<td><p><c:out value="${contact.content}" /></p></td>
+							<td><p><c:out value="${contact.c_email}" /></p></td>
+							<c:if test="${contact.c_status eq 0}">
+								<td><p> <input type="button" class="status" value="접수" onclick="stateSet(${contact.c_status}, ${contact.contact_no})"></p></td>
+							</c:if>
+							<c:if test="${contact.c_status eq 1}">
+								<td><p> <input type="button" class="status" value="완료" onclick="stateSet(${contact.c_status}, ${contact.contact_no})"></p></td>
+							</c:if>
+							
 						</tr>		
-					</c:forEach>
-                         --%>
+						</c:forEach>
+                         
                     </table>
                 </div>
+                
             <div class="section-bot">
             <!--페이징-->
-                <div class="list-box">   
-                    <div class="list-paging">
-                    <button id="1" class="on">1</button>
-                    <button id="2">2</button>
-                    <button id="3">3</button>
-                    <button id="4">4</button>
-                    <button id="5">5</button>
-                    <button id="next">next</button>
-                    </div>
+                <div class="list-paging">  
+                	<c:if test="${page.curPage ne 1}">
+                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
+                    </c:if>             
+                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
+	                     <c:choose>
+		                        <c:when test="${pageNum eq  page.curPage}">
+		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:when>
+		                        <c:otherwise>
+		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
+		                        </c:otherwise>
+	                    </c:choose>
+	                </c:forEach>
+	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
+                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
+                    </c:if>
                 </div>
             </div>
         </div>  
@@ -148,16 +137,33 @@
       
 </body>
 <script>
-    //접수 / 완료 버튼
-    $(function() {
-        $('.btn-table').click( function() {
-            if( $(this).html() == '접수' ) {
-                $(this).html('완료');
-            }
-            else {
-                $(this).html('접수');
-            }
-        });
-    });
+
+var msg = "${msg}";
+if(msg != ""){
+	alert(msg);
+}
+
+var contact_no = window.location.search.substring(11);
+
+function fn_paging(curPage) {
+	if(contact_no.length > 2){
+		contact_no = window.location.search.substring(21);
+	}
+	location.href = "contact?curPage="+curPage+"&contact_no="+contact_no;
+}		
+
+
+
+//접수&완료 버튼
+
+function stateSet(status, contact_no){
+	if(confirm("문의사항을 처리하시겠습니까?") == true){ 
+		location.href="contactState?c_status="+status+"&contact_no="+contact_no;
+    }
+    else {
+    	return;
+    }
+}
+
 </script>
 </html>

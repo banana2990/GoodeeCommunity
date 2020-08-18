@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.BoardService;
 
-@WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView","/updateForm","/recomment","/boardDetail","/update","/del","/mngboardDetail","/deletecom","/myBoardList","/search"})
+@WebServlet({ "/main", "/boardList", "/mngboard", "/mngcomment", "/write", "/delmngcomment", "/writeView",
+		"/updateForm", "/recomment", "/boardDetail", "/update", "/del", "/mngboardDetail", "/deletecom", "/myBoardList",
+		"/search",/* "blikeCall" */})
 
 public class BoardController extends HttpServlet {
 
@@ -130,6 +132,12 @@ public class BoardController extends HttpServlet {
 		case "/search":
 			System.out.println("검색");
 			break;
+			
+		/*
+		 * case "/blikeCall": System.out.println("좋아요"); boardService.blikeCall();
+		 * break;
+		 */
+
 		}
 	}
 }
