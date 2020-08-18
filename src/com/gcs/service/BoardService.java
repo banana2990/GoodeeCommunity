@@ -344,7 +344,12 @@ public class BoardService  {
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("main");
 			dis.forward(req, resp);		
-		}		
+		}else if(id == null){
+			msg = "로그인 후 작성 가능합니다.";
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("main");
+			dis.forward(req, resp);		
+		}
 		
 	}
 	

@@ -237,6 +237,11 @@ function write(){ // 얘는 왜 있는 거지
 //문의사항 보내기
 	$("#ct_send").click(function(){
 
+		writer = $("input[name='writer']");
+		subject = $("input[name='subject']");
+		c_email = $("input[name='c_email']");
+		content = $("textarea[name='content']");
+		
 		var param = {};
 		
 		param.writer = $("input[name='writer']").val();
@@ -266,6 +271,7 @@ function write(){ // 얘는 왜 있는 거지
 	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
+		msg = "";
 	}
 /*
  실시간 댓글 알림: 5초마다
