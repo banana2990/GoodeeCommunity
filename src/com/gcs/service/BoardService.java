@@ -285,7 +285,7 @@ public class BoardService  {
 		
 	}
 
-	//검색
+	//검색(페이징 안되요...)
 	public void search() throws IOException, ServletException{
 		
 		String search = req.getParameter("search");
