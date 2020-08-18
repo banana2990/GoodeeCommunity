@@ -100,6 +100,7 @@ crossorigin="anonymous"
                     </div>
                     <div class="share">
                         <button type="button" class="btn-like thread-likes">
+                        	<img id="like-img" src="./image/icon_heart_empty.gif">
                             <span class="like-count"></span>
                         </button>
                     </div>
@@ -337,5 +338,48 @@ crossorigin="anonymous"
 	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
 
 	});
+	
+function likeCall(){
+	$.ajax({
+        type: "post",
+        url: "detailLikeCnt",
+        data: {"board_no":${boardDetail.board_no}},
+        dataType: "JSON",
+        success: function(data){
+        	console.log(data);
+        	$('.like-count').html(data.detailLikeCnt);
+        	if(data.likeStatus){
+        		$('#like-img').attr("src","./image/icon_heart_red.gif");
+        	} else{
+        		$('#like-img').attr("src","./image/icon_heart_empty.gif");
+        	}
+        },
+        error: function(error){
+           console.log(error);
+        }
+     });
+}
+
+likeCall();
+
+$('.btn-like').click(function(){
+	$.ajax({
+        type: "post",
+        url: "like",
+        data: {"board_no":${boardDetail.board_no}},
+        dataType: "JSON",
+        success: function(data){
+        	if(data.result){
+        		console.log(data);
+        		likeCall();
+        	}
+        },
+        error: function(error){
+           console.log(error);
+        }
+     });
+});
+	
+	
 </script>
 </html>

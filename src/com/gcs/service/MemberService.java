@@ -139,7 +139,7 @@ public class MemberService {
 		// 해킹하면 안돼요ㅜ.
 		String host = "smtp.gmail.com";
 		final String user = "kjy3309@gmail.com";
-		final String password = "wndduf!2";
+		final String password = "wndduf!23";
 		
 		// smtp 값 설정
 		Properties prop = new Properties();
