@@ -87,8 +87,6 @@ crossorigin="anonymous"
 	                <form class="searchbar" action="search" method="get" >
 	                    <select>
 							<option>제목</option>
-							<option>작성자</option>
-							<option>제목+내용</option>
 						</select>
 	                    <input
 	                      class="search"
