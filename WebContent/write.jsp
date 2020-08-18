@@ -172,7 +172,7 @@ $("#ct_send").click(function(){
 	var msg = "${msg}";
 	if(msg == "글이 작성되었습니다."){
 		alert(msg);
-		history.go(-3); // 이거 이동지점을 바꿔야할 거 같은데요!
+		location.href="main";
 	}	
 	if(msg == "글 작성에 실패했습니다."){
 			alert(msg);
