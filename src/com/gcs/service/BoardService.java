@@ -398,4 +398,56 @@ public class BoardService  {
 		dis.forward(req, resp);
 		
 	}
+
+	public void detailLikeCnt() throws IOException {
+		String board_no = req.getParameter("board_no");
+		String id = (String) req.getSession().getAttribute("id");
+		BoardDAO dao = new BoardDAO();		
+		int detailLikeCnt = 0;
+		boolean likeStatus = false;
+		try {
+			detailLikeCnt = dao.detailLikeCnt(board_no); // 게시글의 좋아요 수
+			likeStatus = dao.detailLikeStatus(board_no, id); // 내가 좋아요를 했는가 상태
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} 
+		
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+    	Gson gson = new Gson();	  
+  	
+	    map.put("detailLikeCnt", detailLikeCnt);
+	    map.put("likeStatus", likeStatus);
+	    String obj = gson.toJson(map);
+	    System.out.println(obj);
+	    resp.setContentType("text/html; charset=UTF-8");
+	    resp.getWriter().println(obj);  
+		
+		
+	}
+
+	public void like() throws IOException {
+		String board_no = req.getParameter("board_no");
+		String id = (String) req.getSession().getAttribute("id");
+		BoardDAO dao = new BoardDAO();
+		boolean likeStatus = false;
+		boolean result = false;
+		
+		try {
+			likeStatus = dao.detailLikeStatus(board_no, id);
+			result = dao.like(likeStatus, board_no, id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dao.resClose();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+	    	Gson gson = new Gson();	  
+	  	
+		    map.put("result", result);
+		    String obj = gson.toJson(map);
+		    System.out.println(obj);
+		    resp.setContentType("text/html; charset=UTF-8");
+		    resp.getWriter().println(obj); 
+		}
+	}
 }

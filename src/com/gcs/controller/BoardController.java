@@ -15,7 +15,7 @@ import com.gcs.service.BoardService;
 
 @WebServlet({"/main","/boardList","/mngboard","/mngcomment","/write","/delmngcomment","/writeView",
 	"/updateForm","/boardDetail","/update","/del","/mngboardDetail","/deletecom",
-	"/myBoardList","/search","/memoWrite","/prev","/next"})
+	"/myBoardList","/search","/memoWrite","/prev","/next","/detailLikeCnt","/like"})
 
 public class BoardController extends HttpServlet {
 
@@ -142,7 +142,16 @@ public class BoardController extends HttpServlet {
 			System.out.println("다음글 불러오기");
 			boardService.next();
 			break;
-
+			
+		case "/detailLikeCnt":
+			System.out.println("글 상세보기 좋아요 수");
+			boardService.detailLikeCnt();
+			break;
+			
+		case "/like":
+			System.out.println("좋아요하기");
+			boardService.like();
+			break;
 		}
 	}
 }

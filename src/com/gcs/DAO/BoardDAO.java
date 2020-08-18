@@ -623,6 +623,53 @@ public class BoardDAO {
 		return list;	
 	}
 
+	public int detailLikeCnt(String board_no) throws SQLException {
+		String sql = "SELECT COUNT(board_no) FROM blike WHERE board_no=?";
+		int detailLikeCnt = 0;
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		rs = ps.executeQuery();					
+		if(rs.next()) {				
+			detailLikeCnt = rs.getInt("COUNT(board_no)");			
+		}
+		return detailLikeCnt;
+	}
+
+	public boolean detailLikeStatus(String board_no, String id) throws SQLException {
+		boolean detailLikeStatus = false;
+		
+		String sql = "SELECT * FROM blike WHERE board_no=? AND id=?";
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, board_no);
+		ps.setString(2, id);
+		rs = ps.executeQuery();					
+		if(rs.next()) {				
+			detailLikeStatus = true;
+		}
+
+		return detailLikeStatus;
+	}
+
+	public boolean like(boolean likeStatus, String board_no, String id) throws SQLException {
+		String sql = "";
+		boolean result = false;
+		if(likeStatus) {
+			sql = "DELETE FROM blike WHERE id=? AND board_no=?";
+		} else {
+			sql = "INSERT INTO blike(blike_no, id, board_no) VALUES(seq_bLike.NEXTVAL, ?, ?)";
+		}
+		
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, id);
+		ps.setString(2, board_no);
+		if(ps.executeUpdate()>0) {
+			result = true;
+		}
+		
+		return result;
+	}
+
 
 }
 
