@@ -273,7 +273,7 @@ public class BoardService  {
 	public void myBoardList() {
 		}
 
-	//검색(페이징 안되요...)
+	//검색
 	public void search() throws IOException, ServletException{
 		
 		String search = req.getParameter("search");
