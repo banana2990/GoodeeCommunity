@@ -355,21 +355,27 @@ function likeCall(){
 likeCall();
 
 $('.btn-like').click(function(){
-	$.ajax({
-        type: "post",
-        url: "like",
-        data: {"board_no":${boardDetail.board_no}},
-        dataType: "JSON",
-        success: function(data){
-        	if(data.result){
-        		console.log(data);
-        		likeCall();
-        	}
-        },
-        error: function(error){
-           console.log(error);
-        }
-     });
+	
+	if("${sessionScope.id}"==""){
+		alert("로그인 후 이용 가능합니다.");
+	} else {
+		$.ajax({
+	        type: "post",
+	        url: "like",
+	        data: {"board_no":${boardDetail.board_no}},
+	        dataType: "JSON",
+	        success: function(data){
+	        	if(data.result){
+	        		console.log(data);
+	        		likeCall();
+	        	}
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     });
+	}
+
 });
 	
 	
