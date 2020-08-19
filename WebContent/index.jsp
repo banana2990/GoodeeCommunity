@@ -160,7 +160,7 @@ img {
                 <li>
                     <a href="boardList?mboard_no=2" id="edu">
                         <span>학습 게시판</span>
-                    </a>
+                   </a>
                 </li>
                 <li>
                     <a href="boardList?mboard_no=3" id="secret">
@@ -236,18 +236,14 @@ img {
 
             <div class="section-bot">
                 <div class="board-swipe">
-					<li>
-						<button class="key-color" onclick="location.href='main'" style="color: #670000 !important;
-						border-color: #670000 !important;">전체 게시판</button>
-					</li>
-					<li>
-						<button id=notice onclick="location.href='boardList?mboard_no=4'" style="color: #670000 !important;
-						border-color: #670000 !important;">공지사항</button>
-					</li>
-					<li>
-						<button style="color: #670000 !important;
-						border-color: #670000 !important;">인기 글</button>
-					</li>
+                    <ul>
+						<li>
+						<button class="key-color" onclick="location.href='main'" style="border-color: darkgreen;">전체 게시판</button>
+						</li>
+						<li>
+							<button id=notice onclick="location.href='boardList?mboard_no=4'" style="border-color: darkgreen;">공지사항</button>
+						</li>
+                    </ul>                   
                 </div>
                 
                 <div class="list-box">
@@ -256,7 +252,7 @@ img {
 							<li>
 								<a href="boardDetail?board_no=${bbs.board_no}">
 									<h3>
-										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
+										<strong class="key-color" style="color:darkgreen">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
 										<i class="icon-new"></i>
 										<dl class="writing-info"> 
 											<dt class="blind"></dt>

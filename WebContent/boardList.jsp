@@ -81,7 +81,7 @@ crossorigin="anonymous"
                 <div class="board-swipe">
                     <ul>
                         <li>
-                           	<button class="key-color" style="top : -35px">${list[0].boardname}</button>
+                           	<button class="key-color" style="top : -15px">${list[0].boardname}</button>
                         </li>
                     </ul>
                 <!-- 게시글 검색바 -->
@@ -108,7 +108,7 @@ crossorigin="anonymous"
 							<li>
 								<a href="boardDetail?board_no=${bbs.board_no}">
 									<h3>
-										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
+										<strong class="key-color" style="color:darkgreen">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
 										<i class="icon-new"></i>
 										<dl class="writing-info"> 
 											<dt class="blind"></dt>
