@@ -67,19 +67,43 @@
                 	<button onclick="location.href='logout'"> 로그아웃 </button>
                     <button type="button" class="profile">
                         <div class="profile-img"></div> </button>
-                    <button class="login" onclick="location.href='login.jsp'">로그인</button>
-                    <button onclick="location.href='photo_test.jsp'">포토임시확인용</button>
                 </div>
             </div>
         </nav>
        <div id="contents">
             <div class="section-top">
-                <div class="img-swipe">
-                    <!-- 이미지 필요!!! -->
-                    	메인 이미지 영역입니다.
-                </div>
                 <div class="helplist">
-                		문의사항 목록 영역입니다.
+                		<div id="menu">
+                    <table>
+                        <tr>
+                            <th>No</th>
+                            <th>작성자</th>
+                            <th>내용</th>
+                            <th>이메일</th>
+                            <th>접수일</th>
+                            <th>상태</th>
+                        </tr>
+                        
+                        <!-- 문의사항 리스트 -->
+                        <c:forEach var="contact" items="${contact}">
+						<tr>
+							<td><p><c:out value="${contact.contact_no}"/></p></td>
+							<td><p><c:out value="${contact.writer}" /></p></td>
+							<td><p><c:out value="${contact.subject}" /></p></td>
+							<td><p><c:out value="${contact.content}" /></p></td>
+							<td><p><c:out value="${contact.c_email}" /></p></td>
+							<c:if test="${contact.c_status eq 0}">
+								<td><p> <input type="button" class="status" value="접수" onclick="stateSet(${contact.c_status}, ${contact.contact_no})"></p></td>
+							</c:if>
+							<c:if test="${contact.c_status eq 1}">
+								<td><p> <input type="button" class="status" value="완료" onclick="stateSet(${contact.c_status}, ${contact.contact_no})"></p></td>
+							</c:if>
+							
+						</tr>		
+						</c:forEach>
+                         
+                    </table>
+                </div>
                 </div>
             </div>
 
@@ -98,7 +122,7 @@
                     </ul>
                 </div>
                 <div class="list-box">
-                    <!-- 게시글 영역 -->
+                    <!-- 게시글 영역 리스트박스 치우고 다시 디테일 불러오는 것 붙여넣기 필요-->
                     게시글 영역입니다.<br>
                     ul
                      li ....
@@ -118,6 +142,6 @@
 	</body>
 	
 	<script>
-	
+
 	</script>
 </html>

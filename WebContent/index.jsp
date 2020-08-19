@@ -184,12 +184,12 @@ background-color: red;
             <p>무엇을 도와드릴까요?</p>
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
-        <div class="helpIcon__input">
+         <div class="helpIcon__input">
             <br><br>
-            <input type="text" name="writer" placeholder="   작성자"> 
-            <input type="text" name="subject" placeholder="   제목">
-            <input type="text" name="c_email" placeholder="   이메일">
-            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
+            <input type="text" id="writer1" placeholder="   작성자"> 
+            <input type="text" id="subject1" placeholder="   제목">
+            <input type="text" id="c_email1" placeholder="   이메일">
+            <textarea type="text" id="content1" placeholder="     문의 내용"></textarea>
             <br><br>
             <button id="ct_send">보내기</button>
         </div>
@@ -204,13 +204,12 @@ if(writeMsg != ""){
 	location.href = "login.jsp";
 }
 
-
 // 아이디가 있는지 체크
 var loginId = "${sessionScope.id}";
 
 console.log(loginId);
-//관리자 로그인시 관리자 페이지로! // 메인 불러오는 것+문의 불러오기 그 다음에 이동하기
-if(loginId!="admin"){}else{location.href="admin_main.jsp";}
+//관리자 로그인시 관리자 페이지로! // 문의 불러오기 그 다음에 메인으로 이동하기
+if(loginId!="admin"){}else{location.href="contactmain";}
 
 //세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
@@ -235,14 +234,17 @@ function write(){ // 얘는 왜 있는 거지
 */
 
 //문의사항 보내기
+	//문의사항 보내기
 	$("#ct_send").click(function(){
-
-		var param = {};
-		
-		param.writer = $("input[name='writer']").val();
-		param.subject = $("input[name='subject']").val();
-		param.c_email = $("input[name='c_email']").val();
-		param.content = $("textarea[name='content']").val();
+		var param = {};		
+		param.writer = $("#writer1").val();
+		console.log(param.writer);
+		param.subject = $("#subject1").val();
+		console.log(param.subject);
+		param.c_email = $("#c_email1").val();
+		console.log(param.c_email);
+		param.content = $("#content1").val();
+		console.log(param.content);
 		
 		$.ajax({
 	        type: "post",
@@ -256,8 +258,7 @@ function write(){ // 얘는 왜 있는 거지
 	        error: function(error){
 	        	alert(data.contactmsg);
 	        }
-	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
-
+	     });
 	});
 
 	function fn_paging(curPage) {
@@ -266,6 +267,7 @@ function write(){ // 얘는 왜 있는 거지
 	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
+		msg = "";
 	}
 /*
  실시간 댓글 알림: 5초마다

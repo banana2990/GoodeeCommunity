@@ -211,6 +211,7 @@
 		var $name = $("input[name='name']");
 		var $nickName = $("input[name='nickName']");
 		var $email = $("input[name='u_email']");
+		var $emailChk =$("input[name='auth']");
 		
 		console.log($id);
 		console.log($pw);

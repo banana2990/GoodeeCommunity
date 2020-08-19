@@ -67,10 +67,9 @@ crossorigin="anonymous"
             
             <div class="top-util">
                 <div class="inner">
+                    <button onclick="location.href='logout'"> 로그아웃 </button>
                     <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login">로그인</button>
+                        <div class="profile-img"></div> </button>
                 </div>
             </div>
         </nav>

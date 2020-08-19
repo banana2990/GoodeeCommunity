@@ -5,9 +5,13 @@
 	    	<link rel="stylesheet" type="text/css" href="style.css"/>
         	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
+	#layer{
+	width: 40px;
+	height: 40px;
+	}
 	#layer .pf{
-	width: 30px;
-	height: 30px;
+	width: 40px;
+	height: 40px;
 	}
 	</style>
 </head>
@@ -54,7 +58,7 @@
            function(){layer.addClass('hide')} 
          );
        });
-      
+      /*
       $.ajax({
   	    type: "post",
         url: "userphoto",
@@ -71,6 +75,7 @@
            console.log(error);
         }
   	  	});
+	  	*/
 });
 </script>
 </html>

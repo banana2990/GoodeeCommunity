@@ -36,9 +36,13 @@ public class ContactService {
 		req.setCharacterEncoding("UTF-8");
 		ContactDAO dao = new ContactDAO();
 		String writer = req.getParameter("writer");
+		System.out.println(writer);
 		String subject = req.getParameter("subject");
+		System.out.println(subject);
 		String c_email = req.getParameter("c_email");
+		System.out.println(c_email);
 		String content = req.getParameter("content");
+		System.out.println(content);
 		String msg = "문의사항 보내기가 실패했습니다.";
 		System.out.println(content);
 		
@@ -71,5 +75,14 @@ public class ContactService {
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher("contact");
 		dis.forward(req, resp);
+	}
+
+	public void contactMain() throws ServletException, IOException {
+		ContactDAO dao = new ContactDAO();
+		ArrayList<ContactDTO> contact = dao.contactMain();
+		req.setAttribute("contact", contact);
+		RequestDispatcher dis = req.getRequestDispatcher("admin_main.jsp");
+		dis.forward(req, resp);	
+		
 	}
 }

@@ -37,14 +37,11 @@ public class BoardService  {
 		BoardDAO dao = new BoardDAO();
 		if(dao.write(mboard_no, id, subject, content)) {
 			msg = "글이 작성되었습니다.";
+		}
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
 			dis.forward(req, resp);
-		}else {
-			req.setAttribute("msg", msg);
-			RequestDispatcher dis = req.getRequestDispatcher("write.jsp");
-			dis.forward(req, resp);
-		}		
+				
 	}
 
 	public void comread() throws ServletException, IOException {
@@ -273,7 +270,7 @@ public class BoardService  {
 	public void myBoardList() {
 		}
 
-	//검색(페이징 안되요...)
+	//검색
 	public void search() throws IOException, ServletException{
 		
 		String search = req.getParameter("search");
@@ -345,7 +342,12 @@ public class BoardService  {
 			req.setAttribute("msg", msg);
 			RequestDispatcher dis = req.getRequestDispatcher("main");
 			dis.forward(req, resp);		
-		}		
+		}else if(id == null){
+			msg = "로그인 후 작성 가능합니다.";
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("main");
+			dis.forward(req, resp);		
+		}
 		
 	}
 	
