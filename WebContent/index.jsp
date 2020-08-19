@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ㅌ<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
@@ -129,7 +129,7 @@ img {
 <body>
 	<div id="container">
         <!-- Main Navbar -->
-        <nav class="navbar" id="navbar">
+               <nav class="navbar" id="navbar">
             <div class="navbar__logo">
                 <a href="main">
                     <img src="image/logo.PNG" alt="로고">
@@ -143,10 +143,9 @@ img {
                       type="text"
                       name="search"
                     />
-                    <button><i class="fas fa-search" id="glass"></i></button>
+                    <button><i class="fas fa-search"></i></button>
                 </form>
-            </div>	
-            
+            </div>            
             <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
@@ -305,7 +304,7 @@ img {
         </div>  
  
 
-    <div class="helpIcon">
+      <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
     </div>
   
@@ -315,12 +314,12 @@ img {
             <p>무엇을 도와드릴까요?</p>
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
-        <div class="helpIcon__input">
+         <div class="helpIcon__input">
             <br><br>
-            <input type="text" name="writer" placeholder="   작성자"> 
-            <input type="text" name="subject" placeholder="   제목">
-            <input type="text" name="c_email" placeholder="   이메일">
-            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
+            <input type="text" id="writer1" placeholder="   작성자"> 
+            <input type="text" id="subject1" placeholder="   제목">
+            <input type="text" id="c_email1" placeholder="   이메일">
+            <textarea type="text" id="content1" placeholder="     문의 내용"></textarea>
             <br><br>
             <button id="ct_send">보내기</button>
         </div>
@@ -356,14 +355,16 @@ if(loginId==""){
 }
 
 //문의사항 보내기
-	$("#ct_send").click(function(){
-
-		var param = {};
-		
-		param.writer = $("input[name='writer']").val();
-		param.subject = $("input[name='subject']").val();
-		param.c_email = $("input[name='c_email']").val();
-		param.content = $("textarea[name='content']").val();
+$("#ct_send").click(function(){
+		var param = {};		
+		param.writer = $("#writer1").val();
+		console.log(param.writer);
+		param.subject = $("#subject1").val();
+		console.log(param.subject);
+		param.c_email = $("#c_email1").val();
+		console.log(param.c_email);
+		param.content = $("#content1").val();
+		console.log(param.content);
 		
 		$.ajax({
 	        type: "post",
@@ -378,7 +379,6 @@ if(loginId==""){
 	        	alert(data.contactmsg);
 	        }
 	     });
-
 	});
 
 	function fn_paging(curPage) {
