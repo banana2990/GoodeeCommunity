@@ -12,27 +12,46 @@
 	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
+	body {
+		background-image: url('./image/backgroundimg3.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
 	.navbar__logo {
 		position: absolute;
-		left: 45px;
+		left: 363px;
 		top: 50px;
+		
 	}
 	
 	.navbar__logo img {
 	    width: 150px;
-	    height: 150px;
+		height: 150px;
+		border-radius: 50%;
 	}
 	
 	.loginbox{
 		position: absolute;
-		left: 30%;
+		width: 560px;
+		height: 250px;
+		left: 33%;
 		top: 30%;
+		border: 3px solid rgb(148, 186, 201);
+		font-size: large;
+
+		background-color: rgb(224, 220, 213);
 	}
 	
 	table, tr, td{
 		text-align:center;
 		}
-	
+
+	.loginboxx{
+		position: relative;
+		left: 150px;
+
+	}
 	</style>
 </head>
 
@@ -45,7 +64,8 @@
             </div>            
 
 	<div class= "loginbox">
-	<h2> 로그인 해주세요</h2>
+		<div class="loginboxx">
+			<h2> 로그인 해주세요</h2>
 			<form action="login" method="post">
 				<table>
 					<tr>
@@ -67,6 +87,7 @@
 				</table>
 			</form>
 		</div>
+	</div>
 
     <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   

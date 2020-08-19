@@ -2,182 +2,86 @@
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-        <title>마이페이지</title>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
-		<link rel="stylesheet" href="style.css">
-        <script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
-    <style>
-      .upmy1 {
-        position: fixed;
-        top: 80px;
-        left: 350px;
-        width: 795px;
-        height: 80%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border: 1px solid black;
-        background-color: #cad0d1;
-        border-radius: 5%;
-      }
-      .upmy1 .upfn {
-        position: absolute;
-        width: 100px;
-        height: 50px;
-        left: 440px;
-        top: 230px;
-        border-radius: 5%;
-        border: 1px solid black;
-      }
-      .upmy1 .upcant {
-        position: absolute;
-        width: 100px;
-        height: 50px;
-        left: 585px;
-        top: 230px;
-        border-radius: 5%;
-        border: 1px solid black;
-      }
-      .upmy1 .out{
-        bottom: 10px;
-        right: 10px;
-        position: absolute;
-      }
-
-      .upmy2{
-        position: absolute;
-        width: 795px;
-        height: 330px;
-        top: 0px;
-        
-      }
-
-      .upmy3-1 {
-        position: relative;
-        width: 300px;
-        height: 300px;
-        border-radius: 12px;
-        top: 100px;
-        left: 20px;
-        border: 1px solid black;
-        
-      }
-
-      .upmy3_2{
-        position: relative;
-        width: 352px;
-        height: 200px;
-        left: 389px;
-        top: 20px;
-        border: 1px solid black;
-        border-radius: 3%;
-      }
-
-      .upmy3_2 .u3_2{
-        left: 20px;
-        position: relative;
-        top: 20px;
-      }
-
-      .upmy3_1 .upimge{
-        width: 100px;
-        height: 100px;
-        left: 50px;
-        top: 20px;
-        position: absolute;
-      }
-      .upmy3_1 .imge_1{
-        border-radius: 50%;
-      }
-      .upmy3_1 .u{
-        top: 20px;
-        left: 70px;
-        position: relative;
-      }
-      
-
-      .upmy2_1 {
-        
-        position: absolute;
-        width: 795px;
-        height: 232px;
-        
-        top: 332px;
-        }
+<head>
+<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@900&family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="manageDetail.css">
+	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
+	
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<title>구디 커뮤니티</title>
+</head>
+<body>
+	<div id="container">
+        <!-- Main Navbar -->
+        <nav class="navbar" id="navbar">
+            <div class="navbar__logo">
+                <a href="#">
+                    <img src="image/logo.PNG" alt="로고">
+                    <h1>구디 커뮤니티</h1>
+                </a>
+            </div>
+            <div class="search-input">
+                <form class="searchbar" action="#" method="get">
+                    <input
+                      class="search"
+                      type="text"
+                      name="search"
+                    />
+                    <button><i class="fas fa-search"></i></button>
+                </form>
+            </div>	
+            
+            <button class="write" location.href="#">
+                글쓰기
+            </button>
     
-      .upmy2_1 > ul {
-          font-size:0;
-          }
-      .upmy2_1 > ul > li {
-          display:inline-block;
-          vertical-align:top;
-          width:24%;
-          border-radius: 20%;
-          left: 30px;
-          top: 10px;
-          position: relative;
-          }
-          
-      .upmy2_1 > ul > li > a {
-          display:block;
-          width:auto;
-          margin:55px;
-          
-          }
-
-      td{
-          width: 40px;
-          height: 20px;
-        }
-      .dap{
-          position: absolute;
-          top: 416px;
-          left: 58px;
-        }
-
-      .paging{
-        position: relative;
-        top: 230px;
-      }
-
-      .cl button {
-      padding: 10px 20px;
-      font-size: 15px;
-      border: 1px solid rgba(255, 230, 207, 0.28);
-      border-radius: 4px;
-      position: absolute;
-      right: 24px;
-      bottom: 15px;
-      }
-      .screen button{
-        padding: 10px 20px;
-        font-size: 15px;
-        border: 1px solid rgba(255, 230, 207, 0.28);
-        border-radius: 4px;
-        position: absolute;
-        right: 65px;
-        bottom: 15px;
-      }
-
-    </style>
-  </head>
-  <body>
-     
-
-    <div class="overlay"></div>
-    
+            <ul class="navbar__menu">
+                <h2>전체 게시판</h2>
+                <li>
+                    <a href="#">
+                        <span>자유 게시판</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>학습 게시판</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>익명 게시판</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span>오늘 점심 뭐먹지?</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <div class="top-util">
+               <div id="profile_img" class="boxx">
+            		<jsp:include page="upmy1.jsp"/>
+		        </div>
+                <div class="inner">                    
+                    <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Contents -->
+    <div id="contents">
+     <div class="mtitle"><h1> 마이페이지</h1></div> 
+            
     <div class="upmy1">    
       <div class="upmy2">      
         <div class="upmy3_1">          
           <div class="upimge">
-            <a href="#"><img class="imge_1" id="userphoto" src="image/냥.jpg"/></a>
+            <a href="#"><img class="imge_1" id="userphoto" src="image/member.png"/></a>
             <div class="u">
               <button onclick="openwindow()">등록</button>
               <a href="photoDel"><button>삭제</button></a>
@@ -297,13 +201,7 @@
 
       </div>
 
-      <div class="overlay"></div>
-      <div class="cl">
-        <a href="main"><button>Close</button></a>
       </div>
-
-
-        </div>
 
   </body>
   <script>
@@ -311,6 +209,22 @@
   var msg = "${msg}";
   if(msg != ""){
   	alert(msg);
+  }
+  var loginId = "${sessionScope.id}";
+
+  console.log(loginId);
+
+
+  //세션에 저장된 경우 로그인버튼을 비활성화하기
+  var profile_img = $("#profile_img");
+  var loginbtn = $("#login");
+
+  if(loginId==""){
+  	loginbtn.css({"display":"block"});
+  	profile_img.css({"display":"none"});
+  }else{
+      loginbtn.css({"display":"none"});
+      profile_img.css({"display":"block"});
   }
   
 		/*닉네임 중복 확인*/

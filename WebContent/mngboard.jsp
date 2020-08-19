@@ -88,7 +88,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         <div id="contents">
             <div class="mtitle"><h1>게시글 관리</h1></div>   
                  <div id="contents">
-	    	<div class="select box">
+	    	<div class="selectbox">
 		        <select name="mngboard" onchange="listCall()">
 		        	<option selected value="0"> ----------- </option>
 					<option value="1">자유게시판</option>
@@ -98,10 +98,10 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 				</select>
 			</div>
 			
-	        <div id="mngboardlist">       
+	        <div id="mngboardlist" style="left: 262px; position: relative;">       
 	            <table id="listsection">
     			    <thead>
-    			    <tr style="background-colodr: rgb(138, 190, 59)">
+    			    <tr style="background-color: rgb(138, 190, 59)">
 						<th>no.</th> 
 						<th>제목</th> 
 						<th>작성자</th> 

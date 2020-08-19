@@ -16,12 +16,113 @@
 textarea{
 	resize: none;
     width: 229px;
-    height: 350px;
+    height: 297px;
 }
 
 div #comalert{
 background-color: red;
 }
+* {box-sizing: border-box}
+body {font-family: Verdana, sans-serif; margin:0}
+.mySlides {display: none}
+img {
+	vertical-align: middle;
+	height: 281px;
+}
+
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  height: 275px;
+  position: relative;
+  margin: auto;
+}
+
+/* Next & previous buttons */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+/* Number text (1/3 etc) */
+.numbertext {
+  color: #f2f2f2;
+  font-size: 12px;
+  padding: 8px 12px;
+  position: absolute;
+  top: 0;
+}
+
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
+
+.active, .dot:hover {
+  background-color: #717171;
+}
+
+/* Fading animation */
+.fade {
+  -webkit-animation-name: fade;
+  -webkit-animation-duration: 1.5s;
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@-webkit-keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+@keyframes fade {
+  from {opacity: .4} 
+  to {opacity: 1}
+}
+
+/* On smaller screens, decrease text size */
+@media only screen and (max-width: 300px) {
+  .prev, .next,.text {font-size: 11px}
+}
+
 </style>
 
 </head>
@@ -89,8 +190,37 @@ background-color: red;
         <div id="contents">
             <div class="section-top">
                 <div class="img-swipe">
-                    <!-- 이미지 필요!!! -->
-                    	메인 이미지 영역입니다.
+					<div class="slideshow-container">
+
+						<div class="mySlides fade">
+						  <div class="numbertext">1 / 3</div>
+						  <img src="./image/모두국밥.PNG" style="width:100%">
+						  <div class="text">모두국밥</div>
+						</div>
+						
+						<div class="mySlides fade">
+						  <div class="numbertext">2 / 3</div>
+						  <img src="./image/토마토김밥.PNG" style="width:100%">
+						  <div class="text">토마토김밥</div>
+						</div>
+						
+						<div class="mySlides fade">
+						  <div class="numbertext">3 / 3</div>
+						  <img src="./image/동남부대찌개.PNG" style="width:100%">
+						  <div class="text">동남부대찌개</div>
+						</div>
+						
+						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+						<a class="next" onclick="plusSlides(1)">&#10095;</a>
+						
+						</div>
+						<br>
+						
+						<div style="text-align:center">
+						  <span class="dot" onclick="currentSlide(1)"></span> 
+						  <span class="dot" onclick="currentSlide(2)"></span> 
+						  <span class="dot" onclick="currentSlide(3)"></span> 
+						</div>
                 </div>
                 <div class="today-memo">
                 	<form action="memoWrite" method="post">
@@ -107,17 +237,18 @@ background-color: red;
 
             <div class="section-bot">
                 <div class="board-swipe">
-                    <ul>
-                        <li>
-                            <button class="key-color" onclick="location.href='main'">전체 게시판</button>
-                        </li>
-                        <li>
-                            <button id=notice onclick="location.href='boardList?mboard_no=4'">공지사항</button>
-                        </li>
-                        <li>
-                            <button>인기 글</button>
-                        </li>
-                    </ul>
+					<li>
+						<button class="key-color" onclick="location.href='main'" style="color: #670000 !important;
+						border-color: #670000 !important;">전체 게시판</button>
+					</li>
+					<li>
+						<button id=notice onclick="location.href='boardList?mboard_no=4'" style="color: #670000 !important;
+						border-color: #670000 !important;">공지사항</button>
+					</li>
+					<li>
+						<button style="color: #670000 !important;
+						border-color: #670000 !important;">인기 글</button>
+					</li>
                 </div>
                 
                 <div class="list-box">
@@ -184,12 +315,12 @@ background-color: red;
             <p>무엇을 도와드릴까요?</p>
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
-         <div class="helpIcon__input">
+        <div class="helpIcon__input">
             <br><br>
-            <input type="text" id="writer1" placeholder="   작성자"> 
-            <input type="text" id="subject1" placeholder="   제목">
-            <input type="text" id="c_email1" placeholder="   이메일">
-            <textarea type="text" id="content1" placeholder="     문의 내용"></textarea>
+            <input type="text" name="writer" placeholder="   작성자"> 
+            <input type="text" name="subject" placeholder="   제목">
+            <input type="text" name="c_email" placeholder="   이메일">
+            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
             <br><br>
             <button id="ct_send">보내기</button>
         </div>
@@ -204,12 +335,13 @@ if(writeMsg != ""){
 	location.href = "login.jsp";
 }
 
+
 // 아이디가 있는지 체크
 var loginId = "${sessionScope.id}";
 
 console.log(loginId);
-//관리자 로그인시 관리자 페이지로! // 문의 불러오기 그 다음에 메인으로 이동하기
-if(loginId!="admin"){}else{location.href="contactmain";}
+//관리자 로그인시 관리자 페이지로! // 메인 불러오는 것+문의 불러오기 그 다음에 이동하기
+if(loginId!="admin"){}else{location.href="admin_main.jsp";}
 
 //세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
@@ -234,17 +366,14 @@ function write(){ // 얘는 왜 있는 거지
 */
 
 //문의사항 보내기
-	//문의사항 보내기
 	$("#ct_send").click(function(){
-		var param = {};		
-		param.writer = $("#writer1").val();
-		console.log(param.writer);
-		param.subject = $("#subject1").val();
-		console.log(param.subject);
-		param.c_email = $("#c_email1").val();
-		console.log(param.c_email);
-		param.content = $("#content1").val();
-		console.log(param.content);
+
+		var param = {};
+		
+		param.writer = $("input[name='writer']").val();
+		param.subject = $("input[name='subject']").val();
+		param.c_email = $("input[name='c_email']").val();
+		param.content = $("textarea[name='content']").val();
 		
 		$.ajax({
 	        type: "post",
@@ -258,7 +387,8 @@ function write(){ // 얘는 왜 있는 거지
 	        error: function(error){
 	        	alert(data.contactmsg);
 	        }
-	     });
+	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
 	});
 
 	function fn_paging(curPage) {
@@ -267,7 +397,6 @@ function write(){ // 얘는 왜 있는 거지
 	var msg = "${msg}";
 	if(msg != ""){
 		alert(msg);
-		msg = "";
 	}
 /*
  실시간 댓글 알림: 5초마다
@@ -294,8 +423,33 @@ function write(){ // 얘는 왜 있는 거지
 	}
 
 	*/
-	
-	
+	/*슬라이드 쇼*/
+	var slideIndex = 1;
+	showSlides(slideIndex);
+
+	function plusSlides(n) {
+	showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+	showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+	var i;
+	var slides = document.getElementsByClassName("mySlides");
+	var dots = document.getElementsByClassName("dot");
+	if (n > slides.length) {slideIndex = 1}    
+	if (n < 1) {slideIndex = slides.length}
+	for (i = 0; i < slides.length; i++) {
+		slides[i].style.display = "none";  
+	}
+	for (i = 0; i < dots.length; i++) {
+		dots[i].className = dots[i].className.replace(" active", "");
+	}
+	slides[slideIndex-1].style.display = "block";  
+	dots[slideIndex-1].className += " active";
+	}
 	
 
 </script>

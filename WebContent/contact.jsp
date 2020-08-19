@@ -12,6 +12,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<link rel="stylesheet" type="text/css" href="M05_contact.css" />
 		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+		<script src="index.js" defer></script>
 		<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 		<style>
 		</style>
@@ -66,11 +67,9 @@
             </ul>
             
             <div class="top-util">
-            
                 <div class="inner">
-                      <button onclick="location.href='logout'"> 로그아웃 </button>
                     <button type="button" class="profile">
-                        <div class="profile-img"></div> </button>
+                        <div class="profile-img"></div>
                     </button>
                 </div>
             </div>
@@ -78,8 +77,7 @@
          
         <!-- Main Contents -->
         <div id="contents">
-       	<div class="mtitle"> <h1>문의사항 내역</h1></div>            
-            <div class="section-top">
+            <div class="section-topp"><h1>문의사항</h1>
                 <div id="menu">
                     <table>
                         <tr>
@@ -111,11 +109,9 @@
                          
                     </table>
                 </div>
-                </div>
-                </div>
+                
             <div class="section-bot">
             <!--페이징-->
-               <!--  
                 <div class="list-paging">  
                 	<c:if test="${page.curPage ne 1}">
                         <button onClick="fn_paging('${page.prevPage }')">prev</button> 
@@ -134,7 +130,6 @@
                         	<button onClick="fn_paging('${page.nextPage }')">next</button> 
                     </c:if>
                 </div>
-                -->
             </div>
 
         </div>  
@@ -149,7 +144,6 @@ if(msg != ""){
 }
 
 var contact_no = window.location.search.substring(11);
-console.log(contact_no);
 
 function fn_paging(curPage) {
 	if(contact_no.length > 2){
