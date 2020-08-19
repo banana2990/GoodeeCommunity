@@ -81,7 +81,7 @@ crossorigin="anonymous"
                 <div class="board-swipe">
                     <ul>
                         <li>
-                           	<button class="key-color" style="top : -35px">${list[0].boardname}</button>
+                           	<button class="key-color" style="top : -15px">${list[0].boardname}</button>
                         </li>
                     </ul>
                 <!-- 게시글 검색바 -->

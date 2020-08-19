@@ -246,10 +246,6 @@ img {
 							<button id=notice onclick="location.href='boardList?mboard_no=4'" style="color: #670000 !important;
 							border-color: #670000 !important;">공지사항</button>
 						</li>
-						<li>
-							<button style="color: #670000 !important;
-							border-color: #670000 !important;">인기 글</button>
-						</li>
                     </ul>                   
                 </div>
                 
