@@ -114,9 +114,6 @@ background-color: red;
                         <li>
                             <button id=notice onclick="location.href='boardList?mboard_no=4'">공지사항</button>
                         </li>
-                        <li>
-                            <button>인기 글</button>
-                        </li>
                     </ul>
                 </div>
                 
