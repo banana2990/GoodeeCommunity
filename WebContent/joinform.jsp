@@ -12,16 +12,23 @@
 	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
-	
+	body {
+		background-image: url('./image/backgroundimg2.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+
 	.navbar__logo {
 		position: absolute;
-		left: 45px;
+		left: 363px;
 		top: 50px;
 	}
 	
 	.navbar__logo img {
 	    width: 150px;
-	    height: 150px;
+		height: 150px;
+		border-radius: 50%;
 	}
 	
 	.joinbox{
@@ -30,6 +37,11 @@
 		top: 30%;
 		width: 550px;
 		height: 400px;
+		border: 3px solid rgb(148, 186, 201);
+		font-size: large;
+		padding-left: 70px;
+
+		background-color: rgb(224, 220, 213);
 	}
 	
 	table, td,tr {
@@ -211,7 +223,6 @@
 		var $name = $("input[name='name']");
 		var $nickName = $("input[name='nickName']");
 		var $email = $("input[name='u_email']");
-		var $emailChk =$("input[name='auth']");
 		
 		console.log($id);
 		console.log($pw);
@@ -241,9 +252,6 @@
 			}else if($email.val()==""){
 				alert("이메일을 입력해주세요");
 				$email.focus();
-			}else if(emailChk != 1){
-				alert("이메일 인증을 완료해주세요.");
-				$('#auth').focus();
 			}else{// 모든 항목을 입력했을 경우
 				console.log("서버로 전송");
 				
