@@ -37,7 +37,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -76,10 +76,10 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
             </ul>
             
             <div class="top-util">
-                <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
+               <div class="inner">
+               		<button onclick="location.href='logout'"> 로그아웃 </button>
+                  <button type="button" class="profile">
+                      <div class="profile-img"></div> </button>
                 </div>
             </div>
         </nav>
@@ -166,9 +166,14 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 		         +"<td><a href='mngboardDetail?board_no="+item.board_no+"'>" // 위치 조정 필요...
 		        +item.bo_subject+"</td></a><td>"+item.id+"</td><td>"
 		         +item.bo_bHit +"</td><td>"+item.bo_reg_date
-		         +"</td><td><a href='delboard?board_no="+item.board_no+"'> 삭제 </a></td></tr>";
+		         +"</td><td><a href='del?board_no="+item.board_no+"'> 삭제 </a></td></tr>";
 		         $("tbody").append(content);
 		   });
+	}
+	
+	var msg = "${msg}";
+	if(msg != ""){
+		alert(msg);
 	}
 		
 </script>

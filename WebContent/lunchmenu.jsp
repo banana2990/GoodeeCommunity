@@ -21,13 +21,13 @@ crossorigin="anonymous"
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -37,7 +37,7 @@ crossorigin="anonymous"
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
@@ -78,7 +78,7 @@ crossorigin="anonymous"
         <!-- Main Contents -->
         <div id="contents">
             <!--오늘 점심 뭐먹지-->
-            	<div class="board-name">오늘 점심 뭐먹지?</div>
+            	<div class="board-name"><h3>오늘 점심 뭐먹지?</h3></div>
             <button class="menutype-select">한식</button>
             <button class="menutype">중식</button>
             <button class="menutype">일식</button>

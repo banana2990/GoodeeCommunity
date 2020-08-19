@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ㅌ<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix ="c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix ="fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 
@@ -129,7 +129,7 @@ img {
 <body>
 	<div id="container">
         <!-- Main Navbar -->
-        <nav class="navbar" id="navbar">
+               <nav class="navbar" id="navbar">
             <div class="navbar__logo">
                 <a href="main">
                     <img src="image/logo.PNG" alt="로고">
@@ -143,10 +143,9 @@ img {
                       type="text"
                       name="search"
                     />
-                    <button><i class="fas fa-search" id="glass"></i></button>
+                    <button><i class="fas fa-search"></i></button>
                 </form>
-            </div>	
-            
+            </div>            
             <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
@@ -303,7 +302,7 @@ img {
         </div>  
  
 
-    <div class="helpIcon">
+      <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
     </div>
   
@@ -313,12 +312,12 @@ img {
             <p>무엇을 도와드릴까요?</p>
             <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
         </div>
-        <div class="helpIcon__input">
+         <div class="helpIcon__input">
             <br><br>
-            <input type="text" name="writer" placeholder="   작성자"> 
-            <input type="text" name="subject" placeholder="   제목">
-            <input type="text" name="c_email" placeholder="   이메일">
-            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
+            <input type="text" id="writer1" placeholder="   작성자"> 
+            <input type="text" id="subject1" placeholder="   제목">
+            <input type="text" id="c_email1" placeholder="   이메일">
+            <textarea type="text" id="content1" placeholder="     문의 내용"></textarea>
             <br><br>
             <button id="ct_send">보내기</button>
         </div>
@@ -339,7 +338,7 @@ var loginId = "${sessionScope.id}";
 
 console.log(loginId);
 //관리자 로그인시 관리자 페이지로! // 메인 불러오는 것+문의 불러오기 그 다음에 이동하기
-if(loginId!="admin"){}else{location.href="admin_main.jsp";}
+if(loginId!="admin"){}else{location.href="contactmain";}
 
 //세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
@@ -353,25 +352,17 @@ if(loginId==""){
     profile_img.css({"display":"block"});
 }
 
-/*
-function write(){ // 얘는 왜 있는 거지
-	if("${sessionScope.id}" == null ){
-		alert("로그인이 필요합니다.")
-	}else{
-		location.href="write.jsp";
-	}
-}
-*/
-
 //문의사항 보내기
-	$("#ct_send").click(function(){
-
-		var param = {};
-		
-		param.writer = $("input[name='writer']").val();
-		param.subject = $("input[name='subject']").val();
-		param.c_email = $("input[name='c_email']").val();
-		param.content = $("textarea[name='content']").val();
+$("#ct_send").click(function(){
+		var param = {};		
+		param.writer = $("#writer1").val();
+		console.log(param.writer);
+		param.subject = $("#subject1").val();
+		console.log(param.subject);
+		param.c_email = $("#c_email1").val();
+		console.log(param.c_email);
+		param.content = $("#content1").val();
+		console.log(param.content);
 		
 		$.ajax({
 	        type: "post",
@@ -385,8 +376,7 @@ function write(){ // 얘는 왜 있는 거지
 	        error: function(error){
 	        	alert(data.contactmsg);
 	        }
-	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
-
+	     });
 	});
 
 	function fn_paging(curPage) {

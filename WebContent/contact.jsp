@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -68,9 +68,9 @@
             
             <div class="top-util">
                 <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
+               		<button onclick="location.href='logout'"> 로그아웃 </button>
+                  <button type="button" class="profile">
+                      <div class="profile-img"></div> </button>
                 </div>
             </div>
         </nav>
@@ -83,18 +83,18 @@
                         <tr>
                             <th>No</th>
                             <th>작성자</th>
+                            <th>제목</th>
                             <th>내용</th>
                             <th>이메일</th>
-                            <th>접수일</th>
                             <th>상태</th>
                         </tr>
                         
                         <!-- 문의사항 리스트 -->
                         <c:forEach var="contact" items="${contact}">
 						<tr>
-							<td><p><c:out value="${contact.contact_no}"/></p></td>
-							<td><p><c:out value="${contact.writer}" /></p></td>
-							<td><p><c:out value="${contact.subject}" /></p></td>
+							<td><c:out value="${contact.contact_no}"/></td>
+							<td><c:out value="${contact.writer}" /></td>
+							<td><c:out value="${contact.subject}" /></td>
 							<td><p><c:out value="${contact.content}" /></p></td>
 							<td><p><c:out value="${contact.c_email}" /></p></td>
 							<c:if test="${contact.c_status eq 0}">

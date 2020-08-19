@@ -55,7 +55,7 @@
 </head>
 	<body>
          <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                  </a>
          </div>       
@@ -116,9 +116,7 @@
             <button id="ct_send">보내기</button>
         </div>
     </div>
-        
-    </div>
-		
+       	
 	</body>
 
 <script>
