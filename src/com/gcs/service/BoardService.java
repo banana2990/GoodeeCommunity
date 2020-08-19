@@ -11,6 +11,9 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import com.gcs.DAO.BoardDAO;
 import com.gcs.DTO.BoardDTO;
 import com.google.gson.Gson;
@@ -119,7 +122,7 @@ public class BoardService  {
 		String location = "boardList.jsp";
 			
 		try {
-			if(mboard_no == null || mboard_no.length() < 1) {
+			if(mboard_no == null) {
 				location= "index.jsp";
 				list = dao.allBoard(startPage, endPage);
 				listCnt = dao.AllListCnt();
@@ -169,6 +172,7 @@ public class BoardService  {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
+			dao.resClose();
 			req.setAttribute("boardDetail", dto);
 			RequestDispatcher dis = req.getRequestDispatcher("boardUpdate.jsp");
 			dis.forward(req, resp);
@@ -267,8 +271,6 @@ public class BoardService  {
 		dao.delcom(idx,id); //근데 끝나고 어디로 가?
 	  	}	
 	
-	public void myBoardList() {
-		}
 
 	//검색
 	public void search() throws IOException, ServletException{
@@ -413,7 +415,9 @@ public class BoardService  {
 			likeStatus = dao.detailLikeStatus(board_no, id); // 내가 좋아요를 했는가 상태
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			dao.resClose();
+		}
 		
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();

@@ -11,6 +11,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.apache.commons.dbcp2.BasicDataSource;
+
 import com.gcs.DTO.BoardDTO;
 
 public class BoardDAO {
@@ -88,6 +90,8 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			resClose();
 		}
 		return result;	
 	}
@@ -206,6 +210,8 @@ public class BoardDAO {
 			dto.setBo_bHit(rs.getInt("bo_bHit"));
 		}
 		
+		ps.close();
+		rs.close();
 	
 		return dto;
 	}
@@ -236,6 +242,7 @@ public class BoardDAO {
 						dto.setBlike_cnt(rs.getString("COUNT(board_no)"));
 						blikeCnt.add(dto);
 						ps.close();
+						rs.close();
 					}
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -256,6 +263,7 @@ public class BoardDAO {
 				if(rs.next()) {
 					commentCnt.add(i, rs.getInt("COUNT(*)"));
 					ps.close();
+					rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -376,6 +384,9 @@ public class BoardDAO {
 			list.add(dto);
 		}
 		
+		ps.close();
+		rs.close();
+		
 		return list;	
 	}
 
@@ -396,7 +407,10 @@ public class BoardDAO {
 			cnt = rs.getInt("COUNT(*)");
 		}
 		
-		return cnt;
+		ps.close();
+		rs.close();
+		
+		return cnt;			
 	}
 
 	public ArrayList<Integer> recommentCnt(ArrayList<BoardDTO> list, ArrayList<Integer> commentCnt) {
@@ -413,6 +427,7 @@ public class BoardDAO {
 				if(rs.next()) {
 					allCnt.add(i,commentCnt.get(i)+rs.getInt("COUNT(*)"));
 					ps.close();
+					rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -442,6 +457,9 @@ public class BoardDAO {
 			dto.setNickName(rs.getString("nickname"));
 			list.add(dto);
 		}
+		
+		ps.close();
+		rs.close();
 		
 		return list;
 	}
@@ -489,6 +507,9 @@ public class BoardDAO {
 			cnt = rs.getInt("COUNT(*)");
 		}
 		
+		ps.close();
+		rs.close();
+		
 		return cnt;
 	}	
 
@@ -534,6 +555,7 @@ public class BoardDAO {
 				e.printStackTrace();
 			} finally {
 				ps.close();
+				rs.close();
 			}
 			
 		}
@@ -552,6 +574,9 @@ public class BoardDAO {
 		if(rs.next()) {
 			allCnt = rs.getInt("COUNT(*)")+commentCnt;
 		}
+		
+		ps.close();
+		rs.close();
 
 		return allCnt;
 	}
@@ -575,7 +600,9 @@ public class BoardDAO {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		} finally {
+			resClose();
+		}
 		return result;	
 	}
 
