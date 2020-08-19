@@ -125,7 +125,15 @@ crossorigin="anonymous"
 	                           					<input type="text" name="co_content" id="reply_content" class="nologin-disabled" >
 	                        				</c:otherwise>
                         				</c:choose>
-										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
+                        				<c:choose>
+                                        	<c:when test="${sessionScope.id eq null}">
+	                            				<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록" disabled>
+	                        				</c:when>
+	                        				<c:otherwise>
+	                           					<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
+	                        				</c:otherwise>
+                        				</c:choose>
+										
 								</form>									
                             </div>
                         </div>
