@@ -573,7 +573,7 @@ input[type="text"]:focus {
     height: 52px;
     padding: 0 36px;
     font-size: 20px;
-    border: 1px solid #dedede;
+    border: 1px solid darkgreen;
     border-radius: 26px;
     margin-left: 30px;
 }
