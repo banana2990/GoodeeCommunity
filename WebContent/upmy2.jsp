@@ -19,13 +19,13 @@
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="#">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -35,29 +35,29 @@
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#">
+                    <a href="boardList?mboard_no=1">
                         <span>자유 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList?mboard_no=2">
                         <span>학습 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="boardList?mboard_no=3">
                         <span>익명 게시판</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="lunchmenu.jsp">
                         <span>오늘 점심 뭐먹지?</span>
                     </a>
                 </li>
@@ -65,7 +65,7 @@
             
             <div class="top-util">
                <div id="profile_img" class="boxx">
-            		<jsp:include page="upmy1.jsp"/>
+                    <jsp:include page="upmy1.jsp"/>
 		        </div>
                 <div class="inner">                    
                     <button id="login" class="login" onclick="location.href='login.jsp'">로그인</button>
@@ -81,7 +81,7 @@
       <div class="upmy2">      
         <div class="upmy3_1">          
           <div class="upimge">
-            <a href="#"><img class="imge_1" id="userphoto" src="image/member.png"/></a>
+            <img class="imge_1" id="userphoto" src="image/member.png"/>
             <div class="u">
               <button onclick="openwindow()">등록</button>
               <a href="photoDel"><button>삭제</button></a>
@@ -112,7 +112,7 @@
         </form>
         
         <div class="out">
-         <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;" />
+         <input type="button" id="memOut" value="회원 탈퇴" onclick="location.href='memberout'" style="width: 100px; height: 50px;"/>
         </div>
       
       </div>
@@ -131,21 +131,7 @@
                         <button>댓글 단 글</button>
                       </div>
                   </a>
-              </li>
-              <li>
-                  <a href="">
-                      <div class="screen">
-                        <button>좋아요 한 글</button>
-                      </div>
-                  </a>
-              </li>
-              <li>
-                <a href="">
-                    <div class="screen">
-                      <button>작성한 학습사항</button>
-                    </div>
-                </a>
-            </li>
+              </li>              
           </ul>
       </div>
       <div class="dap">
@@ -226,6 +212,25 @@
       loginbtn.css({"display":"none"});
       profile_img.css({"display":"block"});
   }
+  
+  $(document).ready(function(){
+		$.ajax({
+	    type: "post",
+      url: "userphoto",
+      dataType: "JSON",
+      success: function(data){
+      	console.log(data.userphoto);
+			var userphoto = "image/member/"+data.userphoto;  
+			console.log(userphoto);
+      	$("#userphoto").attr('src',userphoto);
+      	$("#userphotoin").attr('src',userphoto);        	
+      },
+      error: function(error){
+         console.log(error);
+      }
+	  	});
+	  	
+});
   
 		/*닉네임 중복 확인*/
 	  $("#nickChck").click(function(){
@@ -313,7 +318,7 @@
 			location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
 		}	
 	  
-  
+		
   
   </script>
 </html>
