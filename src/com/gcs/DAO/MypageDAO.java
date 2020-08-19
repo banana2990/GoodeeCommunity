@@ -42,11 +42,11 @@ public class MypageDAO {
 	
 	public ArrayList<BoardDTO> boardList(String id, int startPage, int endPage) throws SQLException {
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
-		BoardDTO dto = new BoardDTO();
-		String sql = "SELECT ta.rnum, ta.board_no, ta.mBoard_no, ta.id, ta.bo_subject, ta.bo_reg_date, "
-				+ "ta.bo_bHit, tb.boardname FROM (SELECT ROW_NUMBER()OVER(ORDER BY board_no DESC) AS rnum, "
-				+ "board_no, mBoard_no, id, bo_subject, bo_reg_date, bo_bHit FROM board WHERE id = ?) ta "
-				+ "INNER JOIN mBoard tb ON ta.mBoard_no = tb.mboard_no WHERE rnum BETWEEN ? AND ?";
+		String sql = "SELECT r.rnum, r.board_no, r.mboard_no, r.id, r.bo_subject, r.bo_content, r.bo_reg_date, r.bo_bhit, "
+				+ "m.boardname, r.nickname FROM (SELECT ROW_NUMBER() OVER(ORDER BY board_no DESC) AS rnum, "
+				+ "b.board_no, b.mboard_no, b.id, b.bo_subject, b.bo_content, b.bo_reg_date, b.bo_bhit, m.nickname "
+				+ "FROM board b, member m WHERE m.id = b.id and b.id=?) r, mboard m "
+				+ "WHERE r.mBoard_no = m.mBoard_no AND rnum BETWEEN ? AND ?";
 
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, id);
@@ -56,7 +56,7 @@ public class MypageDAO {
 		rs = ps.executeQuery();		
 		
 		while(rs.next()) {
-			
+			BoardDTO dto = new BoardDTO();
 			dto.setBoard_no(rs.getInt("board_no"));
 			dto.setMboard_no(rs.getInt("mboard_no"));
 			dto.setId(rs.getString("id"));
