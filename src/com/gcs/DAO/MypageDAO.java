@@ -65,7 +65,11 @@ public class MypageDAO {
 			dto.setBo_bHit(rs.getInt("bo_bHit"));
 			dto.setBoardname(rs.getString("boardName"));
 			
-			list.add(dto);}
+			list.add(dto);
+		}
+		
+		ps.close();
+		rs.close();
 			
 		return list;
 	}
@@ -102,6 +106,9 @@ public class MypageDAO {
 						blikeCnt.add(dto);
 						ps.close();
 					}
+					
+					ps.close();
+					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} 
@@ -126,6 +133,7 @@ public class MypageDAO {
 					dto.setCommentCnt(rs.getInt("COUNT(*)"));
 					commentCnt.add(dto);
 					ps.close();
+					rs.close();
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
