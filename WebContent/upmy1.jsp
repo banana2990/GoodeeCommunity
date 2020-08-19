@@ -58,7 +58,7 @@
            function(){layer.addClass('hide')} 
          );
        });
-      /*
+     
       $.ajax({
   	    type: "post",
         url: "userphoto",
@@ -68,14 +68,13 @@
 			var userphoto = "image/member/"+data.userphoto;  
 			console.log(userphoto);
         	$("#userphoto").attr('src',userphoto);
-        	$("#userphotoin").attr('src',userphoto);
-        	
+        	$("#userphotoin").attr('src',userphoto);        	
         },
         error: function(error){
            console.log(error);
         }
   	  	});
-	  	*/
+	  	
 });
 </script>
 </html>

@@ -91,7 +91,7 @@ public class MemberDAO {
 		int result = ps.executeUpdate();
 		if(result>0) {
 			success=true;
-		}		
+		}
 		return success;	
 	}
 	
@@ -109,7 +109,6 @@ public class MemberDAO {
 		}else {
 			id="";
 		}
-		resClose();
 		return id;	
 	}
 	// 이메일로 비밀번호 받기
@@ -119,17 +118,16 @@ public class MemberDAO {
 		ps.setInt(1, dice);
 		ps.setString(2, email);		
 		int success = ps.executeUpdate();
+		resClose();
 		return success;		
 	}
 	// 회원 리스트 불러오기 - 관리자 ? 이거 어디서 쓰이는 거죠...?
 	public ArrayList<MemberDTO> memberList() {
 		String sql = "SELECT * FROM member";
-		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();
-		
+		ArrayList<MemberDTO> list = new ArrayList<MemberDTO>();		
 		try {
 			ps = con.prepareStatement(sql);//3. 쿼리문 실행
-			rs = ps.executeQuery();//4. 결과값 가져오기
-					
+			rs = ps.executeQuery();//4. 결과값 가져오기					
 			while(rs.next()) {//값을 하나씩 꺼냄
 				MemberDTO dto = new MemberDTO();//DB 에서 가져온 데이터들을 여기에 담을 예정
 				dto.setId(rs.getString("id"));
@@ -144,8 +142,7 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			resClose();//5. 자원 반납
-		}
-		
+		}		
 		return list;
 		
 	}
@@ -179,6 +176,7 @@ public class MemberDAO {
 			delCount += ps.executeUpdate();
 		}
 		System.out.println("삭제한 갯수 : "+delCount);
+		resClose();
 		return delCount;
 	}
 	
@@ -197,7 +195,7 @@ public class MemberDAO {
 			dto.setU_email(rs.getString("u_email"));
 			dto.setU_email_checked(rs.getBoolean("u_email_checked"));
 			list.add(dto);
-		}		
+		}		resClose();
 		return list;
 	}
 	//회원 및 관리자 정보 조회 
@@ -216,7 +214,7 @@ public class MemberDAO {
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}		
+		}	finally {resClose();}
 		return dto;
 	}
 	

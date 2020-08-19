@@ -83,7 +83,7 @@ public class MemberService {
 		}
 		
 	}
-	// 회원가입 - 사진도 등록됨
+	// 회원가입
 	public void join() throws IOException {
 		String id = req.getParameter("id");
 		String pw = req.getParameter("pw");

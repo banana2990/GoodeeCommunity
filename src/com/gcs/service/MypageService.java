@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gcs.DAO.BoardDAO;
 import com.gcs.DAO.MypageDAO;
 import com.gcs.DTO.BoardDTO;
 import com.gcs.DTO.MemberDTO;
@@ -42,7 +43,8 @@ public class MypageService {
 	
 		ArrayList<BoardDTO> list = null;		
 		ArrayList<BoardDTO> blikeCnt = null;	
-		ArrayList<BoardDTO> commentCnt = null;	
+		ArrayList<Integer> commentCnt = null;	
+		ArrayList<Integer> allCommentCnt = null;	
 		System.out.println(id+" 아이디 /  curPage"+curPage);
 		
 		MypageDAO dao = new MypageDAO();
@@ -59,15 +61,18 @@ public class MypageService {
 		
 		// 얘내는 자체적으로 prepareStatement 종료시켜줌
 		blikeCnt = dao.blikeCnt(list);
-		commentCnt = dao.commentCnt(list);						
+		BoardDAO boardDAO = new BoardDAO();
+		commentCnt = boardDAO.commentCnt(list);
+		allCommentCnt = boardDAO.recommentCnt(list, commentCnt);
+						
 		
 		dao.resClose();
 		
 		Pagination page = new Pagination(listCnt, curPage);
-		
+		System.out.println(list);
 		req.setAttribute("list", list);
 		req.setAttribute("blikeCnt", blikeCnt);
-		req.setAttribute("commentCnt", commentCnt);
+		req.setAttribute("commentCnt", allCommentCnt);
 		req.setAttribute("page", page);
 		
 		RequestDispatcher dis = req.getRequestDispatcher(location);
