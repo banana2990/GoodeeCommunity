@@ -240,6 +240,9 @@
 			}else if($email.val()==""){
 				alert("이메일을 입력해주세요");
 				$email.focus();
+			}else if(emailChk != 1){
+				alert("이메일 인증을 완료해주세요.");
+				$('#auth').focus();
 			}else{// 모든 항목을 입력했을 경우
 				console.log("서버로 전송");
 				
