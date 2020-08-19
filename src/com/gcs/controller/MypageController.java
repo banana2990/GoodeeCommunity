@@ -37,13 +37,15 @@ public class MypageController extends HttpServlet {
 			break;
 			
 		case "/mycomment":
+			System.out.println("마이페이지 댓글 불러오기");
+			service.commentList();			
 			break;
-			
+		/*
 		case "/commentalert": // 실시간 댓글 알림
 			System.out.println("댓글 알림");
 			service.comalert();
 			break;
-			
+		*/	
 		case "/photoUp": // 사진 업로드
 			String id = req.getParameter("id");					
 			service.upload(id);							

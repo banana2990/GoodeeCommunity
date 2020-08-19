@@ -127,9 +127,8 @@
                   </a>
               </li>
               <li>
-                  <a href="">
-                      <div class="screen">
-                        <button>댓글 단 글</button>
+                        <div class="screen">
+                        <button onclick="listCall()">댓글 단 글</button>
                       </div>
                   </a>
               </li>              
@@ -137,7 +136,7 @@
       </div>
       <div class="dap">
 			<!-- 내가쓴 것들의 목록 -->
-			<div class="list-box">
+			<div class="list-box" id="boardlist">
                 	<c:forEach items="${list }" var="bbs" varStatus="status">
 	                	<ul>              	
 							<li>
@@ -185,7 +184,23 @@
                         	<button onClick="fn_paging('${page.nextPage }')">next</button> 
                     </c:if>
                 </div>
-
+      
+  
+      				<div id="commentlist">       
+			            <table id="listsection">
+		    			    <thead>
+		    			    <tr style="background-color: rgb(138, 190, 59)">
+								<th>no.</th> 
+								<th>내용</th> 
+								<th>작성일</th> 
+								<th>삭제</th>
+						     </tr> 
+						     </thead>
+							     <tbody>
+							     </tbody>
+						     </table>
+			        	</div>      
+      
       </div>
 
       </div>
@@ -311,12 +326,40 @@
             openWin.document.getElementById("mypageid").value = "${sessionScope.id}";
 		}
 		
+		
+		//댓 불러오기
+		function listCall(){
+			$.ajax({
+		        type: "post",
+		        url: "mycomment",
+		        dataType: "JSON",
+		        success: function(data) {
+		            console.log(data.list);
+		            drawTable(data.list);
+		        },
+			    error: function() {
+			        console.log(data);
+			    }
+		    });
+		}
+		
+		function drawTable(list){
+			var content = "";
+			var i = 1;
+			   $("tbody").empty();   
+			   list.forEach(function(item,num){
+			      console.log(num,item);
+			      content = "<tr><td>"+ i++ +"</td>"
+			         +"<td><a href='boardDetail?board_no="+item.board_no+"'>" // 위치 조정 필요...
+			        +item.co_content+"</td></a><td>"+item.co_reg_date+"</td>"+
+			        "<td><a href='deletecom?board_no="+item.board_no+"'> 삭제 </a></td></tr>";
+			         $("tbody").append(content);
+			   });
+		}
+
 			
 		function fn_paging(curPage) {
-			if(mboard_no.length > 2){
-				mboard_no = window.location.search.substring(21);
-			}
-			location.href = "boardList?curPage="+curPage+"&mboard_no="+mboard_no;
+			location.href = "myboard?curPage="+curPage;
 		}
 		
   

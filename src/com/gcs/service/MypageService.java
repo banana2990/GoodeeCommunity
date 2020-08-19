@@ -79,12 +79,15 @@ public class MypageService {
 		dis.forward(req, resp);		
 	}
 
+	
+	
+	/*
 	public void comalert() {
 		String id = (String) req.getSession().getAttribute("id");
 		MypageDAO dao = new MypageDAO();
-		dao.comalert(id);
-		
+		dao.comalert(id);		
 	}
+	*/
 
 	//사진 업로드	
 		public void upload(String id) {		
@@ -126,6 +129,49 @@ public class MypageService {
 				upload.delete(fileName);
 			}
 			//resp.sendRedirect("./");//다 하고 나서 리스트로 보내기		
+		}
+
+		public void commentList() throws ServletException, IOException {
+			String id = (String) req.getSession().getAttribute("id");
+			
+			String pageParam = req.getParameter("curPage");
+			
+			System.out.println("전달받은 curPage의 값 = "+pageParam);
+			
+			int curPage = 1; // 첫 페이지 1 설정
+			int listCnt = 0;
+			if(pageParam != null) {
+				curPage = Integer.parseInt(pageParam);			
+			}
+		
+			int startPage =  (curPage)*5-4;
+			int endPage = (curPage)*5;
+			
+			System.out.println(id+"/"+curPage);
+			
+			ArrayList<BoardDTO> list = null;	
+			
+			MypageDAO dao = new MypageDAO();
+			//String location = "upmy2.jsp"; // 리로드할 곳 up
+				
+			try {		
+					list = dao.commentList(id, startPage, endPage);
+					listCnt = dao.listComCnt(id); // 총 게시물의 개수			
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			dao.resClose();
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			Gson gson = new Gson();	     	
+			Pagination page = new Pagination(listCnt, curPage);
+			System.out.println(list);			
+			map.put("list",list);
+		      String obj = gson.toJson(map);
+		      System.out.println(obj);
+		      resp.setContentType("text/html; charset=UTF-8");
+		      resp.getWriter().println(obj);
+			
 		}
 			
 		

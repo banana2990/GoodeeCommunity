@@ -51,10 +51,8 @@ public class MypageDAO {
 		ps = conn.prepareStatement(sql);
 		ps.setString(1, id);
 		ps.setInt(2, startPage);
-		ps.setInt(3, endPage);
-		
-		rs = ps.executeQuery();		
-		
+		ps.setInt(3, endPage);		
+		rs = ps.executeQuery();				
 		while(rs.next()) {
 			BoardDTO dto = new BoardDTO();
 			dto.setBoard_no(rs.getInt("board_no"));
@@ -63,14 +61,11 @@ public class MypageDAO {
 			dto.setBo_subject(rs.getString("bo_subject"));
 			dto.setBo_reg_date(rs.getDate("bo_reg_date"));
 			dto.setBo_bHit(rs.getInt("bo_bHit"));
-			dto.setBoardname(rs.getString("boardName"));
-			
+			dto.setBoardname(rs.getString("boardName"));			
 			list.add(dto);
-		}
-		
+		}		
 		ps.close();
-		rs.close();
-			
+		rs.close();			
 		return list;
 	}
 
@@ -83,18 +78,27 @@ public class MypageDAO {
 		rs = ps.executeQuery();
 		if(rs.next()) {
 			cnt = rs.getInt("num");
-		}
+		}		
+		return cnt;
+	}
+	
+	public int listComCnt(String id) throws SQLException {
+		String sql = "SELECT COUNT(*) AS num FROM commentary WHERE id=?";
+		int cnt = 0;
+		ps = conn.prepareStatement(sql);
+		ps.setString(1, id);
 		
+		rs = ps.executeQuery();
+		if(rs.next()) {
+			cnt = rs.getInt("num");
+		}		
 		return cnt;
 	}
 
 	public ArrayList<BoardDTO> blikeCnt(ArrayList<BoardDTO> list) {
-		ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();
-		
-		for (int i = 0; i < list.size(); i++) {
-			
+		ArrayList<BoardDTO> blikeCnt = new ArrayList<BoardDTO>();		
+		for (int i = 0; i < list.size(); i++) {			
 			String sql = "SELECT COUNT(board_no) FROM blike WHERE board_no=?";
-
 				try {
 					ps = conn.prepareStatement(sql);
 					ps.setInt(1, list.get(i).getBoard_no());
@@ -103,45 +107,16 @@ public class MypageDAO {
 					if(rs.next()) {
 						BoardDTO dto = new BoardDTO();
 						dto.setBlike_cnt(rs.getString("COUNT(board_no)"));
-						blikeCnt.add(dto);
-						ps.close();
-					}
-					
+						blikeCnt.add(dto);						
+					}					
 					ps.close();
 					rs.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				} 
-
 		}
 		
 		return blikeCnt;
-	}
-
-	public ArrayList<BoardDTO> commentCnt(ArrayList<BoardDTO> list) {
-		ArrayList<BoardDTO> commentCnt = new ArrayList<BoardDTO>();
-		
-		for (int i = 0; i < list.size(); i++) {
-			String sql = "SELECT COUNT(*) FROM commentary c, recomment r WHERE board_no=?";
-			try {
-				ps = conn.prepareStatement(sql);
-				ps.setInt(1, list.get(i).getBoard_no());
-				rs = ps.executeQuery();
-				
-				if(rs.next()) {
-					BoardDTO dto = new BoardDTO();
-					dto.setCommentCnt(rs.getInt("COUNT(*)"));
-					commentCnt.add(dto);
-					ps.close();
-					rs.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
-		return commentCnt;
 	}
 
 	public void comalert(String id) {
@@ -238,6 +213,34 @@ public class MypageDAO {
 			}	finally {
 				resClose();
 			}
+			return list;
+		}
+
+		// 사용자 코멘트 리스트
+		public ArrayList<BoardDTO> commentList(String id, int startPage, int endPage) throws SQLException {
+			ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
+			String sql = "SELECT rnum, board_no, id, co_content, co_reg_date "
+					+ "FROM (SELECT ROW_NUMBER() OVER(ORDER BY comment_no DESC) AS rnum, "
+					+ "board_no, id, co_content, co_reg_date FROM commentary WHERE id = ?) WHERE id = ? and "
+					+ "rnum BETWEEN ? AND ?";
+			
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, id);
+			ps.setString(2, id);
+			ps.setInt(3, startPage);
+			ps.setInt(4, endPage);
+			
+			rs = ps.executeQuery();				
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();				
+				dto.setBoard_no(rs.getInt("board_no"));
+				dto.setId(rs.getString("id"));
+				dto.setCo_content(rs.getString("co_content"));
+				dto.setCo_reg_date(rs.getDate("co_reg_date"));				
+				list.add(dto);
+			}
+			ps.close();
+			rs.close();			
 			return list;
 		}
 		

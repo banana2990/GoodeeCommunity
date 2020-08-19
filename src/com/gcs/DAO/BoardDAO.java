@@ -169,8 +169,7 @@ public class BoardDAO {
 		return list;	
 	}
 
-	public int listCnt(String mboard_no) throws SQLException {
-		
+	public int listCnt(String mboard_no) throws SQLException {		
 		String sql = "SELECT COUNT(*) AS num FROM board WHERE mboard_no=?";
 		int cnt = 0;
 		ps = conn.prepareStatement(sql);
