@@ -56,7 +56,7 @@
 
 <body>
     <div class="navbar__logo">
-            <a href="index.jsp">
+            <a href="main">
                 <img src="image/logo.PNG" alt="로고">
              </a>
     </div>           

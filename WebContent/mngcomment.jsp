@@ -95,7 +95,7 @@
                         <tr>
                             <td> ${bbs.comment_no} </td>
                             <td> ${bbs.boardname}</td>
-                            <td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
+                            <td> <a href="boardDetail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
                             <td> ${bbs.id} </td>
                             <td> ${bbs.co_reg_date} </td>							
                             <td> <button onclick = "location.href='delmngcomment?comment_no=${bbs.comment_no}'">삭제 </button></td>								
