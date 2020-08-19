@@ -302,38 +302,7 @@ crossorigin="anonymous"
 	    loginbtn.css({"display":"none"});
 	    profile_img.css({"display":"block"});
 	}
-	//문의사항 보내기
-	$("#ct_send").click(function(){
-		
-		var $writer = $("input[name='writer']");
-		var $subject = $("input[name='subject']");
-		var $c_email = $("input[name='c_email']");
-		var $content = $("input[name='content']");
-		
-		console.log($write,$subject,$c_email,$content);
-		
-		var param = {};
-		
-		param.writer = $("input[name='writer']").val();
-		param.subject = $("input[name='subject']").val();
-		param.c_email = $("input[name='c_email']").val();
-		param.content = $("input[name='content']").val();
-		
-		$.ajax({
-	        type: "post",
-	        url: "contactWrite",
-	        data: param,
-	        dataType: "JSON",
-	        success: function(data){
-	        	console.log(data.contactmsg);
-	        	alert("msg");
-	        },
-	        error: function(error){
-	           console.log(error);
-	        }
-	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
-
-	});
+	
 	
 function likeCall(){
 	$.ajax({

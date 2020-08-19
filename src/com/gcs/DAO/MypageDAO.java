@@ -21,8 +21,8 @@ public class MypageDAO {
 	
 	public MypageDAO() {
 		try {
-			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle");
+			Context ctxt = new InitialContext();
+			DataSource ds = (DataSource) ctxt.lookup("java:comp/env/jdbc/Oracle");
 			conn = ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -119,33 +119,27 @@ public class MypageDAO {
 		return blikeCnt;
 	}
 
-	public void comalert(String id) {
-		String sql = "SELECT * FROM board WHERE id =?";
-		// 이 아이디가 작성한 글의 board_no를 가진 코멘트의 갯수를 센다.
-		/// 이부분 쿼리가 이제 문제겠네용! 이따 생각해보기! 쿼리는 섞어야 겠네...
-		try {
-			ps = conn.prepareStatement(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {resClose();}
-		
-	}
-
 	// 사진 업로드 
-		public void pupload(MemberDTO dto) throws SQLException {
+		public boolean pupload(MemberDTO dto) {
+			boolean result = false;
 			String sql ="";
 			String id = dto.getId();
 			System.out.println("ID: "+id);
 			if(dto.getOriName()!=null) { // photo 테이블에 데이터 추가
 				sql="INSERT INTO photo (photo_no, id, oriName, newName) VALUES (seq_photo.NEXTVAL, ?,?,?)";
-				ps = conn.prepareStatement(sql);
-				ps.setString(1, id);
-				ps.setString(2, dto.getOriName());
-				ps.setString(3, dto.getNewName());
-				ps.executeUpdate();
-			}
-			resClose();
+				try {
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, id);
+					ps.setString(2, dto.getOriName());
+					ps.setString(3, dto.getNewName());
+						if(ps.executeUpdate()>0) {
+							result = true;
+						}
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {resClose();}
+			}			
+			return result;
 		}
 		
 		// 파일명 업데이트
@@ -176,22 +170,23 @@ public class MypageDAO {
 		
 		// 파일명 추출하기
 		public String getFileName(String id) {
-			String newName = null;
-			String sql = "SELECT newName FROM photo WHERE ID=?";			
+			String oriName = null;
+			String sql = "SELECT oriName FROM photo WHERE ID=?";			
 			try {
 				ps = conn.prepareStatement(sql);
 				ps.setString(1, id);
 				rs = ps.executeQuery();				
+				
 				if(rs.next()) {
-					newName = rs.getString(1);
+					oriName = rs.getString(1);
 				}				
 			} catch (SQLException e) {
 				e.printStackTrace();
 			} finally {
 				resClose();
 			}
-			System.out.println(newName);
-			return newName;
+			System.out.println(oriName);
+			return oriName;
 		}
 
 		// 사용자 사진 가져오기
@@ -242,6 +237,21 @@ public class MypageDAO {
 			ps.close();
 			rs.close();			
 			return list;
+		}
+
+		public boolean delphoto(String id){
+			boolean result = false;
+			String sql = "DELETE FROM photo WHERE ID = ?";
+			try {
+				ps = conn.prepareStatement(sql);
+				ps.setString(1, id);			
+				if(ps.executeUpdate()>0) {
+					result = true;
+				}
+			} catch (SQLException e) {				
+				e.printStackTrace();
+			} finally {resClose();}			
+			return result;
 		}
 		
 	

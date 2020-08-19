@@ -463,8 +463,6 @@ public class BoardDAO {
 		return list;
 	}
 		
-
-	
 	public BoardDTO mboardDetail(String board_no) throws SQLException {
 		BoardDTO dto = new BoardDTO();
 		
@@ -491,8 +489,6 @@ public class BoardDAO {
 		}	
 		return dto;
 	}
-
-		
 
 	public int detailCommentCnt(String board_no) throws SQLException {
 		int cnt = 0;

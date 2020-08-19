@@ -95,7 +95,6 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
                             		<!--  세션 스코프 확인했을 때 관리자면 공지사항 option 추가 -->
                                 </select>
                                 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
-				                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
 				                <div class="note-editing-area">
 				                       <textarea name="content" class="textarea"></textarea>
 				                </div>  

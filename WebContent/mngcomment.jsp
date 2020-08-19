@@ -11,7 +11,7 @@
 	
 	<script
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-		<title>관리자 카테고리별 댓글 가져오기</title>
+		<title>구디 커뮤니티</title>
 		<style>
 				table, th, td,tr {
 					border: 1px solid olive;

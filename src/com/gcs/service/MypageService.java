@@ -79,56 +79,62 @@ public class MypageService {
 		dis.forward(req, resp);		
 	}
 
-	
-	
-	/*
-	public void comalert() {
-		String id = (String) req.getSession().getAttribute("id");
-		MypageDAO dao = new MypageDAO();
-		dao.comalert(id);		
-	}
-	*/
-
 	//사진 업로드	
-		public void upload(String id) {		
+		public void upload(String id) throws IOException, ServletException {		
 			MypageDAO dao = new MypageDAO();
-			try {
-				PhotoService pservice = new PhotoService(req);
-				MemberDTO dto = pservice.upload();
-				dao.pupload(dto);
-			} catch (SQLException e) {	
-				e.printStackTrace();
-			} 
+			PhotoService pservice = new PhotoService(req);
+			MemberDTO dto = pservice.upload();		
+			String msg = "사진 업로드가 실패하였습니다.";
+			if(dao.pupload(dto)) {
+				msg = "사진 업로드에 성공했습니다.";
+			}
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("photo_test.jsp");
+			dis.forward(req, resp);			
 		}
 		
 		// 프로필 사진 불러오기
 		public void userphoto() throws IOException {
+			req.setCharacterEncoding("UTF-8");
 			MypageDAO dao = new MypageDAO();
 			String id = (String) req.getSession().getAttribute("id");
 			ArrayList<MemberDTO> list = null;		
-			list = dao.userphoto(id);
-			System.out.println(list.get(0).getOriName());
-			//
+			list = dao.userphoto(id);	
+			String oriname ="";
+			if(list!=null) {
+				oriname = list.get(0).getOriName();
+			}
+			req.getSession().setAttribute("userphoto",oriname);
+			System.out.println(req.getAttribute("userphoto"));
+			
 			HashMap<String,Object> map =  new HashMap<String, Object>();
-			map.put("userphoto",list.get(0).getOriName());
+			map.put("userphoto",oriname);
 			Gson json = new Gson();
 			String obj = json.toJson(map);
 			System.out.println("result :"+obj);
-			resp.getWriter().println(obj);
+			resp.getWriter().println(obj);				
 		}
 
 		
 		//사진 삭제하기
-		public void delphoto(String id) {
+		public void delphoto(String id) throws ServletException, IOException {
 			MypageDAO dao = new MypageDAO();
 			PhotoService upload = new PhotoService(req);
 			String fileName = dao.getFileName(id);//파일명 추출(photo)	
+			System.out.println("파일명" + fileName);
+			
 			dao = new MypageDAO();//이미 getFileName 에서 커넥션을 쓰고 반납 했으므로 다시 생성
-			if(fileName != null) {//글 삭제도 되고 지울 파일도 존재할 경우
-				System.out.println("파일 삭제");
-				upload.delete(fileName);
-			}
-			//resp.sendRedirect("./");//다 하고 나서 리스트로 보내기		
+			if(fileName != null) {
+				upload.delete(fileName); //삭제할 파일이 있어으면 파일을 지우는 작업
+				}		
+			String msg = "사진 삭제가 실패했습니다.";
+			if(dao.delphoto(id)) {// 테이블에서 지우는 작업
+				msg = "사진을 삭제했습니다.";
+				}
+			req.getSession().removeAttribute("userphoto");
+			req.setAttribute("msg", msg);
+			RequestDispatcher dis = req.getRequestDispatcher("myPageList");
+			dis.forward(req, resp);
 		}
 
 		public void commentList() throws ServletException, IOException {

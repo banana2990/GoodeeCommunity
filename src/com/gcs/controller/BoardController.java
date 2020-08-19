@@ -68,9 +68,10 @@ public class BoardController extends HttpServlet {
 				req.setAttribute("writeMsg", writeMsg);
 				RequestDispatcher dis = req.getRequestDispatcher("index.jsp");
 				dis.forward(req, resp);
-			} else if(req.getSession().getAttribute("id").equals("admin")){
+			} else if(req.getSession().getAttribute("id").equals("admin")) {
 				resp.sendRedirect("mngwrite.jsp");
-			}	else {
+			}
+			else {
 				resp.sendRedirect("write.jsp");
 			}
 			break;

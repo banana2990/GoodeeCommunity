@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.gcs.service.MypageService;
 
-@WebServlet({"/myboard","/mycomment","/commentalert","/photoUp","/photoDel", "/photoUpdate","/userphoto"})
+@WebServlet({"/myboard","/mycomment","/photoUp","/photoDel", "/photoUpdate","/userphoto"})
 public class MypageController extends HttpServlet {
 
 	@Override
@@ -40,12 +40,7 @@ public class MypageController extends HttpServlet {
 			System.out.println("마이페이지 댓글 불러오기");
 			service.commentList();			
 			break;
-		/*
-		case "/commentalert": // 실시간 댓글 알림
-			System.out.println("댓글 알림");
-			service.comalert();
-			break;
-		*/	
+
 		case "/photoUp": // 사진 업로드
 			String id = req.getParameter("id");					
 			service.upload(id);							
@@ -53,7 +48,8 @@ public class MypageController extends HttpServlet {
 			
 		
 		case "/photoDel": // 사진 삭제
-			 id = req.getParameter("id");
+			 id = (String) req.getSession().getAttribute("id");
+			 System.out.println("사진삭제"+id);
 			 service.delphoto(id);
 			break;
 		
@@ -62,6 +58,7 @@ public class MypageController extends HttpServlet {
 				
 			
 		case "/userphoto": //사진 불러오기
+			System.out.println("사진불러오기");
 			service.userphoto();
 			break;
 			

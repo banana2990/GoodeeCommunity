@@ -120,8 +120,7 @@ public class ContactDAO {
 	}
 
 	public ArrayList<ContactDTO> contactMain() {
-		String sql = "SELECT CONTACT_NO, WRITER, SUBJECT, CONTENT, C_EMAIL, C_STATUS FROM CONTACT WHERE ROWNUM <=5 ORDER BY contact_no DESC";
-		System.out.println(sql);
+		String sql = "SELECT CONTACT_NO, WRITER, SUBJECT, CONTENT, C_EMAIL, C_STATUS FROM (SELECT CONTACT_NO, WRITER, SUBJECT, CONTENT, C_EMAIL, C_STATUS FROM CONTACT ORDER BY CONTACT_NO DESC) WHERE ROWNUM <= 5";
 		ArrayList<ContactDTO> contact = new ArrayList<ContactDTO>();
 		try {		
 			ps = conn.prepareStatement(sql);

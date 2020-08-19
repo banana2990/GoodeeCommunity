@@ -140,7 +140,6 @@
 	    				</c:choose>
 	                    </select>
 	                                <input type="text" name="subject" class="tit-input" value="${boardDetail.bo_subject }" maxlength="50" >			
-					                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
 					                <div class="note-editing-area">
 					                       <textarea name="content" class="textarea">${boardDetail.bo_content}</textarea>
 					                </div>  

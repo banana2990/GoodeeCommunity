@@ -6,8 +6,14 @@
 	<form action="photoUp" method ="post" enctype="multipart/form-data">
 	<input type="text" name="id" value="${sessionScope.id}" hidden/><br/>
 	<input type="file" name="photo"/>
-	<br/>
-	<input type="submit"/>
+	<br/><br/>
+	<input type="submit"/> <button onclick="window.close()"> 닫기 </button>
 	</form>
 	
-	<button onclick="window.close()"> 닫기 </button>
+	
+	<script>
+	  var msg = "${msg}";
+	  if(msg != ""){
+	  	alert(msg);
+	  }
+	</script>

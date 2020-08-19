@@ -193,20 +193,20 @@ img {
 
 						<div class="mySlides fade">
 						  <div class="numbertext">1 / 3</div>
-						  <img src="./image/모두국밥.PNG" style="width:100%">
-						  <div class="text">모두국밥</div>
+						  <img src="./image/lunch_03.jpg" style="width:100%">
+						  <div class="text">8월19일</div>
 						</div>
 						
 						<div class="mySlides fade">
 						  <div class="numbertext">2 / 3</div>
-						  <img src="./image/토마토김밥.PNG" style="width:100%">
-						  <div class="text">토마토김밥</div>
+						  <img src="./image/lunch_02.jpg" style="width:100%">
+						  <div class="text">8월18일</div>
 						</div>
 						
 						<div class="mySlides fade">
 						  <div class="numbertext">3 / 3</div>
-						  <img src="./image/동남부대찌개.PNG" style="width:100%">
-						  <div class="text">동남부대찌개</div>
+						  <img src="./image/lunch_01.jpg" style="width:100%">
+						  <div class="text">8월 14일</div>
 						</div>
 						
 						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
@@ -223,9 +223,9 @@ img {
                 </div>
                 <div class="today-memo">
                 	<form action="memoWrite" method="post">
-	                	 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
+	                	 <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" required>			
 								<div class="note-editing-area">
-				                	<textarea name="content" class="mtextarea"></textarea>
+				                	<textarea name="content" class="mtextarea" required></textarea>
 				                </div>  
 				                <div class="btn-box">					
 					                <button id="memo_register" class="register">등록</button>     		
@@ -312,10 +312,10 @@ img {
         </div>
          <div class="helpIcon__input">
             <br><br>
-            <input type="text" id="writer1" placeholder="   작성자"> 
-            <input type="text" id="subject1" placeholder="   제목">
-            <input type="text" id="c_email1" placeholder="   이메일">
-            <textarea type="text" id="content1" placeholder="     문의 내용"></textarea>
+            <input type="text" id="writer1" placeholder="   작성자" required> 
+            <input type="text" id="subject1" placeholder="   제목" required>
+            <input type="text" id="c_email1" placeholder="   이메일" required>
+            <textarea type="text" id="content1" placeholder="     문의 내용" required></textarea>
             <br><br>
             <button id="ct_send">보내기</button>
         </div>
@@ -329,7 +329,6 @@ if(writeMsg != ""){
 	alert(writeMsg);
 	location.href = "login.jsp";
 }
-
 
 // 아이디가 있는지 체크
 var loginId = "${sessionScope.id}";

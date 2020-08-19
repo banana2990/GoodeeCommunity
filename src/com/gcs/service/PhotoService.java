@@ -20,7 +20,9 @@ public class PhotoService {
 	// 파일 업로드 수행
 	public MemberDTO upload() {
 		// 저장경로 설정 
-		String savePath = "C:/Users/GDJ26/Desktop/GCS/GoodeecommunityService/WebContent/image/member";
+		//String savePath = "C:/Users/GDJ26/Desktop/GCS/GoodeecommunityService/WebContent/image/member";
+		String savePath = "C:/upload/gcsmember";
+		
 		// 용량제한 
 		int maxSize = 10*1024*1024;
 		String oriName = "";
@@ -28,7 +30,7 @@ public class PhotoService {
 		MemberDTO dto = new MemberDTO();
 		
 		try {
-			MultipartRequest multi = new MultipartRequest(req, savePath, maxSize,"UTF-8",new DefaultFileRenamePolicy()); // 파일 저장
+			MultipartRequest multi = new MultipartRequest(req, savePath, maxSize,"UTF-8"); // 파일 저장
 			// 파일명 변경
 			
 			dto.setId(multi.getParameter("id"));
@@ -60,7 +62,7 @@ public class PhotoService {
 		boolean success = false;
 		if(file.exists()) {
 			success = file.delete();
-			System.out.println("파일삭제");
+			System.out.println("실제파일삭제");
 		}
 		
 	}

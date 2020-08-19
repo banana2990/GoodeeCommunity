@@ -22,6 +22,9 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	#mngboardlist{
 	display: none;}
 
+	#content{
+	left: 150px;
+	}
 </style>
 
 	</head>
@@ -87,7 +90,8 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
         <!-- Main Contents -->
         <div id="contents">
             <div class="mtitle"><h1>게시글 관리</h1></div>   
-                 <div id="contents">
+            
+            <div id="content">
 	    	<div class="selectbox">
 		        <select name="mngboard" onchange="listCall()">
 		        	<option selected value="0"> ----------- </option>
@@ -114,19 +118,7 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 					     </tbody>
 				     </table>
 	        </div>
-
-           <!--  
-	           <div class="list-paging">
-	                <button id="1" class="on">1</button>
-	                <button id="2">2</button>
-	                <button id="3">3</button>
-	                <button id="4">4</button>
-	                <button id="5">5</button>
-	                <button id="next">next</button>
-	                <button class="delete" onclick="del()">삭제</button>
-	              </div>   
-               -->
-              
+             
          </div>
         </div>
 	</body>

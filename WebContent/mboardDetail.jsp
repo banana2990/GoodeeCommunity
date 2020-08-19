@@ -123,7 +123,15 @@ crossorigin="anonymous"
 	                           					<input type="text" name="co_content" id="reply_content" class="nologin-disabled" >
 	                        				</c:otherwise>
                         				</c:choose>
-										<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
+                        				<c:choose>
+                                        	<c:when test="${sessionScope.id eq null}">
+	                            				<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록" disabled>
+	                        				</c:when>
+	                        				<c:otherwise>
+	                           					<input type="submit" class="btn-reply" id="reply_btn" value="댓글 등록">
+	                        				</c:otherwise>
+                        				</c:choose>
+										
 								</form>									
                             </div>
                         </div>
@@ -151,15 +159,15 @@ crossorigin="anonymous"
 	                                        </dl>
 	                                        <div class="txt.box1">
 	                                            <p>${comment.co_content }</p>
-	                                            <input type="text" value="" class = "reply-inputbox" style="width : 750px">
-	                                            <button class="btn-coment-reply" id="recomment">답글</button><button class="btn-coment-reply">취소</button>
+
+	                                            <div>
+		                                            <form action = "recomment?comment_no=${comment.comment_no }&board_no=${boardDetail.board_no}" method="post">
+		    	                                        <input type="text" value="" name="recomment" class = "reply-inputbox" style="width : 750px">
+		        	                                  	<button type="submit" class="btn-rereply">답글쓰기</button>
+   	                                        		</form>
+	                                        	</div>
 	                                        </div>
-	                                        <div class="util">
-	                                            <button type="button" class="btn-like reply-likes">
-	                                                <span class="like-count-reply">0</span>
-	                                            </button>
-	                                            <button type="button" class="btn-rereply">답글쓰기</button>
-	                                        </div>
+	                                        
 	                                    </div>
 	                                </div>
 	                            </li>              
@@ -198,8 +206,6 @@ crossorigin="anonymous"
                     </div>                                      
                 </div><!-- section-bot 끝 -->
                 
-                <button class="btn-foot" onclick='location.href="prev?board_no=${boardDetail.board_no}&mBoard_no=${boardDetail.mboard_no}"'>이전</button>
-                <button class="btn-foot" onclick='location.href="next?board_no=${boardDetail.board_no}&mBoard_no=${boardDetail.mboard_no}"'>다음</button>
                 <button class="btn-list" onclick='location.href="mngboard.jsp"'>목록으로</button> <!-- 이 부분을 해결해야할 거 같네욥... 어디로 이동해야하지 -->
             </div>
         </div>
@@ -211,5 +217,54 @@ crossorigin="anonymous"
 	if(msg != ""){
 		alert(msg);
 	}
+
+	function likeCall(){
+		$.ajax({
+	        type: "post",
+	        url: "detailLikeCnt",
+	        data: {"board_no":${boardDetail.board_no}},
+	        dataType: "JSON",
+	        success: function(data){
+	        	console.log(data);
+	        	$('.like-count').html(data.detailLikeCnt);
+	        	if(data.likeStatus){
+	        		$('#like-img').attr("src","./image/icon_heart_red.gif");
+	        	} else{
+	        		$('#like-img').attr("src","./image/icon_heart_empty.gif");
+	        	}
+	        },
+	        error: function(error){
+	           console.log(error);
+	        }
+	     });
+	}
+
+	likeCall();
+
+	$('.btn-like').click(function(){
+		
+		if("${sessionScope.id}"==""){
+			alert("로그인 후 이용 가능합니다.");
+		} else {
+			$.ajax({
+		        type: "post",
+		        url: "like",
+		        data: {"board_no":${boardDetail.board_no}},
+		        dataType: "JSON",
+		        success: function(data){
+		        	if(data.result){
+		        		console.log(data);
+		        		likeCall();
+		        	}
+		        },
+		        error: function(error){
+		           console.log(error);
+		        }
+		     });
+		}
+
+	});
+
+	
 </script>
 </html>

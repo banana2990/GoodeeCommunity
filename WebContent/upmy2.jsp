@@ -14,6 +14,13 @@
 	
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>구디 커뮤니티</title>
+<style>
+
+#commentlist{
+	display: none;
+}
+
+</style>
 </head>
 <body>
 	<div id="container">
@@ -82,7 +89,15 @@
       <div class="upmy2">      
         <div class="upmy3_1">          
           <div class="upimge">
-            <img class="imge_1" id="userphoto" src="image/member.png"/>
+           <c:choose>
+	                   	<c:when test="${sessionScope.userphoto ne null}">
+	        				<img width="255px" height="255px" class="imge_1" id="userphoto" src="http://localhost:8080/GoodeeCommunityService/memberimg/${sessionScope.userphoto}"/>
+	        			 </c:when>
+	    				<c:otherwise>
+	       					 <img class="imge_1" id="userphoto" src="image/member.png"/>
+	    				</c:otherwise>
+	   				</c:choose>
+         
             <div class="u">
               <button onclick="openwindow()">등록</button>
               <a href="photoDel"><button>삭제</button></a>
@@ -135,8 +150,9 @@
           </ul>
       </div>
       <div class="dap">
+      		<div id="boardlist">
 			<!-- 내가쓴 것들의 목록 -->
-			<div class="list-box" id="boardlist">
+			<div class="list-box">
                 	<c:forEach items="${list }" var="bbs" varStatus="status">
 	                	<ul>              	
 							<li>
@@ -184,7 +200,7 @@
                         	<button onClick="fn_paging('${page.nextPage }')">next</button> 
                     </c:if>
                 </div>
-      
+      </div>
   
       				<div id="commentlist">       
 			            <table id="listsection">
@@ -199,11 +215,31 @@
 							     <tbody>
 							     </tbody>
 						     </table>
-			        	</div>      
-      
+			        	</div>    
+       </div>
       </div>
+	<div class="helpIcon">
+	        <i class="far fa-comment-dots"></i>   
+	    </div>
+	  
+	    <div class="helpIcon__content">
+	        <div class="helpIcon__title">
+	            <br><br>
+	            <p>무엇을 도와드릴까요?</p>
+	            <p>문의 주신 내용은 확인 후 답변 드리겠습니다.</p>
+	        </div>
+	        <div class="helpIcon__input">
+	            <br><br>
+	            <input type="text" name="writer" placeholder="   작성자"> 
+	            <input type="text" name="subject" placeholder="   제목">
+	            <input type="text" name="c_email" placeholder="   이메일">
+	            <textarea type="text" name="content" placeholder="     문의 내용"></textarea>
+	            <br><br>
+	            <button id="ct_send">보내기</button>
+	        </div>
+	    </div>
 
-      </div>
+
 
   </body>
   <script>
@@ -228,26 +264,10 @@
       loginbtn.css({"display":"none"});
       profile_img.css({"display":"block"});
   }
-  
-  $(document).ready(function(){
-		$.ajax({
-	    type: "post",
-      url: "userphoto",
-      dataType: "JSON",
-      success: function(data){
-      	console.log(data.userphoto);
-			var userphoto = "image/member/"+data.userphoto;  
-			console.log(userphoto);
-      	$("#userphoto").attr('src',userphoto);
-      	$("#userphotoin").attr('src',userphoto);        	
-      },
-      error: function(error){
-         console.log(error);
-      }
-	  	});
-	  	
-});
-  
+
+
+
+	  
 		/*닉네임 중복 확인*/
 	  $("#nickChck").click(function(){
 			if($("input[name='nickName']").val() == ""){
@@ -312,21 +332,7 @@
 		        return ;
 		    }
 		}
-		
-		
-		//사진 업로드 팝업		
-       var openWin;
-		function openwindow(){
-            // window.name = "부모창 이름"; 
-            window.name = "mypagedetail";
-            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
-
-            openWin = window.open("photo_test.jsp",
-                    "photoupload", "width=300, height=150, resizable = no, scrollbars = no");
-            openWin.document.getElementById("mypageid").value = "${sessionScope.id}";
-		}
-		
-		
+				
 		//댓 불러오기
 		function listCall(){
 			$.ajax({
@@ -335,6 +341,8 @@
 		        dataType: "JSON",
 		        success: function(data) {
 		            console.log(data.list);
+		          	$("#boardlist").css({"display":"none"});
+		          	$("#commentlist").css({"display":"block"});    	
 		            drawTable(data.list);
 		        },
 			    error: function() {
@@ -361,7 +369,56 @@
 		function fn_paging(curPage) {
 			location.href = "myboard?curPage="+curPage;
 		}
-		
-  
+
+		//사진 업로드 팝업		
+	       var openWin;
+			function openwindow(){
+	            // window.name = "부모창 이름"; 
+	            window.name = "mypagedetail";
+	            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
+
+	            openWin = window.open("photo_test.jsp",
+	                    "photoupload", "width=450, height=150, resizable = no, scrollbars = no");
+			}
+
+
+			//문의사항 보내기
+			$("#ct_send").click(function(){
+
+				var param = {};
+				
+				param.writer = $("input[name='writer']").val();
+				param.subject = $("input[name='subject']").val();
+				param.c_email = $("input[name='c_email']").val();
+				param.content = $("textarea[name='content']").val();
+				
+				$.ajax({
+			        type: "post",
+			        url: "contactWrite",
+			        data: param,
+			        dataType: "JSON",
+			        success: function(data){
+			        	alert(data.contactmsg);
+			        	$(".helpIcon__content").fadeOut();
+			        },
+			        error: function(error){
+			        	alert(data.contactmsg);
+			        }
+			     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+
+			});
+
+//사용자이미지
+	var photo = "${sessionScope.userphoto}";
+	console.log(photo);
+ 	$(document).ready(function(){
+		if(photo!=""){
+	 		var userphoto = "http://localhost:8080/GoodeeCommunityService/memberimg/"+photo;  
+			console.log(userphoto);
+       		$("#userphoto").attr('src',userphoto);
+		}
+	});
+			
+		  
   </script>
 </html>

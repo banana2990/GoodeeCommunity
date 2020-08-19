@@ -76,6 +76,7 @@ crossorigin="anonymous"
         </nav>
 
         <!-- Main Contents -->
+        <br/>
         <div id="contents">
             <div class="section-bot">
                 <div class="board-swipe">
@@ -85,21 +86,7 @@ crossorigin="anonymous"
                         </li>
                     </ul>
                 <!-- 게시글 검색바 -->
-                <div class="board_search-input">
-	                <form class="searchbar" action="search" method="get" >
-	                    <select>
-							<option>제목</option>
-							<option>작성자</option>
-							<option>제목+내용</option>
-						</select>
-	                    <input
-	                      class="search"
-	                      type="text"
-	                      name="search"
-	                    />
-	                    <button style="left : 100px"><i class="fas fa-search"></i></button>
-	                </form>
-            	</div>
+                
                 </div>
 		
                 <div class="list-box">

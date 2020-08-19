@@ -79,7 +79,7 @@
                 <h1>글쓰기</h1>	
                 	<div class="select-box">                        
                             <form class="searchbar" action="write" method="post">
-                                <select style="width: 300px", name="mboard_no">
+                                <select style="width: 300px" name="mboard_no">
                               		<option selected> 카테고리를 선택해주세요 </option>
                                     <option value="1">자유게시판</option>
                                     <option value="2">학습게시판</option>
@@ -186,38 +186,6 @@ $("#ct_send").click(function(){
 	    loginbtn.css({"display":"none"});
 	    profile_img.css({"display":"block"});
 	}
-	//문의사항 보내기
-	$("#ct_send").click(function(){
 		
-		var $writer = $("input[name='writer']");
-		var $subject = $("input[name='subject']");
-		var $c_email = $("input[name='c_email']");
-		var $content = $("input[name='content']");
-		
-		console.log($write,$subject,$c_email,$content);
-		
-		var param = {};
-		
-		param.writer = $("input[name='writer']").val();
-		param.subject = $("input[name='subject']").val();
-		param.c_email = $("input[name='c_email']").val();
-		param.content = $("input[name='content']").val();
-		
-		$.ajax({
-	        type: "post",
-	        url: "contactWrite",
-	        data: param,
-	        dataType: "JSON",
-	        success: function(data){
-	        	console.log(data.contactmsg);
-	        	alert("msg");
-	        },
-	        error: function(error){
-	           console.log(error);
-	        }
-	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
-
-	});
-	
 </script>
 </html>

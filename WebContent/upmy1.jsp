@@ -26,19 +26,7 @@
 	        <a href="#"><img class="imge_1" id="userphotoin" src="image/member.png"/></a>
 	        <div class="nic">${sessionScope.id} 님 반가워요.</div>
 	    </div>
-	    <div>
-		    <div class="alert">		    	
-		    	<a class="alert_alert">알림</a>
-		    	    	
-		        <ul>
-		        </br>
-		        <a href="#"><li>첫번째 알림~!!!</li></a>
-		        </br>
-		        <a href="#"><li>두번째 알림~!!!</li></a>
-		        </br>
-		        <a href="#"><li>세번째 알림~!!!</li></a>
-		        </ul>
-		    </div>
+	    <div>		    
 		    
 		    <div class="dmy">
 		        <a href="myPageList">내정보</a>
@@ -65,7 +53,7 @@
         dataType: "JSON",
         success: function(data){
         	console.log(data.userphoto);
-			var userphoto = "image/member/"+data.userphoto;  
+			var userphoto = "http://localhost:8080/GoodeeCommunityService/memberimg/"+data.userphoto;  
 			console.log(userphoto);
         	$("#userphoto").attr('src',userphoto);
         	$("#userphotoin").attr('src',userphoto);        	

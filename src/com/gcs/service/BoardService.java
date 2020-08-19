@@ -366,16 +366,11 @@ public class BoardService  {
 		RequestDispatcher dis = null;
 		if(list.isEmpty()) {
 			req.setAttribute("msg", msg);
-			if(req.getSession().getAttribute("id").equals("admin")) {
-				dis = req.getRequestDispatcher("mngboardDetail?mBoard_no="+mBoard_no);
-				} else {
-					dis = req.getRequestDispatcher("boardList?mBoard_no="+mBoard_no);}			
+			dis = req.getRequestDispatcher("boardList?mBoard_no="+mBoard_no);
+			
 		}else {
 			req.setAttribute("boardDetail", list.get(0));
-			if(req.getSession().getAttribute("id").equals("admin")) {
-				dis = req.getRequestDispatcher("mngboardDetail?board_no="+list.get(0).getBoard_no());
-			}else {
-				dis = req.getRequestDispatcher("boardDetail?board_no="+list.get(0).getBoard_no());}			
+			dis = req.getRequestDispatcher("boardDetail?board_no="+list.get(0).getBoard_no());
 		}
 		dis.forward(req, resp);
 		
@@ -392,16 +387,10 @@ public class BoardService  {
 		RequestDispatcher dis = null;
 		if(list.isEmpty()) {
 			req.setAttribute("msg", msg);
-			if(req.getSession().getAttribute("id").equals("admin")) {
-				dis = req.getRequestDispatcher("mngboardDetail?mBoard_no="+mBoard_no);
-				} else {
-					dis = req.getRequestDispatcher("boardList?mBoard_no="+mBoard_no);}			
+			dis = req.getRequestDispatcher("boardList?mBoard_no="+mBoard_no);		
 		}else {
 			req.setAttribute("boardDetail", list.get(0));
-			if(req.getSession().getAttribute("id").equals("admin")) {
-				dis = req.getRequestDispatcher("mngboardDetail?board_no="+list.get(0).getBoard_no());
-			}else {
-				dis = req.getRequestDispatcher("boardDetail?board_no="+list.get(0).getBoard_no());}			
+			dis = req.getRequestDispatcher("boardDetail?board_no="+list.get(0).getBoard_no());			
 		}
 		dis.forward(req, resp);
 		

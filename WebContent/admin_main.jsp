@@ -10,7 +10,13 @@
 	
 	<script
 	src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
-		<title>관리자 카테고리별 글 가져오기</title>		
+		<title>구디아카데미</title>	
+		<style>
+		table, th, tr, td {
+		border: 1px solid darkolivegreen;
+		border-collapse: collapse;}
+		
+		</style>
 	</head>
 	
 	<body>
@@ -72,6 +78,7 @@
         </nav>
        <div id="contents">
             <div class="section-top">
+            <div><h3> 최근 접수된 문의 사항</h3></div>
                 <div class="helplist">
                 		<div id="menu">
                     <table>
@@ -105,80 +112,13 @@
                     </table>
                 </div>
                 </div>
-            </div>
-
-            <div class="section-bot">
-                <div class="board-swipe">
-                    <ul>
-                        <li>
-                            <button class="key-color">전체 게시판</button>
-                        </li>
-                        <li>
-                            <button>공지사항</button>
-                        </li>
-                        <li>
-                            <button>인기 글</button>
-                        </li>
-                    </ul>
-                </div>
-               <div class="list-box">
-                	<c:forEach items="${list }" var="bbs" varStatus="status">
-	                	<ul>              	
-							<li>
-								<a href="boardDetail?board_no=${bbs.board_no}">
-									<h3>
-										<strong class="key-color">[${bbs.boardname}]</strong> ${bbs.bo_subject }</h3>
-										<i class="icon-new"></i>
-										<dl class="writing-info"> 
-											<dt class="blind"></dt>
-											<c:if test="${bbs.mboard_no eq 3}" >
-												<dd class="writer">익명</dd>
-											</c:if>
-											<c:if test="${bbs.mboard_no ne 3}">
-												<dd class="writer">${bbs.nickName }</dd> 
-											</c:if>
-											<dt class="blind"></dt>
-										<dd>
-											<span class="date">${bbs.bo_reg_date }</span>
-											<span class="count-read">${bbs.bo_bHit }</span>
-											<span class="count-likes">${blikeCnt[status.index].blike_cnt }</span>
-											<span class="count-comment">${commentCnt[status.index] }</span>
-										</dd>
-									</dl>
-								</a>
-							</li>				
-	                    </ul>
-                    </c:forEach>                         
-                </div>
-
-                <div class="list-paging">  
-                	<c:if test="${page.curPage ne 1}">
-                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
-                    </c:if>             
-                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
-	                     <c:choose>
-		                        <c:when test="${pageNum eq  page.curPage}">
-		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
-		                        </c:when>
-		                        <c:otherwise>
-		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
-		                        </c:otherwise>
-	                    </c:choose>
-	                </c:forEach>
-	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
-                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
-                    </c:if>
-                </div>
+            </div>          
                 
             </div>
             </div>
-        </div>  
-        
+
 	</body>
 	
 	<script>
-	function fn_paging(curPage) {
-		location.href = "main?curPage="+curPage;
-	}		
 	</script>
 </html>
