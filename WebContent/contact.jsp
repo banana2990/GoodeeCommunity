@@ -28,7 +28,7 @@
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -68,9 +68,9 @@
             
             <div class="top-util">
                 <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
+               		<button onclick="location.href='logout'"> 로그아웃 </button>
+                  <button type="button" class="profile">
+                      <div class="profile-img"></div> </button>
                 </div>
             </div>
         </nav>

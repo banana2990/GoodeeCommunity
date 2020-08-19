@@ -55,7 +55,7 @@
 </head>
 	<body>
          <div class="navbar__logo">
-                <a href="index.jsp">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                  </a>
          </div>       
@@ -116,9 +116,7 @@
             <button id="ct_send">보내기</button>
         </div>
     </div>
-        
-    </div>
-		
+       	
 	</body>
 
 <script>
@@ -278,7 +276,7 @@ $("#join").click(function(){
 					console.log(data.join);
 					if(data.join){
 						alert("회원가입에 성공하였습니다. ");
-						location.href="index.jsp";
+						location.href="main";
 					}else{
 						alert("회원가입에 실패하였습니다.");
 						location.href="joinform.jsp";

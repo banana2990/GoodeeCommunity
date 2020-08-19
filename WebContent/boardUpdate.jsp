@@ -20,11 +20,19 @@
             <div class="navbar__logo">
                 <a href="index.jsp">
                     <img src="image/logo.PNG" alt="로고">
-                    <h1>구디 커뮤니티</h1>
+                     <c:choose>
+	                   	<c:when test="${sessionScope.id eq 'admin'}">
+	        				<h1>관리자 페이지</h1>
+	                    </c:when>
+	    				<c:otherwise>
+	       					 <h1>구디 커뮤니티</h1>
+	    				</c:otherwise>
+	   				</c:choose>
+                   
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -34,32 +42,73 @@
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="boardList?mboard_no=1" id="free">
+                <c:choose>
+                   	<c:when test="${sessionScope.id eq 'admin'}">
+        				<a href="mngboard.jsp" id="mngboard">
+                        <span>게시글 관리</span>
+                    	</a>
+                    </c:when>
+    				<c:otherwise>
+       					<a href="boardList?mboard_no=1" id="free">
                         <span>자유 게시판</span>
-                    </a>
+                    	</a>
+    				</c:otherwise>
+   				</c:choose>
+
                 </li>
+                
                 <li>
-                    <a href="boardList?mboard_no=2" id="edu">
+                    <c:choose>
+                   	<c:when test="${sessionScope.id eq 'admin'}">
+        				<a href="mngcomment" id="mngcomment">
+                        <span>댓글 관리</span>
+                    	</a>
+                    </c:when>
+    				<c:otherwise>
+       					<a href="boardList?mboard_no=2" id="edu">
                         <span>학습 게시판</span>
-                    </a>
+                    	</a>
+    				</c:otherwise>
+   				</c:choose>
+   
                 </li>
                 <li>
-                    <a href="boardList?mboard_no=3" id="secret">
+                    <c:choose>
+                   	<c:when test="${sessionScope.id eq 'admin'}">
+        				<a href="membermanagement.jsp" id="mngmember">
+                        <span>댓글 관리</span>
+                    	</a>
+                    </c:when>
+    				<c:otherwise>
+       					<a href="boardList?mboard_no=3" id="secret">
                         <span>익명 게시판</span>
-                    </a>
+                    	</a>
+    				</c:otherwise>
+   				</c:choose>
+   				
+                   
                 </li>
                 <li>
-                    <a href="lunchmenu.jsp" id="lunch">
+                <c:choose>
+                   	<c:when test="${sessionScope.id eq 'admin'}">
+        				<a href="contact" id="ask">
+                        <span>문의사항 내역</span>
+                    </c:when>
+    				<c:otherwise>
+       					<a href="lunchmenu.jsp" id="lunch">
                         <span>오늘 점심 뭐먹지?</span>
-                    </a>
-                </li>
+                    	</a>
+    				</c:otherwise>
+   				</c:choose>
+   				
+              </li>
             </ul>
             
            <div class="top-util">
@@ -84,6 +133,11 @@
 	                        <option value="1">자유게시판</option>
 	                        <option value="2">학습게시판</option>
 	                        <option value="3">익명게시판</option>
+	                   <c:choose>
+	                   	<c:when test="${sessionScope.id eq 'admin'}">
+	        				<option value="4">공지</option>
+	                    </c:when>
+	    				</c:choose>
 	                    </select>
 	                                <input type="text" name="subject" class="tit-input" value="${boardDetail.bo_subject }" maxlength="50" >			
 					                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
@@ -99,8 +153,8 @@
             </div>            
       </div>
     </div>
-
- <div class="helpIcon">
+	<div id="contactsection">
+   <div class="helpIcon">
         <i class="far fa-comment-dots"></i>   
     </div>
   
@@ -120,7 +174,7 @@
             <button id="ct_send">보내기</button>
         </div>
     </div>
-    
+    </div>
 </body>
 
 <script>
@@ -140,6 +194,10 @@
 		} else{
 			return;
 		}
+	}
+	
+	if(loginId=="admin"){
+		$("#contactsection").css({"display":"none"});
 	}
 	//문의사항 보내기
 	$("#ct_send").click(function(){

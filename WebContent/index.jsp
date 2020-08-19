@@ -341,7 +341,7 @@ var loginId = "${sessionScope.id}";
 
 console.log(loginId);
 //관리자 로그인시 관리자 페이지로! // 메인 불러오는 것+문의 불러오기 그 다음에 이동하기
-if(loginId!="admin"){}else{location.href="admin_main.jsp";}
+if(loginId!="admin"){}else{location.href="contactmain";}
 
 //세션에 저장된 경우 로그인버튼을 비활성화하기
 var profile_img = $("#profile_img");
@@ -354,16 +354,6 @@ if(loginId==""){
     loginbtn.css({"display":"none"});
     profile_img.css({"display":"block"});
 }
-
-/*
-function write(){ // 얘는 왜 있는 거지
-	if("${sessionScope.id}" == null ){
-		alert("로그인이 필요합니다.")
-	}else{
-		location.href="write.jsp";
-	}
-}
-*/
 
 //문의사항 보내기
 	$("#ct_send").click(function(){
@@ -387,7 +377,7 @@ function write(){ // 얘는 왜 있는 거지
 	        error: function(error){
 	        	alert(data.contactmsg);
 	        }
-	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+	     });
 
 	});
 

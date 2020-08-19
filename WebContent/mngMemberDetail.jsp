@@ -19,13 +19,13 @@
         <!-- Main Navbar -->
         <nav class="navbar" id="navbar">
             <div class="navbar__logo">
-                <a href="#">
+                <a href="main">
                     <img src="image/logo.PNG" alt="로고">
                     <h1>구디 커뮤니티</h1>
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="writeView" method="get">
                     <input
                       class="search"
                       type="text"
@@ -35,40 +35,39 @@
                 </form>
             </div>	
             
-            <button class="write" location.href="#">
+            <button class="write" location.href="writeViews">
                 글쓰기
             </button>
     
             <ul class="navbar__menu">
                 <h2>전체 게시판</h2>
                 <li>
-                    <a href="#">
-                        <span>자유 게시판</span>
+                    <a href="mngboard.jsp" id="mngboard">
+                        <span>게시글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span>학습 게시판</span>
+                    <a href="mngcomment.jsp" id="mngcomment">
+                        <span>댓글 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span>익명 게시판</span>
+                    <a href="membermanagement.jsp" id="mngmember">
+                        <span>회원 관리</span>
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <span>오늘 점심 뭐먹지?</span>
+                    <a href="contact" id="ask">
+                        <span>문의사항 내역</span>
                     </a>
                 </li>
             </ul>
             
             <div class="top-util">
                 <div class="inner">
-                    <button type="button" class="profile">
-                        <div class="profile-img"></div>
-                    </button>
-                    <button class="login">로그인</button>
+               		<button onclick="location.href='logout'"> 로그아웃 </button>
+                  <button type="button" class="profile">
+                      <div class="profile-img"></div> </button>
                 </div>
             </div>
         </nav>

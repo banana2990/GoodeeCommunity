@@ -27,7 +27,7 @@ crossorigin="anonymous"
                 </a>
             </div>
             <div class="search-input">
-                <form class="searchbar" action="#" method="get">
+                <form class="searchbar" action="search" method="get">
                     <input
                       class="search"
                       type="text"
@@ -37,7 +37,7 @@ crossorigin="anonymous"
                 </form>
             </div>	
             
-            <button class="write" onclick="location.href='write.jsp'">
+            <button class="write" onclick="location.href='writeView'">
                 글쓰기
             </button>
     

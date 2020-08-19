@@ -237,6 +237,9 @@ public class BoardService  {
 		if(dao.del(board_no)) {
 			page = "/boardList?mboard_no"+mboard_no;
 			msg = "삭제에 성공 했습니다.";
+			if(req.getSession().getAttribute("id").equals("admin")) {
+				page = "mngboard.jsp";
+			}
 		}
 		req.setAttribute("msg", msg);
 		RequestDispatcher dis = req.getRequestDispatcher(page);
