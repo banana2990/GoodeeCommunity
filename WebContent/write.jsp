@@ -79,14 +79,13 @@
                 <h1>글쓰기</h1>	
                 	<div class="select-box">                        
                             <form class="searchbar" action="write" method="post">
-                                <select style="width: 300px" name="mboard_no">
+                                <select style="width: 300px", name="mboard_no">
                               		<option selected> 카테고리를 선택해주세요 </option>
                                     <option value="1">자유게시판</option>
                                     <option value="2">학습게시판</option>
                                     <option value="3">익명게시판</option>
                                 </select>
-                                <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >			
-				                <input type="text" class="link-input" placeholder="링크" maxlength="50">			
+                                <input type="text" name="subject" class="tit-input" placeholder="제목" maxlength="50" >					
 				                <div class="note-editing-area">
 				                       <textarea name="content" class="textarea"></textarea>
 				                </div>  

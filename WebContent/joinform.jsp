@@ -12,16 +12,23 @@
 	<script src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 	<style>
-	
+	body {
+		background-image: url('./image/backgroundimg2.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
+
+
 	.navbar__logo {
 		position: absolute;
-		left: 45px;
+		left: 363px;
 		top: 50px;
 	}
 	
 	.navbar__logo img {
 	    width: 150px;
-	    height: 150px;
+		height: 150px;
+		border-radius: 50%;
 	}
 	
 	.joinbox{
@@ -30,6 +37,11 @@
 		top: 30%;
 		width: 550px;
 		height: 400px;
+		border: 3px solid rgb(148, 186, 201);
+		font-size: large;
+		padding-left: 70px;
+
+		background-color: rgb(224, 220, 213);
 	}
 	
 	table, td,tr {
@@ -110,207 +122,207 @@
 	</body>
 
 <script>
-	var overChk = false;
-	var overChknic = false;
-	var dice = null;
-	var emailChk = 0;
+var overChk = false;
+var overChknic = false;
+var dice = null;
+var emailChk = 0;
+
+$("#auth").click(function(){
+	if($("input[name='u_email']").val() == ""){
+		alert("이메일을 입력해주세요");
+	}else{
+		var $email = $("input[name='u_email']");
+		var param = {};
+		param.email = $email.val();
+		
+		$.ajax({
+			type: "post",
+			url: "mail",
+			data: param,
+			dataType: "JSON",
+			success: function(data){
+				alert("인증코드가 전송되었습니다. 이메일을 확인해주세요");
+				dice = data.dice;
+			},
+			error: function(error){
+				console.log(error);
+			}
+		});
+	}					
+});
+
+$("#authChk").click(function(){
+	if($("input[name='auth']").val() == dice){
+		emailChk = 1;
+		alert("인증번호가 확인되었습니다.");
+	} else {
+		alert("인증번호를 다시 확인해주세요.");
+	}
+});
+
+$("#idChck").click(function(){
+	if($("input[name='id']").val() == ""){
+		alert("아이디를 입력해주세요.");
+	}else{
+		var id = $("input[name='id']").val();
+		$.ajax({
+			type: "get",
+			url: "overlay",
+			data: {"id":id},
+			dataType: "JSON",
+			success: function(data){
+				console.log(data);
+				if(data.overlay){
+					alert("이미 사용중인 ID 입니다.");
+					$("input[name='id']").val("");
+				}else{
+					alert("사용 가능한 ID 입니다");
+					overChk = true;
+				}
+			},
+			error: function(e){
+				console.log(e);
+			}			
+		});
+	}
+});
+
+$("#nickChck").click(function(){
+	if($("input[name='nickName']").val() == ""){
+		alert("닉네임을 입력해주세요.");
+	}else{
+		var nickname = $("input[name='nickName']").val(); // id값 가져오기
+		console.log(nickname); // 잘 들어오는 지 확인: 1차
+		
+		$.ajax({
+			type: "get",
+			url: "overlaynick",
+			data: {"nickname":nickname},
+			dataType: "JSON",
+			success: function(data){		
+				if(data.overlay){
+					alert("이미 사용중인 닉네임입니다.");
+					$("input[name='nickName']").val("");
+				}else{
+					alert("사용 가능한 닉네임입니다");
+					overChknic = true;
+				}
+			},
+			error: function(e){
+				console.log(e);
+			}			
+		});
+	}
+});
+
+
+$("#join").click(function(){
+	var $id = $("input[name='id']");
+	var $pw = $("input[name='pw']");
+	var $pwChck = $("input[name='pwChck']");
+	var $name = $("input[name='name']");
+	var $nickName = $("input[name='nickName']");
+	var $email = $("input[name='u_email']");
+	var $emailChk =$("input[name='auth']");
 	
-	$("#auth").click(function(){
-		if($("input[name='u_email']").val() == ""){
+	console.log($id);
+	console.log($pw);
+	console.log($name);
+	
+	if($pw.val()==$pwChck.val()){}else{
+		alert("비밀번호가 일치하지 않습니다.")
+		$("input[name='pw]").focus();
+	};		
+	
+	
+	if(overChk&&overChknic){			
+		if($id.val()==""){
+			alert("아이디를 확인해주세요");
+			$id.focus();
+		}else if($pw.val()==""){
+			alert("비밀번호를 입력해주세요");
+			$pw.focus();
+		}else if($pwChck.val()==""){
+			alert("비밀번호를 확인해주세요");
+			$pwChck.focus();
+		}else if($nickName.val()==""){
+			alert("닉네임을 입력해주세요");
+		}else if($name.val()==""){
+			alert("이름을 입력해주세요");
+			$name.focus();
+		}else if($email.val()==""){
 			alert("이메일을 입력해주세요");
-		}else{
-			var $email = $("input[name='u_email']");
+			$email.focus();
+		}else if(emailChk != 1){
+			alert("이메일 인증을 완료해주세요.");
+			$('#auth').focus();
+		}else{// 모든 항목을 입력했을 경우
+			console.log("서버로 전송");
+			
 			var param = {};
+			param.id = $id.val();
+			param.pw = $pw.val();
+			param.name = $name.val();
+			param.nickName = $nickName.val();
 			param.email = $email.val();
+			param.emailChk = emailChk;
+			
+			console.log('param:' , param); // 콘솔에 +찍으면 문자열로 바뀜
 			
 			$.ajax({
 				type: "post",
-				url: "mail",
+				url: "join",
 				data: param,
 				dataType: "JSON",
 				success: function(data){
-					alert("인증코드가 전송되었습니다. 이메일을 확인해주세요");
-					dice = data.dice;
+					console.log(data.join);
+					if(data.join){
+						alert("회원가입에 성공하였습니다. ");
+						location.href="main";
+					}else{
+						alert("회원가입에 실패하였습니다.");
+						location.href="joinform.jsp";
+					}
 				},
 				error: function(error){
 					console.log(error);
 				}
 			});
-		}					
-	});
-	
-	$("#authChk").click(function(){
-		if($("input[name='auth']").val() == dice){
-			emailChk = 1;
-			alert("인증번호가 확인되었습니다.");
-		} else {
-			alert("인증번호를 다시 확인해주세요.");
-		}
-	});
-	
-	$("#idChck").click(function(){
-		if($("input[name='id']").val() == ""){
-			alert("아이디를 입력해주세요.");
-		}else{
-			var id = $("input[name='id']").val();
-			$.ajax({
-				type: "get",
-				url: "overlay",
-				data: {"id":id},
-				dataType: "JSON",
-				success: function(data){
-					console.log(data);
-					if(data.overlay){
-						alert("이미 사용중인 ID 입니다.");
-						$("input[name='id']").val("");
-					}else{
-						alert("사용 가능한 ID 입니다");
-						overChk = true;
-					}
-				},
-				error: function(e){
-					console.log(e);
-				}			
-			});
-		}
-	});
-	
-	$("#nickChck").click(function(){
-		if($("input[name='nickName']").val() == ""){
-			alert("닉네임을 입력해주세요.");
-		}else{
-			var nickname = $("input[name='nickName']").val(); // id값 가져오기
-			console.log(nickname); // 잘 들어오는 지 확인: 1차
-			
-			$.ajax({
-				type: "get",
-				url: "overlaynick",
-				data: {"nickname":nickname},
-				dataType: "JSON",
-				success: function(data){		
-					if(data.overlay){
-						alert("이미 사용중인 닉네임입니다.");
-						$("input[name='nickName']").val("");
-					}else{
-						alert("사용 가능한 닉네임입니다");
-						overChknic = true;
-					}
-				},
-				error: function(e){
-					console.log(e);
-				}			
-			});
-		}
-	});
-	
-	
-	$("#join").click(function(){
-		var $id = $("input[name='id']");
-		var $pw = $("input[name='pw']");
-		var $pwChck = $("input[name='pwChck']");
-		var $name = $("input[name='name']");
-		var $nickName = $("input[name='nickName']");
-		var $email = $("input[name='u_email']");
-		var $emailChk =$("input[name='auth']");
+		}			
 		
-		console.log($id);
-		console.log($pw);
-		console.log($name);
-		
-		if($pw.val()==$pwChck.val()){}else{
-			alert("비밀번호가 일치하지 않습니다.")
-			$("input[name='pw]").focus();
-		};		
-		
-		
-		if(overChk&&overChknic){			
-			if($id.val()==""){
-				alert("아이디를 확인해주세요");
-				$id.focus();
-			}else if($pw.val()==""){
-				alert("비밀번호를 입력해주세요");
-				$pw.focus();
-			}else if($pwChck.val()==""){
-				alert("비밀번호를 확인해주세요");
-				$pwChck.focus();
-			}else if($nickName.val()==""){
-				alert("닉네임을 입력해주세요");
-			}else if($name.val()==""){
-				alert("이름을 입력해주세요");
-				$name.focus();
-			}else if($email.val()==""){
-				alert("이메일을 입력해주세요");
-				$email.focus();
-			}else if(emailChk != 1){
-				alert("이메일 인증을 완료해주세요.");
-				$('#auth').focus();
-			}else{// 모든 항목을 입력했을 경우
-				console.log("서버로 전송");
-				
-				var param = {};
-				param.id = $id.val();
-				param.pw = $pw.val();
-				param.name = $name.val();
-				param.nickName = $nickName.val();
-				param.email = $email.val();
-				param.emailChk = emailChk;
-				
-				console.log('param:' , param); // 콘솔에 +찍으면 문자열로 바뀜
-				
-				$.ajax({
-					type: "post",
-					url: "join",
-					data: param,
-					dataType: "JSON",
-					success: function(data){
-						console.log(data.join);
-						if(data.join){
-							alert("회원가입에 성공하였습니다. ");
-							location.href="index.jsp";
-						}else{
-							alert("회원가입에 실패하였습니다.");
-							location.href="joinform.jsp";
-						}
-					},
-					error: function(error){
-						console.log(error);
-					}
-				});
-			}			
-			
-		}else{
-			alert("중복체크를 확인해 주세요");
-			$("input[name='id']").focus();
-		}
-	});
+	}else{
+		alert("중복체크를 확인해 주세요");
+		$("input[name='id']").focus();
+	}
+});
 
-	//문의사항 보내기
-	$("#ct_send").click(function(){
+//문의사항 보내기
+$("#ct_send").click(function(){
 
-		var param = {};
-		
-		param.writer = $("input[name='writer']").val();
-		param.subject = $("input[name='subject']").val();
-		param.c_email = $("input[name='c_email']").val();
-		param.content = $("textarea[name='content']").val();
-		
-		$.ajax({
-	        type: "post",
-	        url: "contactWrite",
-	        data: param,
-	        dataType: "JSON",
-	        success: function(data){
-	        	alert(data.contactmsg);
-	        	$(".helpIcon__content").fadeOut();
-	        },
-	        error: function(error){
-	        	alert(data.contactmsg);
-	        }
-	     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
+	var param = {};
+	
+	param.writer = $("input[name='writer']").val();
+	param.subject = $("input[name='subject']").val();
+	param.c_email = $("input[name='c_email']").val();
+	param.content = $("textarea[name='content']").val();
+	
+	$.ajax({
+        type: "post",
+        url: "contactWrite",
+        data: param,
+        dataType: "JSON",
+        success: function(data){
+        	alert(data.contactmsg);
+        	$(".helpIcon__content").fadeOut();
+        },
+        error: function(error){
+        	alert(data.contactmsg);
+        }
+     }); // 쓰기는 되는데 왜 원래 화면으로 안돌아오는 걸까?
 
-	});
-	
-	
-	
+});
+
+
+
 </script>
 </html>

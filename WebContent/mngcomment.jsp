@@ -71,7 +71,6 @@
             </ul>
             
             <div class="top-util">
-             <h2>전체 댓글 관리</h2>
                 <div class="inner">
                     <button type="button" class="profile">
                         <div class="profile-img"></div>
@@ -80,31 +79,30 @@
             </div>
         </nav>
         
-        <div id="contents">
-	        <div class="contents_table">
-				 <table>
-						<tr> 
-							<th style="width : 10px " >no.</th> 
-							<th>게시판</th> 
-							<th style="width : 400px;">내용</th> 
-							<th style="width : 130px">작성자</th> 
-							<th>등록일</th>
-							<th>삭제</th>
-						</tr>
-										
-					<c:forEach items="${list}" var="bbs">
-					<tr>
-					<td> ${bbs.comment_no} </td>
-					<td> ${bbs.boardname}</td>
-					<td> <a href="mngboardDetail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
-					<td> ${bbs.id} </td>
-					<td> ${bbs.co_reg_date} </td>							
-					<td> <button onclick = "location.href='delmngcomment?comment_no=${bbs.comment_no}'">삭제 </button></td>								
-					</tr>		
-					</c:forEach>					
-	
-				</table>            
-        </div>
+        <div id="contentss">
+            <div class="contents_table"><h1>전체 댓글 관리</h1></div>
+                <div id="contents2">
+                    <table>
+                        <tr> 
+                            <th style="width : 10px " >no.</th> 
+                            <th>게시판</th> 
+                            <th style="width : 400px;">내용</th> 
+                            <th style="width : 130px">작성자</th> 
+                            <th>등록일</th>
+                            <th>삭제</th>
+                        </tr>			
+                        <c:forEach items="${list}" var="bbs">
+                        <tr>
+                            <td> ${bbs.comment_no} </td>
+                            <td> ${bbs.boardname}</td>
+                            <td> <a href="detail?board_no=${bbs.board_no}"> ${bbs.co_content} </a></td>
+                            <td> ${bbs.id} </td>
+                            <td> ${bbs.co_reg_date} </td>							
+                            <td> <button onclick = "location.href='delmngcomment?comment_no=${bbs.comment_no}'">삭제 </button></td>								
+                        </tr>		
+                        </c:forEach>					
+                    </table>  
+                </div>     
 	</body>
 	
 	<script>

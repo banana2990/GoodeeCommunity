@@ -14,25 +14,43 @@
 	<style>
 	.navbar__logo {
 		position: absolute;
-		left: 45px;
+		left: 363px;
 		top: 50px;
 	}
 	
 	.navbar__logo img {
 	    width: 150px;
-	    height: 150px;
+		height: 150px;
+		border-radius: 50%;
 	}
 	
 	.searchbox{
 		position: absolute;
 		left: 30%;
 		top: 30%;
+		border: 3px solid rgb(148, 186, 201);
+		font-size: large;
+		background-color: rgb(224, 220, 213);
+		width: 735px;
+		height: 365px;
+		
+	}
+
+	.searchboxx{
+		position: relative;
+		left: 50px;
+		top: 20px;
 	}
 	
 	table, tr, td{
 		text-align:center;
 		}
 	
+	body {
+		background-image: url('./image/backgroundimg3.png');
+		background-repeat: no-repeat;
+		background-size: cover;
+	}
 	</style>
 </head>
 
@@ -44,16 +62,18 @@
     </div>           
 
 	<div class= "searchbox">
-		<h2> ID 찾기</h2>		
-			<div>
-				이메일을 입력해주세요
-				<input type="email" id="email"> <button id="findid" onclick="findid()">ID 찾기</button>			
-			</div>
-		<h2> 비밀번호 찾기</h2>
-			<div>
-				<p>이메일을 입력해주세요. 입력하신 이메일로 임시 비밀번호를 발송해드립니다.</p>						
-				<p>이메일 : <input type="email" name="u_email"> <button id="auth">임시비밀번호 발송</button></p>				
-			</div>			
+		<div class="searchboxx">
+			<h2> ID 찾기</h2>		
+				<div>
+					이메일을 입력해주세요
+					<input type="email" id="email"> <button id="findid" onclick="findid()">ID 찾기</button>			
+				</div>
+			<h2> 비밀번호 찾기</h2>
+				<div>
+					<p>이메일을 입력해주세요. 입력하신 이메일로 임시 비밀번호를 발송해드립니다.</p>						
+					<p><td>이메일 : <input type="email" name="u_email"> <button id="auth">임시비밀번호 발송</button></td></p>				
+				</div>			
+		</div>
 	</div>
 
     <div class="helpIcon">
