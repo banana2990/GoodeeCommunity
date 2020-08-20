@@ -53,7 +53,8 @@
         dataType: "JSON",
         success: function(data){
         	console.log(data.userphoto);
-			var userphoto = "http://localhost:8080/GoodeeCommunityService/memberimg/"+data.userphoto;  
+        	//var userphoto = "http://localhost:8080/GoodeecommunityService/memberimg/"+data.userphoto; 
+			var userphoto = "image/member/"+data.userphoto;  
 			console.log(userphoto);
         	$("#userphoto").attr('src',userphoto);
         	$("#userphotoin").attr('src',userphoto);        	

@@ -82,7 +82,7 @@
                 <div class="upmy3_1">
                 
                 <div class="upimge">
-                    <a href="#"><img class="imge_1" src="image/냥.jpg"/></a>
+                    <a href="#"><img class="imge_1" src="image/member.png"/></a>
                     <div class="u">
                     <button class="delete">삭제</button>                    
                     </div>

@@ -111,29 +111,6 @@
                          
                     </table>
                 </div>
-                
-            <div class="section-bot">
-            <!--페이징-->
-                <div class="list-paging">  
-                	<c:if test="${page.curPage ne 1}">
-                        <button onClick="fn_paging('${page.prevPage }')">prev</button> 
-                    </c:if>             
-                     <c:forEach var="pageNum" begin="${page.startPage }" end="${page.endPage }">
-	                     <c:choose>
-		                        <c:when test="${pageNum eq  page.curPage}">
-		                            <button class="on" onClick="fn_paging('${pageNum }')">${pageNum }</button> 
-		                        </c:when>
-		                        <c:otherwise>
-		                            <button onClick="fn_paging('${pageNum }')">${pageNum }</button> 
-		                        </c:otherwise>
-	                    </c:choose>
-	                </c:forEach>
-	                <c:if test="${page.curPage ne page.pageCnt && page.pageCnt > 0}">
-                        	<button onClick="fn_paging('${page.nextPage }')">next</button> 
-                    </c:if>
-                </div>
-            </div>
-
         </div>  
     </div>
       
@@ -144,15 +121,6 @@ var msg = "${msg}";
 if(msg != ""){
 	alert(msg);
 }
-
-var contact_no = window.location.search.substring(11);
-
-function fn_paging(curPage) {
-	if(contact_no.length > 2){
-		contact_no = window.location.search.substring(21);
-	}
-	location.href = "contact?curPage="+curPage+"&contact_no="+contact_no;
-}		
 
 
 

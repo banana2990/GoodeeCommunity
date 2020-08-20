@@ -272,7 +272,8 @@ public class BoardService  {
 		System.out.println("board_no : "+idx+" id: "+id);
 		BoardDAO dao = new BoardDAO();			
 		dao.delcom(idx,id); //근데 끝나고 어디로 가?
-	  	}	
+		resp.sendRedirect("myPageList");
+	}	
 	
 
 	//검색

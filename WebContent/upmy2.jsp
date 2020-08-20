@@ -91,7 +91,7 @@
           <div class="upimge">
            <c:choose>
 	                   	<c:when test="${sessionScope.userphoto ne null}">
-	        				<img width="255px" height="255px" class="imge_1" id="userphoto" src="http://localhost:8080/GoodeeCommunityService/memberimg/${sessionScope.userphoto}"/>
+	        				<img width="255px" height="255px" class="imge_1" id="userphoto" src="image/member/${sessionScope.userphoto}"/>
 	        			 </c:when>
 	    				<c:otherwise>
 	       					 <img class="imge_1" id="userphoto" src="image/member.png"/>
@@ -143,7 +143,7 @@
               </li>
               <li>
                         <div class="screen">
-                        <button onclick="listCall()">댓글 단 글</button>
+                        <button onclick="listCall()" style="position: absolute; top: 1px; width: 150px;">댓글 단 글</button>
                       </div>
                   </a>
               </li>              
@@ -207,7 +207,7 @@
 		    			    <thead>
 		    			    <tr style="background-color: rgb(138, 190, 59)">
 								<th>no.</th> 
-								<th>내용</th> 
+								<th width="200px">내용</th> 
 								<th>작성일</th> 
 								<th>삭제</th>
 						     </tr> 
@@ -413,7 +413,7 @@
 	console.log(photo);
  	$(document).ready(function(){
 		if(photo!=""){
-	 		var userphoto = "http://localhost:8080/GoodeeCommunityService/memberimg/"+photo;  
+	 		var userphoto = "image/member/"+photo;  
 			console.log(userphoto);
        		$("#userphoto").attr('src',userphoto);
 		}

@@ -20,8 +20,8 @@ public class PhotoService {
 	// 파일 업로드 수행
 	public MemberDTO upload() {
 		// 저장경로 설정 
-		//String savePath = "C:/Users/GDJ26/Desktop/GCS/GoodeecommunityService/WebContent/image/member";
-		String savePath = "C:/upload/gcsmember";
+		String savePath = "C:/Users/GDJ26/Desktop/GCS/GoodeecommunityService/WebContent/image/member";
+		//String savePath = "C:/upload/gcsmember";
 		
 		// 용량제한 
 		int maxSize = 10*1024*1024;
