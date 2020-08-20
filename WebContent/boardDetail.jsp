@@ -85,7 +85,14 @@ crossorigin="anonymous"
                     <h2><a href="#" class="key_color">${boardDetail.boardname }</a></h2>
                     <h3>${boardDetail.bo_subject }</h3>
                     <dl class="writing_info">
-                        <dd class="writer">${boardDetail.nickName }</dd>
+                        <c:choose>
+                           	<c:when test="${boardDetail.mboard_no eq 3}">
+                				<dd class="writer">익명</dd>
+            				</c:when>
+            				<c:otherwise>
+               					<dd class="writer">${boardDetail.nickName }</dd>
+            				</c:otherwise>
+           				</c:choose>
                         <span class="date">${boardDetail.bo_reg_date }</span>
                         <img src="./image/조회수.PNG" alt class="read">
                         <span class="count">${boardDetail.bo_bHit }</span>
