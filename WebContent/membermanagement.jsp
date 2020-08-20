@@ -13,6 +13,16 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <title>구디 커뮤니티</title>
+<style>
+#delbutton{
+	position : fixed;
+	right : 15%;
+	bottom : 10%; 
+}
+
+
+</style>
+
 </head>
 <body>
 		<div id="container">
@@ -87,19 +97,12 @@ src="https://kit.fontawesome.com/fbff03f786.js" crossorigin="anonymous">
 	                        </tr>
                         </thead>
 						<tbody>
-              			</tbody>
+              			</tbody>              			
                     </table>
-            </div>            
-            <div class="list-paging">
-                <button id="1" class="on">1</button>
-                <button id="2">2</button>
-                <button id="3">3</button>
-                <button id="4">4</button>
-                <button id="5">5</button>
-                <button id="next">next</button>
-                <button class="delete" onclick="del()">삭제</button>
-              </div>
-        </div>
+                  
+            </div>                    
+ 				  <button id="delbutton" class="delete" onclick="del()">삭제</button>
+        </div>    
 	</div>   
             
 </body>
