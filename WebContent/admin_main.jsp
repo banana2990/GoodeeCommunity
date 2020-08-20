@@ -14,7 +14,8 @@
 		<style>
 		table, th, tr, td {
 		border: 1px solid darkolivegreen;
-		border-collapse: collapse;}
+		border-collapse: collapse;
+		text-align: center;}
 		
 		</style>
 	</head>
@@ -82,13 +83,12 @@
                 <div class="helplist">
                 		<div id="menu">
                     <table>
-                        <tr>
-                            <th>No</th>
-                            <th>작성자</th>
-                            <th>내용</th>
-                            <th>이메일</th>
-                            <th>접수일</th>
-                            <th>상태</th>
+                        <tr >
+                            <th width="30px">No</th>
+                            <th width="100px">작성자</th>
+                            <th width="150px">제목</th>
+                            <th width="400px">내용</th>
+                            <th width="100px">이메일</th>                            
                         </tr>
                         
                         <!-- 문의사항 리스트 -->
@@ -99,13 +99,7 @@
 							<td><p><c:out value="${contact.subject}" /></p></td>
 							<td><p><c:out value="${contact.content}" /></p></td>
 							<td><p><c:out value="${contact.c_email}" /></p></td>
-							<c:if test="${contact.c_status eq 0}">
-								<td><p> <input type="button" class="status" value="접수" onclick="stateSet(${contact.c_status}, ${contact.contact_no})"></p></td>
-							</c:if>
-							<c:if test="${contact.c_status eq 1}">
-								<td><p> <input type="button" class="status" value="완료" onclick="stateSet(${contact.c_status}, ${contact.contact_no})"></p></td>
-							</c:if>
-							
+												
 						</tr>		
 						</c:forEach>
                          
@@ -120,5 +114,6 @@
 	</body>
 	
 	<script>
+
 	</script>
 </html>

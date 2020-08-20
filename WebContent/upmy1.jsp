@@ -37,6 +37,9 @@
 	</div>
 </body>
 <script>
+
+var loginId = "${sessionScope.id}";
+
   $(document).ready(function(){
       btn = $('#layer'); 
       layer = $('#btn');
@@ -47,6 +50,8 @@
          );
        });
      
+      if(loginId==null){}
+      else{
       $.ajax({
   	    type: "post",
         url: "userphoto",
@@ -63,7 +68,7 @@
            console.log(error);
         }
   	  	});
-	  	
+      }
 });
 </script>
 </html>

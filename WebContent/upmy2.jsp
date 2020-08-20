@@ -207,8 +207,8 @@
 		    			    <thead>
 		    			    <tr style="background-color: rgb(138, 190, 59)">
 								<th>no.</th> 
-								<th width="200px">내용</th> 
-								<th>작성일</th> 
+								<th width="300px">내용</th> 
+								<th width="100px">작성일</th> 
 								<th>삭제</th>
 						     </tr> 
 						     </thead>
