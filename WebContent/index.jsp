@@ -193,20 +193,20 @@ img {
 
 						<div class="mySlides fade">
 						  <div class="numbertext">1 / 3</div>
+						  <img src="./image/lunch_04.jpg" style="width:100%">
+						  <div class="text">8월20일</div>
+						</div>
+						
+						<div class="mySlides fade">
+						  <div class="numbertext">2 / 3</div>
 						  <img src="./image/lunch_03.jpg" style="width:100%">
 						  <div class="text">8월19일</div>
 						</div>
 						
 						<div class="mySlides fade">
-						  <div class="numbertext">2 / 3</div>
-						  <img src="./image/lunch_02.jpg" style="width:100%">
-						  <div class="text">8월18일</div>
-						</div>
-						
-						<div class="mySlides fade">
 						  <div class="numbertext">3 / 3</div>
-						  <img src="./image/lunch_01.jpg" style="width:100%">
-						  <div class="text">8월 14일</div>
+						  <img src="./image/lunch_02.jpg" style="width:100%">
+						  <div class="text">8월 18일</div>
 						</div>
 						
 						<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
